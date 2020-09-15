@@ -9,7 +9,7 @@ This section is for general questions. See other sections for questions specific
 
 - Hypercore, the underlying append-log-only data structure for all of Hyper universe. 
 - Hypertrie, the key-value store, which is used by Hyperdrive as its directory structure.
-- Hyperbee key-value and sorted range querirs (as a database backend)
+- Hyperbee key-value and sorted range queries (as a database backend)
 - Corestore - managing many Hypercores you typically end up authoring or replicating from others 
 
 ### What is the USP (Unique Selling Proposition) of Hypercore?
@@ -18,7 +18,7 @@ If one word, aside from P2P, can be added as a unique differentiator to Hypercor
 
 ### What is the difference from BitTorrent and a wonderful WebTorrent?
 
-Hypercore is buit as a data and communications framework for modern applications. Applications need data structures, data needs to be editable. BitTorrent is inherently immutable (yes, proposals exist for extending BitTorrent to modiffiable data but did they gain ground and are they the afterthought?). In Hypercore data editing is a first class operation.
+Hypercore is built as a data and communications framework for modern applications. Applications need data structures, data needs to be editable. BitTorrent is inherently immutable (yes, proposals exist for extending BitTorrent to modifiable data but did they gain ground and are they the afterthought?). In Hypercore data editing is a first class operation.
 
 WebTorrent is awesome, it pioneered access to BitTorrent in browsers and in that way its tech is helpful to Hypercore, but its mission statement was just that, while Hypercore is re-inventing BitTorrent. 
 
@@ -29,17 +29,17 @@ It is a fact that Hypercore is 7 years old and still has no runaway apps built o
 
 Many P2P apps struggle as they lack availability, durability and work in the unforgiving networking environments.
 
-- Availability. For example, in a collaborative editing app like Google Docs, once you close your laptop, your collaborators can't get your latest content, if they were not online when you made edits. With Google, if you had a connection at the time of the last edit, it would have been made available to others. This is especially important for work acorss the timezones. So some master nodes that "seed" content are always discussed and tried (e,g, Hashbase), but they re-centralize things, and introduce permissioning, data souvereignty, data privacy and other challenges.
+- Availability. For example, in a collaborative editing app like Google Docs, once you close your laptop, your collaborators can't get your latest content, if they were not online when you made edits. With Google, if you had a connection at the time of the last edit, it would have been made available to others. This is especially important for work across the timezones. So some master nodes that "seed" content are always discussed and tried (e,g, Hashbase), but they re-centralize things, and introduce permissioning, data sovereignty, data privacy and other challenges.
 
-- Durability. We are spoiled with Google (and others) taking care of preserving our content. We pay a steep price of giving theem everything on us, but this convenience is very hard to achieve in P2P world. Your peers may be good friends but there is no guarantee they will not lose you precious content. Many solutions are being tried, including those with Cryptocurrencies incentivizing users to keep content, but they all have technical and convenience frictions. Besides, who wants to be responsible for disseminating a potentially illegal content?
+- Durability. We are spoiled with Google (and others) taking care of preserving our content. We pay a steep price of giving them everything on us, but this convenience is very hard to achieve in P2P world. Your peers may be good friends but there is no guarantee they will not lose your precious content. Many solutions are being tried, including those with Cryptocurrencies incentivizing users to keep content, but they all have technical and convenience frictions. Besides, who wants to be responsible for disseminating a potentially illegal content?
 
-- Networking. Current Internet, with its routign and firewalling system is just hostile to P2P connections. Although Hyperswarm offers an ingenous NAT hole punching, there are too many edge cases, when it does not work on mobiles, needs workarounds in browsers and blocked by corporate firewalls. This does not mean it can't be used, we just need a fallback to serves acting as proxies. But this comes at the same price of decentralization.
+- Networking. Current Internet, with its routing and firewalling system is just hostile to P2P connections. Although Hyperswarm offers an ingenious NAT hole punching, there are too many edge cases, when it does not work on mobiles, needs workarounds in browsers and blocked by corporate firewalls. This does not mean it can't be used, we just need a fallback to serves acting as proxies. But this comes at the same price of decentralization.
 
 ### Can data be deleted? 
 
 [Somewhat](https://discordapp.com/channels/709519409932140575/709519410557222964/755404488415772746) - you can [clear() your content locally](https://github.com/hypercore-protocol/hypercore#feedclearstart-end-callback), but if someone replicated it already, you can’t force them to clear. Also, internal data integrity records are still kept, but they do not leak any data (Merkle tree hashes are kept, so you can keep appending data to your log even if you clear the contents). Use cases:
 
-- Chat. You can delete a chat message locally./ To delete the chat message at recipient(s) need to send a custom some message “please delete this”.
+- Chat. You can delete a chat message locally. To delete the chat message at recipient(s) need to send a custom some message “please delete this”.
 - Mobile. You can delete photos from mobile to save space, but keep them on a replica (your other PC or a Personal Cloud).
 
 ### Hyperbee: Is it only one Hyperbee per Hypercore? 
