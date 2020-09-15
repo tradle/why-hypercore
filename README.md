@@ -14,7 +14,7 @@ We need a new P2P architecture and Hypercore is it.
 
 ### P2P tech is hard to create, but it is entering mainstream
 
-P2P architectures are much harder to create than centralized, they are often less efficient (Bittorrent's download supert-speeds are an exception) and investors are less interested, as they do not produce monopolies that create outsized returns.
+P2P architectures are much harder to create than centralized, they are often less efficient (Bittorrent's download super-speeds are an exception) and investors are less interested, as they do not produce monopolies that create outsized returns.
 
 Yet, we live in the age of the rise of decentralized and P2P tech renaissance. Notable is the whole crypto space, which helped launch decetralized VPNs, like [Orchid](https://www.orchid.com/), decentralized live streaming like [Theta.tv](https://theta.tv), etc.
 
