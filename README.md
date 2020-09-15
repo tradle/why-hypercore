@@ -2,9 +2,13 @@
 
 As we are exploring the design for running Tradle on Hypercore, this summarizes our findings. 
 
-##What is hypercore
+## What is hypercore 
+
 
 ## FAQ
+
+Many of the answers below are taken from Hypercore protocol discussion forum. All interpretations are ours, and so are the possible mistakes and misunderstandings. Please send corrections as pull requests. 
+
 ### Can data be deleted? 
 [Somewhat](https://discordapp.com/channels/709519409932140575/709519410557222964/755404488415772746) - you can [clear() your content locally](https://github.com/hypercore-protocol/hypercore#feedclearstart-end-callback), but if someone replicated it already, you can’t force them to clear. Also, internal data integrity records are still kept, but they do not leak any data (Merkle tree hashes are kept, so you can keep appending data to your log even if you clear the contents). Use cases:
 - Chat. You can delete a chat message locally./ To delete the chat message at recipient(s) need to send a custom some message “please delete this”.
@@ -12,3 +16,8 @@ As we are exploring the design for running Tradle on Hypercore, this summarizes 
 
 ### Hyperbee: Is it only one Hyperbee per Hypercore? 
 Yes. But one replication stream [can carry many Hypercores](https://discordapp.com/channels/709519409932140575/709519410557222964/755415844808556594). Use corestores to manage multiple hypercore feeds, with permissions.
+
+### Hyperswarm: does it allow some filtering of peers, e.g. readers / writers, or some cryptography-based primitives? 
+
+### Hyper: who is using Hypercore modules? 
+Bitfinex, major crypto exchange uses it in its microservices framework [Grenache](https://github.com/bitfinexcom/grenache). 
