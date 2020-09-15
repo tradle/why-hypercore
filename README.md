@@ -16,10 +16,17 @@ Yet, we live in the age of the rise of decentralized and P2P tech renaissance. N
 
 At Tradle we see a huge opportunity if
 
-### Why use Hypercor if it is not yet mainstream
+### I am concerned that Hypercore is not yet mainstream
 
-It is a fact that Hypercore is 7 years old and still no runaway apps on it. So what gives?
-Here is my take:
+It is a fact that Hypercore is 7 years old and still has no runaway apps built on it. So what gives, if it is so amazing, and it is! Here is my take, aside from making a  P2P framework being super-hard:
+
+Many P2P apps struggle as they lack availability, durability and work in the unforgiving networking environments.
+
+- Availability. For example, in a collaborative editing app like Google Docs, once you close your laptop, your collaborators can't get your latest content, if they were not online when you made edits. With Google, if you had a connection at the time of the last edit, it would have been made available to others. This is especially important for work acorss the timezones. So some master nodes that "seed" content are always discussed and tried (e,g, Hashbase), but they re-centralize things, and introduce permissioning, data souvereignty, data privacy and other challenges.
+
+- Durability. We are spoiled with Google (and others) taking care of preserving our content. We pay a steep price of giving theem everything on us, but this convenience is very hard to achieve in P2P world. Your peers may be good friends but there is no guarantee they will not lose you precious content. Many solutions are being tried, including those with Cryptocurrencies incentivizing users to keep content, but they all have technical and convenience frictions. Besides, who wants to be responsible for disseminating a potentially illegal content?
+
+- Networking. Current Internet, with its routign and firewalling system is just hostile to P2P connections. Although Hyperswarm offers an ingenous NAT hole punching, there are too many edge cases, when it does not work on mobiles, needs workarounds in browsers and blocked by corporate firewalls. This does not mean it can't be used, we just need a fallback to serves acting as proxies. But this comes at the same price of decentralization.
 
 ## FAQ
 
