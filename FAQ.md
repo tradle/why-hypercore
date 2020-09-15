@@ -3,7 +3,7 @@
 Many of the answers below are taken from Hypercore protocol discussion forum. All interpretations are ours, and so are the possible mistakes and misunderstandings. Please send corrections as pull requests, or request commit rights. Questions that need answers are marked with **Need help with this**.
 
 ## General 
-This secrtion is for general questions. See other sections for questions specific to individual Hypercore modules.
+This section is for general questions. See other sections for questions specific to individual Hypercore modules.
 
 ## What are the main components / modules / packages?
 
