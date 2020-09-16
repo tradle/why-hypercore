@@ -176,13 +176,15 @@ No. But keep reading.
 
 An older [HyperDB](https://github.com/mafintosh/hyperdb) project is a multi-writer database, but it is not seeing any support anymore, presumably as it could not be made performant, but it may still help some apps before a replacement comes in (need confirmation).
 
+A community produced multi-writer [KappaDB](https://github.com/kappa-db) was created as part of [Cobox community](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/3_mock-up/technology/architecture.md).
+
 Multiple Hyperbees from different writers can be merged with a [streaming sort-merge mechanism](http://github.com/mafintosh/sorted-union-stream). But can this be done for an e-commerce site, where merchant receives orders from a million people? May be incrementally? (need confirmation)
 
-It is important to understand that Hypercore is by design a single-writer system. So one can't have a shared database, as is, or a shared folder. Multi-writer is probably the most requested feature of Hypercore, but we should not wait for it, as it is far away on the Hypercore team's roadmap.
+It is important to understand that Hypercore is by design a single-writer system. So one can't have a shared database, as is, or a shared folder. Multi-writer is probably the [most requested feature](https://github.com/hypercore-protocol/hyperdrive/issues/230) of Hypercore, but we should not wait for it, as it is far away on the Hypercore team's roadmap.
 
-Instead we should use the above workarounds in a clever way, to leverage single-writer advantages of verifiable integrity, and alleviate in our designs the pains it gives users.
+Instead for now we should use the above workarounds in a clever way, and leverage single-writer advantages of verifiable integrity.
 
-Aside from Shared database or a folder discussed above, multi-writer actually has 2 other use cases that can be tackled with an algorithm called CRDT, implemented by [Automerge](https://github.com/automerge/automerge), used by [Hypermerge](https://github.com/automerge/hypermerge) and independently by [YJS](https://github.com/yjs/yjs):
+Aside from a shared database and shared folders discussed above, multi-writer actually has 3 other use cases that can be tackled with an algorithm called CRDT, implemented by [Automerge](https://github.com/automerge/automerge), used by [Hypermerge](https://github.com/automerge/hypermerge) and independently by [YJS](https://github.com/yjs/yjs):
 
 - **Collaborative editing**. This is a case of Google Doc edited by multiple people in parallel. Each person is a single-writer and CRDT should handle conflicts. In fact both Hypermerge and YJS have direct support for this in Hypercore (although YJS is not yet fully baked as of this writing)
   
