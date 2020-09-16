@@ -246,6 +246,8 @@ Yes. The [protocol](https://github.com/hypercore-protocol/hypercore-protocol) is
 
 See community video that explains the [Extensions system](https://youtu.be/HyHk4aImd_I?list=PL7sG5SCUNyeYx8wnfMOUpsh7rM_g0w_cu&t=4379). Community projects like Cobox and others are using it already.
 
+Possibly useful are [abstract-extension](https://github.com/mafintosh/abstract-extension) and [hypercore-extension-rpc](https://github.com/mafintosh/hypercore-extension-rpc).
+
 ## Hypercore components / modules
 
 ### Hyperbee

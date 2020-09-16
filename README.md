@@ -53,6 +53,12 @@ Some P2P technology is inherently very slow. Luckily Hypercore is designed for r
 
 ## Why Tradle on Hypercore?
 
+It has been our long held belief that data not services should be the first class citizens on the Web. Enterprises understand that, and Data Governance is at the core of well run businesses. Yet on the Web and mobiles we still build applications that hoard the data. From this, the notion of data sharing between applications arises. Tim Berners-Lee and W3C failed to change that with Semantic Web. May be they failed due to obscure and complex formats they invented, or may be we collectively did not yet then get scared enough of a rapidly centralizing Web.
+
+So what if we built apps the other way around, in a way where all data would belong not to the app / website owner, but to the user. App would visit the data, help the user with some insights and either go away, or go to sleep. Data would remain user's and never get exfiltrated. Later a different app can visit the same data and draw new insights. No need for sharing data between apps, as when data leaves you, you lose control over it. This does not mean we never share data, we do, with friends and teams, but not with apps and their owners.
+
+Hypercore, with its data-first design fits this paradigm.
+
 ### We need a flexible foundation for Personal and SME Applications
 
 We explored a plethora of systems for privacy-focused first-person data management. Most systems are focused on chasing AWS with Enterprise-centric offerings. Existing solutions for Personal Cloud are focused just on data (mimicking Dropbox), not applications. Others, like NextCloud, are full blown packages of applications not cloud-native and not designed as a foundation for building new apps.
