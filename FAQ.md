@@ -16,10 +16,10 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [Does Hyperswarm work in browsers, on mobile?](#does-hyperswarm-work-in-browsers-on-mobile)
   - [Is there an authentication and authorization system?](#is-there-an-authentication-and-authorization-system)
 - [If Hypercore is a P2P Web, what is its URL format?](#if-hypercore-is-a-p2p-web-what-is-its-url-format)
-  - [Does hypercore support writing by multiple people?](#does-hypercore-support-writing-by-multiple-people)
+- [Does hypercore support writing by multiple people?](#does-hypercore-support-writing-by-multiple-people)
     - [Is it multi-process-safe?](#is-it-multi-process-safe)
     - [What is the biggest gotcha with Hypercore?](#what-is-the-biggest-gotcha-with-hypercore)
-  - [How to discover all feeds that a peer can give us?](#how-to-discover-all-feeds-that-a-peer-can-give-us)
+- [How to discover all feeds that a peer can give us?](#how-to-discover-all-feeds-that-a-peer-can-give-us)
 - [Can Hypercore storage be encrypted at-rest?](#can-hypercore-storage-be-encrypted-at-rest)
 - [Does Hypercore support zero-knowledge store / blind replication?](#does-hypercore-support-zero-knowledge-store--blind-replication)
 - [Is network traffic end-to-end encrypted?](#is-network-traffic-end-to-end-encrypted)
@@ -31,7 +31,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
     - [Can it serve as LevelDB replacement?](#can-it-serve-as-leveldb-replacement)
   - [Hyperswarm](#hyperswarm)
     - [Can we distinguish between peers before connecting to them?](#can-we-distinguish-between-peers-before-connecting-to-them)
-  - [Is Hyperswarm anonymous?](#is-hyperswarm-anonymous)
+    - [Is Hyperswarm anonymous?](#is-hyperswarm-anonymous)
   - [Hyperdrive](#hyperdrive)
     - [How Hyperdrive can be shared?](#how-hyperdrive-can-be-shared)
 ## General
@@ -167,7 +167,7 @@ Note that in the future it is planned to support [Strong linking](https://github
 
 When supported, I think such URL needs to have both stable part and version part. It also needs to allow URLs to be used by internal components and apps, not just in Beaker. A typical use case for this is link from a data element in Hyperbee to a file Hyperdrive.
 
-### Does hypercore support writing by multiple people?
+## Does hypercore support writing by multiple people?
 
 No. But keep reading.
 
@@ -196,7 +196,7 @@ We know it is single-writer. But can same writer accidentally screw up the Hyper
 Need help with this. @Mauve?
 Probably copying the Hypercore's directory to another machine and copying a private key and trying to write into this Hypercore while making updates in the original Hypercore.
 
-### How to discover all feeds that a peer can give us?
+## How to discover all feeds that a peer can give us?
 
 Hypercore is not like Kafka, which writes everything into one log (at least logically one, with topics). You end up with many Hypercores and you need a way to manage them and discover what hypercores other people have shared with you. The bootstrapping mechanism for this is to find peers, a Hyperswarm. But it is not enough, thus several discovery systems were designed, and the main one is corestore. Simpler one, is multifeed created by community.
 
@@ -269,7 +269,7 @@ This can be very useful:
 
 - Can Sybil attacks and DDOS on DHT, mentioned in [Hyperswarm blog](https://pfrazee.hashbase.io/blog/hyperswarm), be prevented if DHT itself could be selective about the peers?
 
-### Is Hyperswarm anonymous?
+#### Is Hyperswarm anonymous?
 
 Now, Hyperswarm announces IP and Port.
 
