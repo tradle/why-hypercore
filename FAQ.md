@@ -20,6 +20,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
     - [Is it multi-process-safe?](#is-it-multi-process-safe)
     - [What is the biggest gotcha with Hypercore?](#what-is-the-biggest-gotcha-with-hypercore)
 - [How to discover all feeds that a peer can give us?](#how-to-discover-all-feeds-that-a-peer-can-give-us)
+- [Is Hypercore push or pull?](#is-hypercore-push-or-pull)
 - [Can Hypercore storage be encrypted at-rest?](#can-hypercore-storage-be-encrypted-at-rest)
 - [Does Hypercore support zero-knowledge store / blind replication?](#does-hypercore-support-zero-knowledge-store--blind-replication)
 - [Is network traffic end-to-end encrypted?](#is-network-traffic-end-to-end-encrypted)
@@ -199,6 +200,10 @@ Probably copying the Hypercore's directory to another machine and copying a priv
 ## How to discover all feeds that a peer can give us?
 
 Hypercore is not like Kafka, which writes everything into one log (at least logically one, with topics). You end up with many Hypercores and you need a way to manage them and discover what hypercores other people have shared with you. The bootstrapping mechanism for this is to find peers, a Hyperswarm. But it is not enough, thus several discovery systems were designed, and the main one is corestore. Simpler one, is multifeed created by community.
+
+## Is Hypercore push or pull?
+
+Normally updates are pulled by the peers. Protocol supports a Push-ing data as well but it is [not exposed to the APIs](https://discordapp.com/channels/709519409932140575/709519410557222964/755797065879257178)
 
 ## Can Hypercore storage be encrypted at-rest?
 
