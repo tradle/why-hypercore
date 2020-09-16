@@ -65,6 +65,12 @@ Many P2P apps struggle as they lack availability, durability and work in the unf
 
 - Networking. Current Internet, with its routing and firewalling system is just hostile to P2P connections. Although Hyperswarm offers an ingenious NAT hole punching, there are too many edge cases, when it does not work on mobiles, needs workarounds in browsers and blocked by corporate firewalls. This does not mean it can't be used, we just need a fallback to serves acting as proxies. But this comes at the same price of decentralization.
 
+Is there an answer to those perpetual problems of P2P? We believe there is. In crypto world the answer was found with notion of miners. This is why some P2P projects are attempting to repeat this approach introducing their own blockchains. IPFS team's Filecoin, Storj, Theta.tv and a number of others are examples. But they are all focused on data storage.
+
+Hypercore is so much more. It is a foundation to create apps, that is storage, conent distribution, compute, messaging, networking, analytics, AI and more.
+
+We believe the answer exists elsewhere. We call this concept a Personal Cloud and it will make Hypercore shine.
+
 ### Hyper: who is using Hypercore modules?
 
 Need help with this. 
