@@ -171,7 +171,7 @@ When supported, I think such URL needs to have both stable part and version part
 
 No. But keep reading.
 
-Older [HyperDB](https://github.com/mafintosh/hyperdb) project is a multi-writer database, but it is not seeing any support anymore, presumably as it could not be made performant, but amy still help some apps (need confirmation)
+Older [HyperDB](https://github.com/mafintosh/hyperdb) project is a multi-writer database, but it is not seeing any support anymore, presumably as it could not be made performant, but it may still help some apps (need confirmation)
 
 Multiple Hyperbees from different writers can be merged with a [streaming sort-merge mechanism](http://github.com/mafintosh/sorted-union-stream). But can this be done for an e-commerce site, where merchant receives orders from a million people? May be incrementally (need confirmation)
 
