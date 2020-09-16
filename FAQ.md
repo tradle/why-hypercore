@@ -163,7 +163,7 @@ Sort of. Some capabilities exist to build upon.
 URL is designed to be used in Beaker. Its schema is dat:// or hyper://
 It must be followed by the <publicKey> of a Hypercore feed.
 
-Note that in the future it is planned to support [Strong linking](https://github.com/mafintosh/hypercore-strong-link) to a particular version of the data is planned.
+Note that in the future it is planned to support [Strong linking](https://github.com/mafintosh/hypercore-strong-link) to a particular version of the data element.
 
 When supported, I think such URL needs to have both stable part and version part. It also needs to allow URLs to be used by internal components and apps, not just in Beaker. A typical use case for this is link from a data element in Hyperbee to a file Hyperdrive.
 
