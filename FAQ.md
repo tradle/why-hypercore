@@ -114,6 +114,8 @@ Need help with this.
 
 Partial answer is:
 - Bitfinex, major crypto exchange uses it in its microservices framework [Grenache](https://github.com/bitfinexcom/grenache). 
+- [Cobox community](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/2_work-plan/mvp/mvp-design.md), focused on enabling teams.
+- [Peermaps](https://peermaps.org/), building P2P alternative to Google Maps based on OpenStreetMap
 - See at the bottom of [Hypercore protocol page](https://hypercore-protocol.org/)
 - See discussion forum where people [showcase their Hyper projects](https://discordapp.com/channels/709519409932140575/712037351244955809/712037741126221924).
 
