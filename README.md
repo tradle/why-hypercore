@@ -114,7 +114,7 @@ Hypercore uniquely works for both files and databases. Provides point-in-time re
 
 ### Shared files and folders (like Dropbox or Google Drive)
 
-Hyperdrive, one of Hypercore components provides the core capabilities. It allows to shared a drive with the family, friends and teams. To compete with Dropbox and Drive, it needs durability, typically associated with the Cloud. Inherent replication capability of Hypercore come handy as any sharing with peers increases the durability, but it is not enough. What is missing also is mobile and browser implementations and easy UI, permission system, notifications, etc.
+Hyperdrive, one of Hypercore components provides the core capabilities. It allows to shared a drive with the family, friends and teams. To compete with Dropbox and Drive, it needs durability, typically associated with the Cloud. Inherent replication capability of Hypercore comes handy as any sharing with peers increases the durability, but it is not enough. What is missing also is mobile and browser implementations and easy UI, permission system, notifications, etc.
 
 ### Shared document editing like Google Docs and Google Slides
 
@@ -124,7 +124,7 @@ Like with the Hyperdrive, the remaining issue to be solved is the always-online 
 
 ### Offline-first
 
-All data is available when offline. Messages and media (of any size) are delivered from mobiles to server and back with full reliably, in view of intermittent connectivity.
+All data is available when offline. Messages and media (of any size) are delivered from mobiles to server and back with full reliability, in the presence of intermittent or rare connectivity.
 
 ### Group messaging
 
@@ -134,9 +134,9 @@ using publish / subscribe capability of Hypercore.
 
 Supports large-size media. E.g. 150mb file can’t be shared on WhatsApp or Skype. Sharing between two users over the Internet, while bypassing the server (in most cases), makes it faster, cheaper, more secure, protecting other essential freedoms and more resilient against surveillance.
 
-There is still work to be done for making Hypercore more private, e.g. improve Hyperswarm to not reveal IP addresses when not on VPM, perhaps with the help of [I2P](https://geti2p.net/en/).
+There is still work to be done for making Hypercore more private, e.g. improve Hyperswarm to not reveal IP addresses when not on VPN, perhaps with the help of [I2P](https://geti2p.net/en/).
 
-### Local file sharimg, liek Apple Airdrop
+### Local file sharing, like Apple Airdrop
 
 This is supported by local peer discovery (with the help of MDNS). Allows sharing on local network, without going to the internet. This is another privacy and security enhancing capability.
 
@@ -150,26 +150,26 @@ Any Database Server can be accessed remotely and many can serve huge databases. 
 
 ### Live streaming
 
-Hypercore enables live streaming as allows to upload video and for viewers to start downloading media, before the whole file is uploaded. Allows to pause, rewind, fast-forward and view from any point. 
+Hypercore enables live streaming as allows to upload video and for viewers to start downloading media, before the whole file is uploaded. Allows to pause, rewind, fast-forward and view from any point.
 
-    1. Concerts and podcasting. Note that although critical, Hypercore is not a complete set of capabilities needed for live streaming apps, e.g. they need video transcoding, micro-payments. Note [Dazaar](https://blog.bitfinex.com/dazaar/dazaar-how-the-internet-should-be-open-free-and-hyper-scalable/), a Hypercore team's recent collaboration with Bitfinex on micropayments for streaming apps based on Hypercore.
-    2. Security cameras: at the door or inside (nanny cam). Such non-P2P apps are a gross privacy concern.
-    3. Other Home sensors.
-    4. Car signals and cameras. Cars are expected to generate the majority of data on Internet, at the rate of terabytes per hour. 
-    5. Wearables signals (fitness, health, location for child / elderly monitoring)
-    6. Building and Equipment signals streaming.
-    7. Drone cameras. 
-    8. Other **IoT** signals
+1. Concerts and podcasting. Note that although critical, Hypercore is not a complete set of capabilities needed for live streaming apps, e.g. they need video transcoding, micro-payments. Note [Dazaar](https://blog.bitfinex.com/dazaar/dazaar-how-the-internet-should-be-open-free-and-hyper-scalable/), a Hypercore team's recent collaboration with Bitfinex on micropayments for streaming apps based on Hypercore.
+2. Security cameras: at the door or inside (nanny cam). Such non-P2P apps are a gross privacy concern.
+3. Other Home sensors.
+4. Car signals and cameras. Cars are expected to generate the majority of data on Internet, at the rate of terabytes per hour. 
+5. Wearables signals (fitness, health, location for child / elderly monitoring)
+6. Building and Equipment signals streaming.
+7. Drone cameras. 
+8. Other **IoT** signals
 
  Note that livestreaming also needs always-online capability for content sharing, like any other P2P apps.
 
 ### CDN
 
-Hypercore can be used to build a CDN for distributing files to the edge, and distributing load between the replicas. It is static storage friendly. Files and databases can be served from a static storage, as in CDNs. Additionally, due to BitTorrent-like functionality, it can help CDN to:
+Hypercore can be used to build a CDN for distributing files to the edge, and distributing load between the replicas. It is static storage friendly. Files and databases can be served from a static storage, as in CDNs. Additionally, due to BitTorrent-like functionality, it can help CDN in the following ways:
 
 1. Saves CDN bandwidth costs by bandwidth sharing, turning media watchers into uploaders
 
-2. Accelerates download as allows to load chunks from multiple peers simultaneously. This is especially important for 4K, VR and 3D printing content.
+2. Accelerates download as it allows to load chunks from multiple peers simultaneously. This is especially important for 4K, VR and 3D printing content.
 
 3. Real-time incremental CDN updates. Many CDNs take significant time to replace old files. And many require the full flush of current files. Hypercore can help optimize both with immediate updates and Change Management events.
 
