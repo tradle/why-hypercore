@@ -69,7 +69,7 @@ Is there an answer to those perpetual problems of P2P? We believe there is. In c
 
 Hypercore is so much more. It is a foundation to create apps, that is storage, conent distribution, compute, messaging, networking, analytics, AI and more.
 
-We believe the answer exists elsewhere. We call this concept a Personal Cloud and it will make Hypercore shine.
+We believe the answer exists elsewhere. We call this concept a Personal Cloud, an always-available durable peer, companion to my other less capable personal devices, a place where Hypercore apps can run. We beleive Personal Cloud will make Hypercore shine. 
 
 ### Hyper: who is using Hypercore modules?
 
