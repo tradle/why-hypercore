@@ -3,23 +3,23 @@
 Many of the answers below are taken from Hypercore protocol discussion forum. All interpretations are ours, and so are the possible mistakes and misunderstandings. Please send corrections as pull requests, or request commit rights. Questions that need answers are marked with **Need help with this**.
 
 - [General](#general)
-- [What are the main components / modules / packages?](#what-are-the-main-components--modules--packages)
-- [What is the USP (Unique Selling Proposition) of Hypercore?](#what-is-the-usp-unique-selling-proposition-of-hypercore)
-- [What is a streamed DB?](#what-is-a-streamed-db)
-- [How is Hypercore different from BitTorrent, WebTorrent?](#how-is-hypercore-different-from-bittorrent-webtorrent)
-- [How is Hypercore different from ScuttleButt and IPFS?](#how-is-hypercore-different-from-scuttlebutt-and-ipfs)
-- [Why Hypercore is not yet mainstream?](#why-hypercore-is-not-yet-mainstream)
-- [Who is using Hypercore P2P framework today?](#who-is-using-hypercore-p2p-framework-today)
-- [Can data be deleted?](#can-data-be-deleted)
-- [Does Hypercore work in the browser, on mobiles?](#does-hypercore-work-in-the-browser-on-mobiles)
-- [Is there support for social key recovery?](#is-there-support-for-social-key-recovery)
-- [Does Hyperswarm work in browsers, on mobile?](#does-hyperswarm-work-in-browsers-on-mobile)
-- [Is there an authentication and authorization system?](#is-there-an-authentication-and-authorization-system)
+  - [What are the main components / modules / packages?](#what-are-the-main-components--modules--packages)
+  - [What is the USP (Unique Selling Proposition) of Hypercore?](#what-is-the-usp-unique-selling-proposition-of-hypercore)
+  - [What is a streaming DB?](#what-is-a-streaming-db)
+  - [How is Hypercore different from BitTorrent, WebTorrent?](#how-is-hypercore-different-from-bittorrent-webtorrent)
+  - [How is Hypercore different from ScuttleButt and IPFS?](#how-is-hypercore-different-from-scuttlebutt-and-ipfs)
+  - [Why Hypercore is not yet mainstream?](#why-hypercore-is-not-yet-mainstream)
+  - [Who is using Hypercore P2P framework today?](#who-is-using-hypercore-p2p-framework-today)
+  - [Can data be deleted?](#can-data-be-deleted)
+  - [Does Hypercore work in the browser, on mobiles?](#does-hypercore-work-in-the-browser-on-mobiles)
+  - [Is there support for social key recovery?](#is-there-support-for-social-key-recovery)
+  - [Does Hyperswarm work in browsers, on mobile?](#does-hyperswarm-work-in-browsers-on-mobile)
+  - [Is there an authentication and authorization system?](#is-there-an-authentication-and-authorization-system)
 - [If Hypercore is a P2P Web, what is its URL format?](#if-hypercore-is-a-p2p-web-what-is-its-url-format)
-- [Does hypercore support writing by multiple people?](#does-hypercore-support-writing-by-multiple-people)
-  - [Is it multi-process-safe?](#is-it-multi-process-safe)
-  - [What is the biggest gotcha with Hypercore?](#what-is-the-biggest-gotcha-with-hypercore)
-  - [How to discover all feeds that the peer can give us?](#how-to-discover-all-feeds-that-the-peer-can-give-us)
+  - [Does hypercore support writing by multiple people?](#does-hypercore-support-writing-by-multiple-people)
+    - [Is it multi-process-safe?](#is-it-multi-process-safe)
+    - [What is the biggest gotcha with Hypercore?](#what-is-the-biggest-gotcha-with-hypercore)
+  - [How to discover all feeds that a peer can give us?](#how-to-discover-all-feeds-that-a-peer-can-give-us)
 - [Can Hypercore storage be encrypted at-rest?](#can-hypercore-storage-be-encrypted-at-rest)
 - [Does Hypercore support zero-knowledge store / blind replication?](#does-hypercore-support-zero-knowledge-store--blind-replication)
 - [Is network traffic end-to-end encrypted?](#is-network-traffic-end-to-end-encrypted)
@@ -38,7 +38,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
 
 This section is for general questions. See other sections for questions specific to individual Hypercore modules.
 
-## What are the main components / modules / packages?
+### What are the main components / modules / packages?
 
 - **Hypercore**, the underlying append-log-only data structure for all of Hyper universe.
 - **Hypertrie**, a key-value store, which is used by Hyperdrive as its directory structure.
@@ -47,7 +47,7 @@ This section is for general questions. See other sections for questions specific
 - **Hyperdrive**, a P2P alternative to Google Drive and Dropbox 
 - **Beaker Browser**, a full-blown browser that also supports the Web without servers (P2P Web).
 
-## What is the USP (Unique Selling Proposition) of Hypercore?
+### What is the USP (Unique Selling Proposition) of Hypercore?
 
 Hypercore is Open Source, it is not selling, but it is offering itself to developers. So what is it that is absolutely unique about it? It is P2P, but we saw other P2P technologies, BitTorrent and Bitcoin.
 
@@ -57,12 +57,12 @@ This point needs to be repeated again and again, as streaming data (files, video
 
 Note, when reading Hypercore docs you will find many references to Sparse files and sparse DB. This is the capability used for streaming, that is a peer can efficiently request individual blocks from remote peers, instead of loading the whole thing, be it a video file or a database.
 
-## What is a streamed DB?
+### What is a streaming DB?
 
 Need help with this.
 How is it different from a DB that we normally access via API on the network today? What applications can we think of that were not feasible before? Some pointers to possible answers can be found when we compare a P2P source control system Git, with the SVN and CVS before it which relied on a central server. Those entrepreneurs that think "Is it possible to make a big business on this?", please note that Microsoft bought Github for $7.5B.
 
-## How is Hypercore different from BitTorrent, WebTorrent?
+### How is Hypercore different from BitTorrent, WebTorrent?
 
 **BitTorrent**. Hypercore can do what BitTorrent does and more. Hypercore can do discovery and accelerated file download with bandwidth-sharing like BitTorrent. But Hypercore can do more - it is built as a data and communications framework for modern applications. Applications need data structures, like Hypercore log, Hypertrie key-value store and Hyperbee database, and importantly data needs to be editable. BitTorrent has none of that and it is inherently immutable (yes, proposals exist for extending BitTorrent to modifiable data, but did they gain ground and are they the afterthought for the protocol?).
 
@@ -70,7 +70,7 @@ How is it different from a DB that we normally access via API on the network tod
 
 Note that WebTorrent's tech can be helpful to Hypercore, as it perfected peer discovery (via DHT) on the Web and it allowed a number of innovative streaming clients to emerge, which could be helpful for Hypercore applications, like Beaker Browser.
 
-## How is Hypercore different from ScuttleButt and IPFS?
+### How is Hypercore different from ScuttleButt and IPFS?
 
 Need help with this.
 All three are cool open source P2P data projects that have existed for roughly the same 5-7 years.
@@ -87,7 +87,7 @@ Some notes on IPFS goodies:
 - IPFS project has produced solid core libraries, like libp2p, solving many of the same issues as Hypercore's Hyperswarm.
 - IPFS has implementations in a number of languages, while Hypercore is only in JavaScript. Rust implementation was recently started and hopefully will lead to overall health of Hypercore, forcing better documented specs and more test-suits.
 
-## Why Hypercore is not yet mainstream?
+### Why Hypercore is not yet mainstream?
 
 It is a fact that Hypercore is 7 years old and still has no runaway apps built on it. So what gives, if it is so amazing, and it is! Here is my take, aside from making a  P2P framework being super-hard:
 
@@ -105,7 +105,7 @@ Hypercore is so much more. It is a foundation ford apps, that is storage, conten
 
 We believe the answer is not in copying the mining model and offering crypt-incentives. The answer we believe is a Personal Cloud, your always-available durable peer, a companion to your less-capable personal devices, a place to run many Hypercore apps that can't run on personal devices. We believe Personal Cloud will make Hypercore shine.
 
-## Who is using Hypercore P2P framework today?
+### Who is using Hypercore P2P framework today?
 
 Need help with this.
 
@@ -114,7 +114,7 @@ Partial answer is:
 - See at the bottom of [Hypercore protocol page](https://hypercore-protocol.org/)
 - See discussion forum where people [showcase their Hyper projects](https://discordapp.com/channels/709519409932140575/712037351244955809/712037741126221924).
 
-## Can data be deleted?
+### Can data be deleted?
 
 [Somewhat](https://discordapp.com/channels/709519409932140575/709519410557222964/755404488415772746) - you can [clear() your content locally](https://github.com/hypercore-protocol/hypercore#feedclearstart-end-callback), but if someone replicated it already, you can’t force them to clear. Also, internal data integrity records are still kept, but they do not leak any data (Merkle tree hashes are kept, so you can keep appending data to your log even if you clear the contents). Use cases:
 
@@ -122,11 +122,11 @@ Partial answer is:
 - Mobile. You can delete photos from mobile to save space, but keep them on a replica (your other PC or a Personal Cloud).
 
 
-## Does Hypercore work in the browser, on mobiles?
+### Does Hypercore work in the browser, on mobiles?
 
 Yes. Hypercore is transport-independent. One can use TCP/IP, WebRTC to peers, WebSockets to server.
 
-## Is there support for social key recovery?
+### Is there support for social key recovery?
 
 No. But a community solution and other open source projects exist that can possibly be adapted.
 This is essential need for any P2P applications, and the same need for Bitcoin, as the user may only rely only on themselves for key management.
@@ -139,7 +139,7 @@ This is essential need for any P2P applications, and the same need for Bitcoin, 
   
 For reference, see how open source app [Consento](https://consento.org/) does it.
 
-## Does Hyperswarm work in browsers, on mobile?
+### Does Hyperswarm work in browsers, on mobile?
 
 Not directly, but community solutions exist.
 See the [issue for this](https://github.com/hyperswarm/hyperswarm/issues/62). The difficulty is due to the use of UDP, which is not available in the browser. On mobile NAT hole punching may not succeed. On PCs some corporate firewalls may also block UDP. Need to bridge to DHT over WebSockets or WebRTC.
@@ -150,7 +150,7 @@ Note that [WebTorrent uses webrtc](https://webtorrent.io/docs) for DHT, but thei
 
 See a number of issues still pending resolution to make Hyperswarm and Hypercore [work in react-native](https://dat.discourse.group/t/dat-and-react-native/184)
 
-## Is there an authentication and authorization system?
+### Is there an authentication and authorization system?
 
 Sort of. Some capabilities exist to build upon.
 
@@ -167,7 +167,7 @@ Note that in the future it is planned to support [Strong linking](https://github
 
 When supported, I think such URL needs to have both stable part and version part. It also needs to allow URLs to be used by internal components and apps, not just in Beaker. A typical use case for this is link from a data element in Hyperbee to a file Hyperdrive.
 
-## Does hypercore support writing by multiple people?
+### Does hypercore support writing by multiple people?
 
 No. But keep reading.
 
@@ -187,16 +187,16 @@ Aside from Shared database or a folder discussed above, multi-writer actually ha
   
 - **Multiple Replicas in Personal Cloud**, used for durability, availability and load-balancing. Again, like with multi-device, each replica is a single-writer with its own private key. But this case has higher concurrency potentially, as in serverless environment 2 concurrent writes may occur. Yet, if those writes come from the devices of the same person, conflict CRDT resolution should be sufficient.
 
-### Is it multi-process-safe?
+#### Is it multi-process-safe?
 
 We know it is single-writer. But can same writer accidentally screw up the Hypercore while being executed from a second processes on the same machine? If so, it will present a significant design challenge in Serverless environment.
 
-### What is the biggest gotcha with Hypercore?
+#### What is the biggest gotcha with Hypercore?
 
 Need help with this. @Mauve?
 Probably copying the Hypercore's directory to another machine and copying a private key and trying to write into this Hypercore while making updates in the original Hypercore.
 
-### How to discover all feeds that the peer can give us?
+### How to discover all feeds that a peer can give us?
 
 Hypercore is not like Kafka, which writes everything into one log (at least logically one, with topics). You end up with many Hypercores and you need a way to manage them and discover what hypercores other people have shared with you. The bootstrapping mechanism for this is to find peers, a Hyperswarm. But it is not enough, thus several discovery systems were designed, and the main one is corestore. Simpler one, is multifeed created by community.
 
