@@ -32,9 +32,11 @@ How is it different from a DB that we normally access via API on the network tod
 
 ### How is Hypercore different from BitTorrent, WebTorrent?
 
-Hyperdrive on Hypercore can do media streaming with bandwidth-sharing like BitTorrent. But Hypercore can do more. It is built as data and communications framework for modern applications. Applications need data structures, data needs to be editable. BitTorrent is inherently immutable (yes, proposals exist for extending BitTorrent to modifiable data, but did they gain ground and are they the afterthought for the protocol?). In Hypercore data mutability was the first class design principle.
+**BitTorrent**. Hypercore can do what BitTorrent does and more. Hypercore can do discovery and accelerated file download with bandwidth-sharing like BitTorrent. But Hypercore can do more - it is built as a data and communications framework for modern applications. Applications need data structures, like Hypercore log, Hypertrie key-value store and Hyperbee database, and importantly data needs to be editable. BitTorrent has none of that and it is inherently immutable (yes, proposals exist for extending BitTorrent to modifiable data, but did they gain ground and are they the afterthought for the protocol?).
 
-WebTorrent is awesome, it pioneered BitTorrent in browsers and its is a great success, but its mission statement was just that, a BitTorrent for the Web, which was not possible before it. Hypercore, on the other hand is re-inventing BitTorrent and so much more. WebTorrent's tech can be helpful to Hypercore, as it perfected peer discovery (via DHT) on the web and it allowed a number of innovative streaming clients to emerge, which could be helpful for Hypercore applications, like Beaker Browser.
+**WebTorrent**. WebTorrent is awesome, it pioneered BitTorrent in browsers and its is a great success, but its mission statement was just that, a BitTorrent for the Web.
+
+Note that WebTorrent's tech can be helpful to Hypercore, as it perfected peer discovery (via DHT) on the Web and it allowed a number of innovative streaming clients to emerge, which could be helpful for Hypercore applications, like Beaker Browser.
 
 ### How is Hypercore different from ScuttleButt and IPFS?
 
@@ -230,7 +232,7 @@ For the Data Center, perhaps we need to look at the underlying virtualized file 
 
 ### Is Hyperswarm anonymous?
 
-Now, Hyperswarm announces IP and Port. 
+Now, Hyperswarm announces IP and Port.
 
 - Potentially [I2P](https://dat.discourse.group/t/feature-support-i2p/62/6) can be used in the future.
 
