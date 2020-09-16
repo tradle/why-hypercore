@@ -1,7 +1,38 @@
-# Why Hypercore?
+# Why Hypercore? <!-- omit in toc -->
 
 As we are exploring the design for running Tradle on Hypercore, this summarizes our findings.
 
+- [What is Hypercore?](#what-is-hypercore)
+  - [Monopolies are not good](#monopolies-are-not-good)
+  - [P2P tech is hard to create, but it is finally entering mainstream](#p2p-tech-is-hard-to-create-but-it-is-finally-entering-mainstream)
+- [Why Tradle on Hypercore?](#why-tradle-on-hypercore)
+  - [We need a flexible foundation for Personal and SME Applications](#we-need-a-flexible-foundation-for-personal-and-sme-applications)
+  - [What was the Initial Impulse?](#what-was-the-initial-impulse)
+  - [Local Data Centers have lost to AWS and other Hyperscalers, so what is the Point?](#local-data-centers-have-lost-to-aws-and-other-hyperscalers-so-what-is-the-point)
+  - [Tradle on AWS can be adapted to move to Hypercore](#tradle-on-aws-can-be-adapted-to-move-to-hypercore)
+- [Assembling a modern Cloud stack on Hypercore](#assembling-a-modern-cloud-stack-on-hypercore)
+  - [What do we gain from Hypercore, at the high level?](#what-do-we-gain-from-hypercore-at-the-high-level)
+    - [Data Sovereignty](#data-sovereignty)
+    - [Data Continuum](#data-continuum)
+  - [What makes Hypercore suitable for Tradle?](#what-makes-hypercore-suitable-for-tradle)
+  - [Data Durability, Load balancing, and Mobility](#data-durability-load-balancing-and-mobility)
+    - [Data Durability](#data-durability)
+    - [Load Balancing](#load-balancing)
+    - [Mobility](#mobility)
+  - [Databases Durability, Load Balancing and Mobility](#databases-durability-load-balancing-and-mobility)
+  - [Data Integrity, Digital Signatures and Compliance](#data-integrity-digital-signatures-and-compliance)
+  - [Uniformity](#uniformity)
+  - [Recovery](#recovery)
+  - [Shared files and folders (like Dropbox or Google Drive)](#shared-files-and-folders-like-dropbox-or-google-drive)
+  - [Shared document editing like Google Docs and Google Slides](#shared-document-editing-like-google-docs-and-google-slides)
+  - [Offline-first](#offline-first)
+  - [Group messaging](#group-messaging)
+  - [Direct media sharing](#direct-media-sharing)
+  - [Local file sharing, like Apple Airdrop](#local-file-sharing-like-apple-airdrop)
+  - [Research data and DB sharing](#research-data-and-db-sharing)
+  - [Live streaming](#live-streaming)
+  - [CDN](#cdn)
+  - [Continuous Backup](#continuous-backup)
 ## What is Hypercore?
 
 If you do not find answers to your questions below. See the [extensive FAQ](FAQ.md) for more.

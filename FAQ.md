@@ -1,21 +1,53 @@
-# Hypercore universe FAQ
+# Hypercore universe FAQ <!-- omit in toc --> 
 
 Many of the answers below are taken from Hypercore protocol discussion forum. All interpretations are ours, and so are the possible mistakes and misunderstandings. Please send corrections as pull requests, or request commit rights. Questions that need answers are marked with **Need help with this**.
 
+- [General](#general)
+- [What are the main components / modules / packages?](#what-are-the-main-components--modules--packages)
+- [What is the USP (Unique Selling Proposition) of Hypercore?](#what-is-the-usp-unique-selling-proposition-of-hypercore)
+- [What is a streamed DB?](#what-is-a-streamed-db)
+- [How is Hypercore different from BitTorrent, WebTorrent?](#how-is-hypercore-different-from-bittorrent-webtorrent)
+- [How is Hypercore different from ScuttleButt and IPFS?](#how-is-hypercore-different-from-scuttlebutt-and-ipfs)
+- [Why Hypercore is not yet mainstream?](#why-hypercore-is-not-yet-mainstream)
+- [Hyper: who is using Hypercore?](#hyper-who-is-using-hypercore)
+- [Can data be deleted?](#can-data-be-deleted)
+- [Does Hypercore work in the browser, on mobiles?](#does-hypercore-work-in-the-browser-on-mobiles)
+- [Is there support for social key recovery?](#is-there-support-for-social-key-recovery)
+- [Does Hyperswarm work in browsers, on mobile?](#does-hyperswarm-work-in-browsers-on-mobile)
+- [Is there an authentication and authorization system?](#is-there-an-authentication-and-authorization-system)
+- [If Hypercore is a P2P Web, what is its URL format?](#if-hypercore-is-a-p2p-web-what-is-its-url-format)
+- [Does hypercore support writing by multiple people?](#does-hypercore-support-writing-by-multiple-people)
+  - [Is it multi-process-safe?](#is-it-multi-process-safe)
+  - [What is the biggest gotcha with Hypercore?](#what-is-the-biggest-gotcha-with-hypercore)
+  - [How to discover all feeds that the peer can give us?](#how-to-discover-all-feeds-that-the-peer-can-give-us)
+- [Can Hypercore storage be encrypted at-rest?](#can-hypercore-storage-be-encrypted-at-rest)
+- [Does Hypercore support zero-knowledge store / blind replication?](#does-hypercore-support-zero-knowledge-store--blind-replication)
+- [Is network traffic end-to-end encrypted?](#is-network-traffic-end-to-end-encrypted)
+- [Does Hypercore support erasure-coding?](#does-hypercore-support-erasure-coding)
+- [Hypercore components / modules](#hypercore-components--modules)
+  - [Hyperbee](#hyperbee)
+    - [Only one Hyperbee per Hypercore?](#only-one-hyperbee-per-hypercore)
+    - [What are the limitations on consistency?](#what-are-the-limitations-on-consistency)
+    - [Can it serve as LevelDB replacement?](#can-it-serve-as-leveldb-replacement)
+  - [Hyperswarm](#hyperswarm)
+    - [Can we distinguish between peers before connecting to them?](#can-we-distinguish-between-peers-before-connecting-to-them)
+  - [Is Hyperswarm anonymous?](#is-hyperswarm-anonymous)
+  - [Hyperdrive](#hyperdrive)
+    - [How Hyperdrive can be shared?](#how-hyperdrive-can-be-shared)
 ## General
 
 This section is for general questions. See other sections for questions specific to individual Hypercore modules.
 
 ## What are the main components / modules / packages?
 
-- Hypercore, the underlying append-log-only data structure for all of Hyper universe.
-- Hypertrie, the key-value store, which is used by Hyperdrive as its directory structure.
-- Hyperbee key-value and sorted range queries (as a database backend)
-- Corestore - managing many Hypercores you typically end up authoring or replicating from others.
-- Hyperdrive, a Google Drive and Dropbox alternative 
-- Beaker Browser, a full-blown browser that also supports the Web without servers (P2P Web).
+- **Hypercore**, the underlying append-log-only data structure for all of Hyper universe.
+- **Hypertrie**, a key-value store, which is used by Hyperdrive as its directory structure.
+- **Hyperbee**, a key-value and sorted range queries (as a database backend)
+- **Corestore**, to managing many Hypercores you typically end up authoring or replicating from others.
+- **Hyperdrive**, a P2P alternative to Google Drive and Dropbox 
+- **Beaker Browser**, a full-blown browser that also supports the Web without servers (P2P Web).
 
-### What is the USP (Unique Selling Proposition) of Hypercore?
+## What is the USP (Unique Selling Proposition) of Hypercore?
 
 Hypercore is Open Source, it is not selling, but it is offering itself to developers. So what is it that is absolutely unique about it? It is P2P, but we saw other P2P technologies, BitTorrent and Bitcoin.
 
@@ -25,12 +57,12 @@ This point needs to be repeated again and again, as streaming data (files, video
 
 Note, when reading Hypercore docs you will find many references to Sparse files and sparse DB. This is the capability used for streaming, that is a peer can efficiently request individual blocks from remote peers, instead of loading the whole thing, be it a video file or a database.
 
-### What is a streamed DB?
+## What is a streamed DB?
 
 Need help with this.
 How is it different from a DB that we normally access via API on the network today? What applications can we think of that were not feasible before? Some pointers to possible answers can be found when we compare a P2P source control system Git, with the SVN and CVS before it which relied on a central server. Those entrepreneurs that think "Is it possible to make a big business on this?", please note that Microsoft bought Github for $7.5B.
 
-### How is Hypercore different from BitTorrent, WebTorrent?
+## How is Hypercore different from BitTorrent, WebTorrent?
 
 **BitTorrent**. Hypercore can do what BitTorrent does and more. Hypercore can do discovery and accelerated file download with bandwidth-sharing like BitTorrent. But Hypercore can do more - it is built as a data and communications framework for modern applications. Applications need data structures, like Hypercore log, Hypertrie key-value store and Hyperbee database, and importantly data needs to be editable. BitTorrent has none of that and it is inherently immutable (yes, proposals exist for extending BitTorrent to modifiable data, but did they gain ground and are they the afterthought for the protocol?).
 
@@ -38,14 +70,14 @@ How is it different from a DB that we normally access via API on the network tod
 
 Note that WebTorrent's tech can be helpful to Hypercore, as it perfected peer discovery (via DHT) on the Web and it allowed a number of innovative streaming clients to emerge, which could be helpful for Hypercore applications, like Beaker Browser.
 
-### How is Hypercore different from ScuttleButt and IPFS?
+## How is Hypercore different from ScuttleButt and IPFS?
 
 Need help with this.
 All three are cool open source P2P data projects that have existed for roughly the same 5-7 years.
 
 Some key differences, [described here](https://www.datprotocol.com/deps/0002-hypercore/), are:
 
-- ScuttleButt is not suited for streaming, as it does not have a sparse data structure (enabled by Merkle trees, while ScuttleButt uses linked lists).
+- ScuttleButt is not suited for streaming, as it does not have a sparse data structure (enabled in Hypercore by Merkle trees, while ScuttleButt uses linked lists).
 - IPFS was designed for files, so it is not suitable for databases. It also has limited support for data editing and data integrity (history of changes).
 - IPFS team has produced Filecoin spec and raised $205M on ICO to build it so it is funded to sustain long-term development. Hypercore team on the other hand is quite lightly funded by grants and consulting projects. That said, many ICOs ran into legal trouble with SEC, the most high profile of them was Telegram recently. Other tensions [for IPFS team are rising](https://fortune.com/2020/08/19/are-blockchain-companies-cursed-with-too-much-cash/), as it still did not deliver a Filecoin product.
 
@@ -55,7 +87,7 @@ Some notes on IPFS goodies:
 - IPFS project has produced solid core libraries, like libp2p, solving many of the same issues as Hypercore's Hyperswarm.
 - IPFS has implementations in a number of languages, while Hypercore is only in JavaScript. Rust implementation was recently started and hopefully will lead to overall health of Hypercore, forcing better documented specs and more test-suits.
 
-### Why Hypercore is not yet mainstream?
+## Why Hypercore is not yet mainstream?
 
 It is a fact that Hypercore is 7 years old and still has no runaway apps built on it. So what gives, if it is so amazing, and it is! Here is my take, aside from making a  P2P framework being super-hard:
 
@@ -73,7 +105,7 @@ Hypercore is so much more. It is a foundation ford apps, that is storage, conten
 
 We believe the answer is not in copying the mining model and offering crypt-incentives. The answer we believe is a Personal Cloud, your always-available durable peer, a companion to your less-capable personal devices, a place to run many Hypercore apps that can't run on personal devices. We believe Personal Cloud will make Hypercore shine.
 
-### Hyper: who is using Hypercore modules?
+## Hyper: who is using Hypercore?
 
 Need help with this.
 
@@ -82,44 +114,19 @@ Partial answer is:
 - See at the bottom of [Hypercore protocol page](https://hypercore-protocol.org/)
 - See discussion forum where people [showcase their Hyper projects](https://discordapp.com/channels/709519409932140575/712037351244955809/712037741126221924).
 
-### Can data be deleted?
+## Can data be deleted?
 
 [Somewhat](https://discordapp.com/channels/709519409932140575/709519410557222964/755404488415772746) - you can [clear() your content locally](https://github.com/hypercore-protocol/hypercore#feedclearstart-end-callback), but if someone replicated it already, you can’t force them to clear. Also, internal data integrity records are still kept, but they do not leak any data (Merkle tree hashes are kept, so you can keep appending data to your log even if you clear the contents). Use cases:
 
 - Chat. You can delete a chat message locally. To delete the chat message at recipient(s) need to send a custom some message “please delete this”.
 - Mobile. You can delete photos from mobile to save space, but keep them on a replica (your other PC or a Personal Cloud).
 
-### Hyperbee: Is it only one Hyperbee per Hypercore?
 
-Yes. But one replication stream [can carry many Hypercores](https://discordapp.com/channels/709519409932140575/709519410557222964/755415844808556594). Use Corestore to manage multiple hypercore feeds, with permissions.
-
-### Hyperbee: What are the limitations on consistency?
-
-Need help with this.
-While it is eventual consistency today, can higher guarantees be provided?
-
-### Hyperswarm: Can we distinguish between peers before connecting to them?
-
-Need help with this.
-
-No.
-Once you write your first Hyperswarm and print all the new peers joining it, you will likely notice all kinds of peers that have nothing to do with you. Who are they? For a website and public media like Twitter or YouTube-style application, it is totally fine. But in a security-focused application you might get concerned.
-
-Any hypercore-savvy person will argue that this is ok, as you will not be sharing any data. To access the Hypercore feeds you still need to know their publicKey. But the fact is, you still need to connect to all peers to figure out if you even want them. This is not efficient and can present some surveillance challenges.
-
-This can be very useful:
-
-- To know if peers are readers or writers, or filter them out with some cryptography-based primitives, and avoid connecting to those that you do not trust.
-
-- Load balancing between peers. It would ridiculous for the Router design to expect the Router to connect to peers to determine who to forward request to.
-
-- Can Sybil attacks and DDOS on DHT, mentioned in [Hyperswarm blog](https://pfrazee.hashbase.io/blog/hyperswarm), be prevented if DHT itself could be selective about the peers?
-
-### Does Hypercore work in the browser, on mobiles?
+## Does Hypercore work in the browser, on mobiles?
 
 Yes. Hypercore is transport-independent. One can use TCP/IP, WebRTC to peers, WebSockets to server.
 
-### Is there support for social key recovery?
+## Is there support for social key recovery?
 
 No. But a community solution and other open source projects exist that can possibly be adapted.
 This is essential need for any P2P applications, and the same need for Bitcoin, as the user may only rely only on themselves for key management.
@@ -132,7 +139,7 @@ This is essential need for any P2P applications, and the same need for Bitcoin, 
   
 For reference, see how open source app [Consento](https://consento.org/) does it.
 
-### Does Hyperswarm work in browsers, on mobile?
+## Does Hyperswarm work in browsers, on mobile?
 
 Not directly, but community solutions exist.
 See the [issue for this](https://github.com/hyperswarm/hyperswarm/issues/62). The difficulty is due to the use of UDP, which is not available in the browser. On mobile NAT hole punching may not succeed. On PCs some corporate firewalls may also block UDP. Need to bridge to DHT over WebSockets or WebRTC.
@@ -143,7 +150,7 @@ Note that [WebTorrent uses webrtc](https://webtorrent.io/docs) for DHT, but thei
 
 See a number of issues still pending resolution to make Hyperswarm and Hypercore [work in react-native](https://dat.discourse.group/t/dat-and-react-native/184)
 
-### Is there an authentication and authorization system?
+## Is there an authentication and authorization system?
 
 Sort of. Some capabilities exist to build upon.
 
@@ -151,7 +158,7 @@ Sort of. Some capabilities exist to build upon.
 
 2. There is a hook that can be registered for feed authentication.
 
-### If Hypercore is P2P Web, what is its URL format?
+## If Hypercore is a P2P Web, what is its URL format?
 
 URL is designed to be used in Beaker. Its schema is dat:// or hyper://
 It must be followed by the <publicKey> of a Hypercore feed.
@@ -160,17 +167,7 @@ Note that in the future it is planned to support [Strong linking](https://github
 
 When supported, I think such URL needs to have both stable part and version part. It also needs to allow URLs to be used by internal components and apps, not just in Beaker. A typical use case for this is link from a data element in Hyperbee to a file Hyperdrive.
 
-### Hyperdrive: How the hyperdrive can be shared?
-
-1. Underlying mechanism is built into Hypercore, and works for Hyperdrive, Hypertrie and Hyperbee. You can share the read-only version of your whole hypercore with others, by giving them the public key of the Hypercore.
-
-2. Hyperdrive itself is actually 2 hypercores for directory structure and metadata, and for file content. So to share it you use the above URL (need confirmation for that).
-
-3. Hyperdrive also support mounts. It allows to include other people's drives under your your own Hyperdrive as a folder. Mounts are still read-only though, But this allows people to continue editing files on their Hyperdrives and all people that mounted it will see updates in real-time.
-
-4. Hypertrie also supports mounts, which allows a Key-Value store supported by the whole team. [Mountable Hypertrie](https://github.com/andrewosh/mountable-hypertrie) is actually what Hyperdrive uses underneath for mounts.
-
-### Does hypercore support writing by multiple people?
+## Does hypercore support writing by multiple people?
 
 No. But keep reading.
 
@@ -203,7 +200,7 @@ Probably copying the Hypercore's directory to another machine and copying a priv
 
 Hypercore is not like Kafka, which writes everything into one log (at least logically one, with topics). You end up with many Hypercores and you need a way to manage them and discover what hypercores other people have shared with you. The bootstrapping mechanism for this is to find peers, a Hyperswarm. But it is not enough, thus several discovery systems were designed, and the main one is corestore. Simpler one, is multifeed created by community.
 
-### Can Hypercore storage be encrypted at-rest?
+## Can Hypercore storage be encrypted at-rest?
 
 Yes, offered by community solutions. Ypu will need explore their limitations. See some below:
 
@@ -211,7 +208,7 @@ Yes, offered by community solutions. Ypu will need explore their limitations. Se
 
 - [hypercore-encrypted](https://www.npmjs.com/package/hypercore-encrypted), a wrapper around hypercore. 
 
-### Does Hypercore support zero-knowledge store / blind replication?
+## Does Hypercore support zero-knowledge store / blind replication?
 
 Yes, offered by community solutions. 
 the above terms refer to an encrypted replica kept by a friend or a services provider, like [SpiderOak](https://spideroak.com/one/), but can't be read by them.
@@ -222,12 +219,55 @@ Current solutions are provided by the community:
   
 - [Cobox community](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/3_mock-up/technology/architecture.md)
 
-### Does Hypercore support erasure-coding?
+## Is network traffic end-to-end encrypted?
+
+Need help with this.
+Yes for Hypercore, no for Hyperswarm. Hypercore uses [Noise protocol](https://github.com/mafintosh/noise-network) for authentication and encryption. Same protocol is used by WhatsApp. But as, always with end-to-end encryption, you need to watch out for the cases when you introduce a proxy, as needed to support Hyperswarm in browser. 
+
+## Does Hypercore support erasure-coding?
 
 No.
 Erasure coding is used to recover data from a subset of overall amount of replicas.
 S3-compatible object storage provided by [Min.io](https://docs.min.io/docs/minio-erasure-code-quickstart-guide.html) has it.
 For the Data Center, perhaps we need to look at the underlying virtualized file system to provide it, like Ceph (but it is known to be very heavy and hard to manage)
+
+## Hypercore components / modules
+
+### Hyperbee
+
+#### Only one Hyperbee per Hypercore?
+
+Yes. But one replication stream [can carry many Hypercores](https://discordapp.com/channels/709519409932140575/709519410557222964/755415844808556594). Use Corestore to manage multiple hypercore feeds, with permissions.
+
+#### What are the limitations on consistency?
+
+Need help with this.
+While it is eventual consistency today, can higher guarantees be provided?
+
+#### Can it serve as LevelDB replacement?
+
+Yep. Needs to be wrapped into [Hyperbeedown](https://github.com/andrewosh/hyperbeedown) and fed into [LevelUP](https://github.com/Level/levelup).
+
+This is awesome as there are many databases that work on top of the API used by LevelDB.
+
+### Hyperswarm
+
+#### Can we distinguish between peers before connecting to them?
+
+Need help with this.
+
+No.
+Once you write your first Hyperswarm and print all the new peers joining it, you will likely notice all kinds of peers that have nothing to do with you. Who are they? For a website and public media like Twitter or YouTube-style application, it is totally fine. But in a security-focused application you might get concerned.
+
+Any hypercore-savvy person will argue that this is ok, as you will not be sharing any data. To access the Hypercore feeds you still need to know their publicKey. But the fact is, you still need to connect to all peers to figure out if you even want them. This is not efficient and can present some surveillance challenges.
+
+This can be very useful:
+
+- To know if peers are readers or writers, or filter them out with some cryptography-based primitives, and avoid connecting to those that you do not trust.
+
+- Load balancing between peers. It would ridiculous for the Router design to expect the Router to connect to peers to determine who to forward request to.
+
+- Can Sybil attacks and DDOS on DHT, mentioned in [Hyperswarm blog](https://pfrazee.hashbase.io/blog/hyperswarm), be prevented if DHT itself could be selective about the peers?
 
 ### Is Hyperswarm anonymous?
 
@@ -237,16 +277,15 @@ Now, Hyperswarm announces IP and Port.
 
 - Or perhaps DHT data in the future can be encrypted, to be decrypted only ny those who have permission?
 
-### Hyperbee: can it serve as LevelDB replacement?
+### Hyperdrive
 
-Yep. Needs to be wrapped into [Hyperbeedown](https://github.com/andrewosh/hyperbeedown) and fed into [LevelUP](https://github.com/Level/levelup).
+#### How Hyperdrive can be shared?
 
-### Is hypercore network traffic end-to-end encrypted?
+1. Underlying mechanism is built into Hypercore, and works for Hyperdrive, Hypertrie and Hyperbee. You can share the read-only version of your whole hypercore with others, by giving them the public key of the Hypercore.
 
-Yep. With [Noise protocol](https://github.com/mafintosh/noise-network). Same protocol is used by WhatsApp. But as, always with end-to-end encryption, you need to watch out for the cases when you introduce a proxy, as needed to support Hyperswarm in browser. 
-Need help with this.
+2. Hyperdrive itself is actually 2 hypercores for directory structure and metadata, and for file content. So to share it you use the above URL (need confirmation for that).
 
-### Is hyperswarm network traffic end-to-end encrypted?
+3. Hyperdrive also support mounts. It allows to include other people's drives under your your own Hyperdrive as a folder. Mounts are still read-only though, But this allows people to continue editing files on their Hyperdrives and all people that mounted it will see updates in real-time.
 
-No. 
-Need help with this.
+4. Hypertrie also supports mounts, which allows a Key-Value store supported by the whole team. [Mountable Hypertrie](https://github.com/andrewosh/mountable-hypertrie) is actually what Hyperdrive uses underneath for mounts.
+
