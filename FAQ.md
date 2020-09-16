@@ -292,6 +292,10 @@ Now, Hyperswarm announces IP and Port.
 
 ### Hyperdrive
 
+Hyperdrive provides many of the hard to create components to replicate the functionality of Dropbox and Google Drive. Beaker Browser adds the UI it.
+
+Hyperdrive is a library and also provides a [daemon](https://github.com/hypercore-protocol/hyperdrive-daemon) to run as a service, accessible via an API and can show up as a [normal directory on your disk](https://github.com/hypercore-protocol/hyperdrive-daemon#fuse) (This part works on MacOS and Linux, with Windows in works).
+
 #### How can Hyperdrive be shared?
 
 1. Underlying mechanism is built into Hypercore, and works for all data structures that use it: Hyperdrive, Hypertrie and Hyperbee. You can share the read-only version of your whole hypercore with others, by giving them the public key of the Hypercore.
