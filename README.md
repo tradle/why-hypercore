@@ -123,7 +123,7 @@ It can help migration of data to allow users to move to another Data Center at w
 
 It is not enough to have the file replication. Replicating databases is much harder. Replication of databases is provided by Hypercore and it can be used for durability, load balancing and mobility. It also can be used for analytics applications that are performed on a replica, offloading the operational DB.
 
-Hyperbee is compliant to Level API, which allows it to become a drop-in replacement for AWS DynamoDB, with a [Dynolite adapter](https://github.com/mhart/dynalite). This is simpler for personal use, while for teams, and for e-commerce we will need to explore additional Hypercore tech for streaming sort-merge, see below.
+Hyperbee is compliant to Level API, which allows it to become a drop-in replacement for AWS DynamoDB, with a [Dynalite adapter](https://github.com/mhart/dynalite). This is simpler for personal use, while for teams, and for e-commerce we will need to explore additional Hypercore tech for streaming sort-merge, see below.
 
 ### Data Integrity, Digital Signatures and Compliance
 
