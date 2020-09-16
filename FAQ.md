@@ -25,6 +25,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
 - [Does Hypercore support zero-knowledge store / blind replication?](#does-hypercore-support-zero-knowledge-store--blind-replication)
 - [Is network traffic end-to-end encrypted?](#is-network-traffic-end-to-end-encrypted)
 - [Does Hypercore support erasure-coding?](#does-hypercore-support-erasure-coding)
+- [Can Hypercore network protocol be extended?](#can-hypercore-network-protocol-be-extended)
 - [Hypercore components / modules](#hypercore-components--modules)
   - [Hyperbee](#hyperbee)
     - [Only one Hyperbee per Hypercore?](#only-one-hyperbee-per-hypercore)
@@ -34,7 +35,8 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
     - [Can we distinguish between peers before connecting to them?](#can-we-distinguish-between-peers-before-connecting-to-them)
     - [Is Hyperswarm anonymous?](#is-hyperswarm-anonymous)
   - [Hyperdrive](#hyperdrive)
-    - [How Hyperdrive can be shared?](#how-hyperdrive-can-be-shared)
+    - [How can Hyperdrive be shared?](#how-can-hyperdrive-be-shared)
+- [Where can I learn more about Hypercore universe?](#where-can-i-learn-more-about-hypercore-universe)
 ## General
 
 This section is for general questions. See other sections for questions specific to individual Hypercore modules.
@@ -194,7 +196,7 @@ We know it is single-writer. But can same writer accidentally screw up the Hyper
 
 #### What is the biggest gotcha with Hypercore?
 
-Need help with this. @Mauve?
+Need help with this. @RangerMauve?
 Probably copying the Hypercore's directory to another machine and copying a private key and trying to write into this Hypercore while making updates in the original Hypercore.
 
 ## How to discover all feeds that a peer can give us?
@@ -207,11 +209,11 @@ Normally updates are pulled by the peers. Protocol supports a Push-ing data as w
 
 ## Can Hypercore storage be encrypted at-rest?
 
-Yes, offered by community solutions. Ypu will need explore their limitations. See some below:
+Yes, offered by community solutions. You will need explore their limitations. See some below:
 
 - [Cobox Hypercore Encryption](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/2_work-plan/mvp/mvp-design.md).
 
-- [hypercore-encrypted](https://www.npmjs.com/package/hypercore-encrypted), a wrapper around hypercore. 
+- [hypercore-encrypted](https://www.npmjs.com/package/hypercore-encrypted), a wrapper around hypercore.
 
 ## Does Hypercore support zero-knowledge store / blind replication?
 
@@ -235,6 +237,12 @@ No.
 Erasure coding is used to recover data from a subset of overall amount of replicas.
 S3-compatible object storage provided by [Min.io](https://docs.min.io/docs/minio-erasure-code-quickstart-guide.html) has it.
 For the Data Center, perhaps we need to look at the underlying virtualized file system to provide it, like Ceph (but it is known to be very heavy and hard to manage)
+
+## Can Hypercore network protocol be extended?
+
+Yes. The [protocol](https://github.com/hypercore-protocol/hypercore-protocol) is formalized with protobuf and supports [defining extensions](https://github.com/hypercore-protocol/hypercore-protocol/#stream-message-extensions).
+
+See community video that explains the [Extensions system](https://youtu.be/HyHk4aImd_I?list=PL7sG5SCUNyeYx8wnfMOUpsh7rM_g0w_cu&t=4379). Community projects like Cobox and others are using it already.
 
 ## Hypercore components / modules
 
@@ -284,9 +292,9 @@ Now, Hyperswarm announces IP and Port.
 
 ### Hyperdrive
 
-#### How Hyperdrive can be shared?
+#### How can Hyperdrive be shared?
 
-1. Underlying mechanism is built into Hypercore, and works for Hyperdrive, Hypertrie and Hyperbee. You can share the read-only version of your whole hypercore with others, by giving them the public key of the Hypercore.
+1. Underlying mechanism is built into Hypercore, and works for all data structures that use it: Hyperdrive, Hypertrie and Hyperbee. You can share the read-only version of your whole hypercore with others, by giving them the public key of the Hypercore.
 
 2. Hyperdrive itself is actually 2 hypercores for directory structure and metadata, and for file content. So to share it you use the above URL (need confirmation for that).
 
@@ -294,3 +302,6 @@ Now, Hyperswarm announces IP and Port.
 
 4. Hypertrie also supports mounts, which allows a Key-Value store supported by the whole team. [Mountable Hypertrie](https://github.com/andrewosh/mountable-hypertrie) is actually what Hyperdrive uses underneath for mounts.
 
+## Where can I learn more about Hypercore universe?
+
+In the summer of 2020 there was a [Dat Conference](https://www.youtube.com/playlist?list=PL7sG5SCUNyeYx8wnfMOUpsh7rM_g0w_cu). You can see the breadth of discussions that took place, both on tech and the opportunities. Note that Dat is the old name for Hypercore. The transition is in full swing, but you will still see it a lot.
