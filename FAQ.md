@@ -9,7 +9,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
 - [How is Hypercore different from BitTorrent, WebTorrent?](#how-is-hypercore-different-from-bittorrent-webtorrent)
 - [How is Hypercore different from ScuttleButt and IPFS?](#how-is-hypercore-different-from-scuttlebutt-and-ipfs)
 - [Why Hypercore is not yet mainstream?](#why-hypercore-is-not-yet-mainstream)
-- [Hyper: who is using Hypercore?](#hyper-who-is-using-hypercore)
+- [Who is using Hypercore P2P framework today?](#who-is-using-hypercore-p2p-framework-today)
 - [Can data be deleted?](#can-data-be-deleted)
 - [Does Hypercore work in the browser, on mobiles?](#does-hypercore-work-in-the-browser-on-mobiles)
 - [Is there support for social key recovery?](#is-there-support-for-social-key-recovery)
@@ -105,7 +105,7 @@ Hypercore is so much more. It is a foundation ford apps, that is storage, conten
 
 We believe the answer is not in copying the mining model and offering crypt-incentives. The answer we believe is a Personal Cloud, your always-available durable peer, a companion to your less-capable personal devices, a place to run many Hypercore apps that can't run on personal devices. We believe Personal Cloud will make Hypercore shine.
 
-## Hyper: who is using Hypercore?
+## Who is using Hypercore P2P framework today?
 
 Need help with this.
 
