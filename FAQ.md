@@ -1,4 +1,5 @@
 # Hypercore universe FAQ
+<!-- TOC -->autoauto- [Hypercore universe FAQ](#hypercore-universe-faq)auto    - [General](#general)auto    - [What are the main components / modules / packages?](#what-are-the-main-components--modules--packages)auto        - [What is the USP (Unique Selling Proposition) of Hypercore?](#what-is-the-usp-unique-selling-proposition-of-hypercore)auto        - [What is a streamed DB?](#what-is-a-streamed-db)auto        - [How is Hypercore different from BitTorrent, WebTorrent?](#how-is-hypercore-different-from-bittorrent-webtorrent)auto        - [How is Hypercore different from ScuttleButt and IPFS?](#how-is-hypercore-different-from-scuttlebutt-and-ipfs)auto        - [Why Hypercore is not yet mainstream?](#why-hypercore-is-not-yet-mainstream)auto        - [Hyper: who is using Hypercore modules?](#hyper-who-is-using-hypercore-modules)auto        - [Can data be deleted?](#can-data-be-deleted)auto        - [Hyperbee: Is it only one Hyperbee per Hypercore?](#hyperbee-is-it-only-one-hyperbee-per-hypercore)auto        - [Hyperbee: What are the limitations on consistency?](#hyperbee-what-are-the-limitations-on-consistency)auto        - [Hyperswarm: Can we distinguish between peers before connecting to them?](#hyperswarm-can-we-distinguish-between-peers-before-connecting-to-them)auto        - [Does Hypercore work in the browser, on mobiles?](#does-hypercore-work-in-the-browser-on-mobiles)auto        - [Is there support for social key recovery?](#is-there-support-for-social-key-recovery)auto        - [Does Hyperswarm work in browsers, on mobile?](#does-hyperswarm-work-in-browsers-on-mobile)auto        - [Is there an authentication and authorization system?](#is-there-an-authentication-and-authorization-system)auto        - [If Hypercore is P2P Web, what is its URL format?](#if-hypercore-is-p2p-web-what-is-its-url-format)auto        - [Hyperdrive: How the hyperdrive can be shared?](#hyperdrive-how-the-hyperdrive-can-be-shared)auto        - [Does hypercore support writing by multiple people?](#does-hypercore-support-writing-by-multiple-people)auto        - [Is it multi-process-safe?](#is-it-multi-process-safe)auto        - [What is the biggest gotcha with Hypercore?](#what-is-the-biggest-gotcha-with-hypercore)auto        - [How to discover all feeds that the peer can give us?](#how-to-discover-all-feeds-that-the-peer-can-give-us)auto        - [Can Hypercore storage be encrypted at-rest?](#can-hypercore-storage-be-encrypted-at-rest)auto        - [Does Hypercore support zero-knowledge store / blind replication?](#does-hypercore-support-zero-knowledge-store--blind-replication)auto        - [Does Hypercore support erasure-coding?](#does-hypercore-support-erasure-coding)auto        - [Is Hyperswarm anonymous?](#is-hyperswarm-anonymous)auto        - [Hyperbee: can it serve as LevelDB replacement?](#hyperbee-can-it-serve-as-leveldb-replacement)auto        - [Is hypercore network traffic end-to-end encrypted?](#is-hypercore-network-traffic-end-to-end-encrypted)auto        - [Is hyperswarm network traffic end-to-end encrypted?](#is-hyperswarm-network-traffic-end-to-end-encrypted)autoauto<!-- /TOC -->
 
 Many of the answers below are taken from Hypercore protocol discussion forum. All interpretations are ours, and so are the possible mistakes and misunderstandings. Please send corrections as pull requests, or request commit rights. Questions that need answers are marked with **Need help with this**.
 
@@ -45,9 +46,9 @@ All three are cool open source P2P data projects that have existed for roughly t
 
 Some key differences, [described here](https://www.datprotocol.com/deps/0002-hypercore/), are:
 
-- ScuttleButt is not suited for streaming, as it does not have a sparse data structure (enabled by Merkle trees, while ScuttleButt uses linked lists). 
+- ScuttleButt is not suited for streaming, as it does not have a sparse data structure (enabled by Merkle trees, while ScuttleButt uses linked lists).
 - IPFS was designed for files, so it is not suitable for databases. It also has limited support for data editing and data integrity (history of changes).
-- IPFS team has produced Filecoin spec and raised $205M cia ICO to build it, while Hypercore team is quite lightly funded by grants and consulting projects. Yet many ICOs ran into legal trouble with SEC, the most high profile was Telegram recently. Other tensions [for IPFS team are rising](https://fortune.com/2020/08/19/are-blockchain-companies-cursed-with-too-much-cash/), as it still did not deliver a Filecoin product.
+- IPFS team has produced Filecoin spec and raised $205M on ICO to build it so it is funded to sustain long-term development. Hypercore team on the other hand is quite lightly funded by grants and consulting projects. That said, many ICOs ran into legal trouble with SEC, the most high profile of them was Telegram recently. Other tensions [for IPFS team are rising](https://fortune.com/2020/08/19/are-blockchain-companies-cursed-with-too-much-cash/), as it still did not deliver a Filecoin product.
 
 Some notes on IPFS goodies:
 
@@ -61,11 +62,11 @@ It is a fact that Hypercore is 7 years old and still has no runaway apps built o
 
 Many P2P apps struggle as they lack availability, durability and work in the unforgiving networking environments.
 
-- Availability. For example, in a collaborative editing app like Google Docs, once you close your laptop, your collaborators can't get your latest content, if they were not online when you made edits. With Google, if you had a connection at the time of the last edit, it would have been made available to others. This is especially important for work across the timezones. So some master nodes that "seed" content are always discussed and tried (e.g. Hashbase), but they re-centralize things, and introduce permissioning, data sovereignty, data privacy and other challenges.
+- Availability. For example, in a P2P collaborative editing app competing with Google Docs, once you close your laptop, your collaborators can't get your latest content, unless they were online when you made edits. With Google Docs, if you had a connection at the time of the last edit, the changes are available to others, even if you went offline right after. This is especially important for team work across the timezones. So some master nodes that "seed" the content are always needed in P2P applications (e.g. Hashbase), but these so called super-nodes often re-centralize things and introduce challenges for permissioning, data sovereignty, and data privacy. Availability problem remains unsolved.
 
-- Durability. We are spoiled with Google (and others) taking care of preserving our content. We pay a steep price of giving them everything on us, but this convenience is very hard to achieve in P2P world. Your peers may be good friends but there is no guarantee they will not lose your precious content. Many solutions are being tried, including those with Cryptocurrencies incentivizing users to keep content, but they all have technical and convenience frictions. Besides, who wants to be responsible for disseminating a potentially illegal content?
+- Durability. We are spoiled with Google (and others) taking care of preserving our content. We pay a steep price of giving them everything on us, but this convenience is very hard to achieve in P2P world. Your peers may be good friends but there is no guarantee they will not lose your precious content. Many solutions are being tried, including those with Cryptocurrencies incentivizing users to keep content, but they all have technical and convenience frictions. Besides, who wants to be responsible for disseminating a potentially illegal content? Durability problem remains unsolved.
 
-- Networking. Current Internet, with its routing and firewalling system is just hostile to P2P connections. Although Hyperswarm offers an ingenious NAT hole punching, there are too many edge cases, when it does not work on mobiles, needs workarounds in browsers and blocked by corporate firewalls. This does not mean it can't be used, we just need a fallback to serves acting as proxies. But this comes at the same price of decentralization.
+- Networking. Current Internet, with its routing and firewalling system is just hostile to P2P connections. Although Hyperswarm offers an ingenious NAT hole punching, there are too many edge cases, when it does not work on mobiles, needs workarounds in browsers and blocked by corporate firewalls. This does not mean it can't be used, we just need a fallback to serves acting as proxies. But this comes at the same price of decentralization. Networking problem remains partially unsolved.
 
 Is there an answer to those perpetual problems of P2P? We believe there is. In crypto world the answer was found with notion of miners. This is why some P2P projects are attempting to repeat this approach introducing their own blockchains. IPFS team's Filecoin, Storj, Theta.tv and a number of others are examples. But they are all focused on data storage.
 
@@ -141,7 +142,7 @@ See the [issue for this](https://github.com/hyperswarm/hyperswarm/issues/62). Th
 
 Note that [WebTorrent uses webrtc](https://webtorrent.io/docs) for DHT, but their approach is not adopted by Hypercore. 
 
-See a number of issues still pending resolution to make Hyperswarm and Hypercore [work in react-native](https://dat.discourse.group/t/dat-and-react-native/184) 
+See a number of issues still pending resolution to make Hyperswarm and Hypercore [work in react-native](https://dat.discourse.group/t/dat-and-react-native/184)
 
 ### Is there an authentication and authorization system?
 
@@ -149,17 +150,16 @@ Sort of. Some capabilities exist to build upon.
 
 1. Each Hypercore has a public / private key pair. Corestore provides deterministic key generation from a Master key. There is also a keypair generated by [Noise protocol](https://github.com/mafintosh/noise-network), which was added in [Hypercore V8]((https://mafinto.sh/blog/introducing-hypercore-8.html)) im 2018. [Noise protocol](https://noiseprotocol.org/) was designed as part of Signal Messenger and is now used by WhatsApp, WireGuard, Lightning, and I2P.
 
-2. There is a hook that can be registered for feed authentication. 
+2. There is a hook that can be registered for feed authentication.
 
 ### If Hypercore is P2P Web, what is its URL format?
 
-URL is designed to be used in Beaker. Its schema is dat:// or hyper:// 
-It must be followed by <publicKey> of the Hypercore feed.
+URL is designed to be used in Beaker. Its schema is dat:// or hyper://
+It must be followed by the <publicKey> of a Hypercore feed.
 
 Note that in the future it is planned to support [Strong linking](https://github.com/mafintosh/hypercore-strong-link) to a particular version of the data is planned.
 
-When supported, I think such URL needs to have both stable part and version part. 
-It also needs to allow URLs to be used by internal components and apps, not just in Beaker. A typical use case for this is link from a data element in Hyperbee to a file Hyperdrive.
+When supported, I think such URL needs to have both stable part and version part. It also needs to allow URLs to be used by internal components and apps, not just in Beaker. A typical use case for this is link from a data element in Hyperbee to a file Hyperdrive.
 
 ### Hyperdrive: How the hyperdrive can be shared?
 
