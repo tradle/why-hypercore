@@ -52,17 +52,15 @@ Many other innovations are happening on the Edge of the network, outside of the 
 
 **And finally, there is an under-appreciated gem of Hypercore.**
 
-### Tradle on AWS can be modified for Hypercore
+### Tradle on AWS can be adapted to move to Hypercore
 
 Luckily Tradle uses only a small subset of AWS services, and this makes the task manageable. Even better, [Tradle MyCloud](https://github.com/tradle/mycloud) already uses an emulation layer for AWS, called [Localstack](https://github.com/localstack/localstack). Localstack is sufficient to run and debug Tradle MyCloud but is inherently unreliable and is single-tenant.
-
-![alt_text](images/image1.png "image_tooltip")
 
 We need a solid base that can be deployed in any Local Data Center, removing our dependency on AWS. This document outlines the steps we can take by replacing one by one its components with the enterprise-grade production-ready components for multi-tenancy. 
 
 ## Assembling a modern Cloud stack on Hypercore
 
-Matching vast aray of AWS services is a daunting task, and it is not our goal Cloud. We choose to focus on Simple Cloud foundation, sufficient to run a Personal Cloud. Communications, virtualization, networking and other aspects of the Cloud are described in [Simple Cloud](SimpleCloud.md) document, while here we focus on Hypercore, that can help address many aspects of data, sharing and communicatons. 
+Matching a vast aray of AWS services is a daunting task, and it is not our goal Cloud. We choose to focus on Simple Cloud foundation, sufficient to run a Personal Cloud. Communications, virtualization, networking and other aspects of the Cloud are described in [Simple Cloud](SimpleCloud.md) document, while here we focus on Hypercore, that can help address many aspects of data, sharing and communicatons. 
 
 ### What do we gain from Hypercore, at the high level?
 
@@ -167,12 +165,13 @@ Hypercore enables live streaming as allows to upload video and for viewers to st
 
 ### CDN
 
-Hypercore can be used to build a CDN for distributing files to the edge, and distributing load between the replicas. It is static storage friendly. Files and databases can be served from static storage, as in CDNs. Additionally, due to bittorrent-like functionality, it can help CDN to:
+Hypercore can be used to build a CDN for distributing files to the edge, and distributing load between the replicas. It is static storage friendly. Files and databases can be served from a static storage, as in CDNs. Additionally, due to bittorrent-like functionality, it can help CDN to:
 
-    1. Save bandwidth costs by bandwidth sharing, turning media watchers into uploaders
-    2. Can accelerate download as allows to load chunks from multiple peers simultaneously. This is especially important for 4K, VR and 3D printing content.
-    3. 
-    4. Bridge to [HTTP](https://awesome.datproject.org/dathttpd) for browsers.  
+1. Saves CDN bandwidth costs by bandwidth sharing, turning media watchers into uploaders
+
+2. Accelerates download as allows to load chunks from multiple peers simultaneously. This is especially important for 4K, VR and 3D printing content.
+
+3. Real-time incremental CDN updates. Many CDNs take significant time to replace old files. And many require the full flush of current files. Hypercore can help optimize both with immediate updates and Change Management events.
 
 Note that Hypercore team still has work to do on efficient editing of large files. Editing existing files is inefficient, it currently results in file duplication. This is not good for videos and for FUSE-mounted Hyperdrive that has a big database file or a log file that needs to be appended to.
 
