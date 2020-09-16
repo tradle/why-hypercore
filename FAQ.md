@@ -171,9 +171,9 @@ When supported, I think such URL needs to have both stable part and version part
 
 No. But keep reading.
 
-Older [HyperDB](https://github.com/mafintosh/hyperdb) project is a multi-writer database, but it is not seeing any support anymore, presumably as it could not be made performant, but it may still help some apps (need confirmation)
+An older [HyperDB](https://github.com/mafintosh/hyperdb) project is a multi-writer database, but it is not seeing any support anymore, presumably as it could not be made performant, but it may still help some apps before a replacement comes in (need confirmation).
 
-Multiple Hyperbees from different writers can be merged with a [streaming sort-merge mechanism](http://github.com/mafintosh/sorted-union-stream). But can this be done for an e-commerce site, where merchant receives orders from a million people? May be incrementally (need confirmation)
+Multiple Hyperbees from different writers can be merged with a [streaming sort-merge mechanism](http://github.com/mafintosh/sorted-union-stream). But can this be done for an e-commerce site, where merchant receives orders from a million people? May be incrementally? (need confirmation)
 
 It is important to understand that Hypercore is by design a single-writer system. So one can't have a shared database, as is, or a shared folder. Multi-writer is probably the most requested feature of Hypercore, but we should not wait for it, as it is far away on the Hypercore team's roadmap.
 
