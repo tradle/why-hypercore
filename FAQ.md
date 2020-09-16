@@ -28,7 +28,7 @@ Note, when reading Hypercore docs you will find many references to Sparse files 
 ### What is a streamed DB?
 
 Need help with this.
-How is it different from a DB that we normally access via API on the network today? What applications can we think of that were not feasible before? Some pointers to possible answers can be found when we compare a P2P source control system Git, with the SVN and CVS before it which relied on a central server. Those entrepreneurs that think 'Is it possible to make a big business on this?', please note that Microsoft bought Github for $7.5B.
+How is it different from a DB that we normally access via API on the network today? What applications can we think of that were not feasible before? Some pointers to possible answers can be found when we compare a P2P source control system Git, with the SVN and CVS before it which relied on a central server. Those entrepreneurs that think "Is it possible to make a big business on this?", please note that Microsoft bought Github for $7.5B.
 
 ### How is Hypercore different from BitTorrent, WebTorrent?
 
