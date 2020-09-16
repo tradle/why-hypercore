@@ -60,7 +60,7 @@ We need a solid base that can be deployed in any Local Data Center, removing our
 
 ## Assembling a modern Cloud stack on Hypercore
 
-Matching a vast aray of AWS services is a daunting task, and it is not our goal Cloud. We choose to focus on Simple Cloud foundation, sufficient to run a Personal Cloud. Communications, virtualization, networking and other aspects of the Cloud are described in [Simple Cloud](SimpleCloud.md) document, while here we focus on Hypercore, that can help address many aspects of data, sharing and communicatons. 
+Matching a vast aray of AWS services is a daunting task, and it is not our goal. We choose to focus on a Simple Cloud foundation, sufficient to run a Personal Cloud. Communications, virtualization, networking and other aspects of the Cloud are described in [Simple Cloud](SimpleCloud.md) document, while here we focus on Hypercore, that can help address many aspects of data, sharing and communicatons. 
 
 ### What do we gain from Hypercore, at the high level?
 
