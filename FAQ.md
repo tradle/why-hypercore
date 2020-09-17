@@ -158,9 +158,10 @@ For reference, see how open source app [Consento](https://consento.org/) does it
 ### Is there a regular key rotation and key replacement mechanism?
 
 No. Only for ephemeral session encryption keys.
+
 Need help with this.
 Do community solutions exist?
-Can this package help?
+Can [Hypercore-multi-key](https://github.com/mafintosh/hypercore-multi-key) package help?
 
 ### Does Hyperswarm work in browsers, on mobile?
 
