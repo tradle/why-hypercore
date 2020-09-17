@@ -13,17 +13,21 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [Can data be deleted?](#can-data-be-deleted)
   - [Does Hypercore work in the browser, on mobiles?](#does-hypercore-work-in-the-browser-on-mobiles)
   - [Is there support for social key recovery?](#is-there-support-for-social-key-recovery)
+  - [Is there a regular key rotation and key replacement mechanism?](#is-there-a-regular-key-rotation-and-key-replacement-mechanism)
   - [Does Hyperswarm work in browsers, on mobile?](#does-hyperswarm-work-in-browsers-on-mobile)
-  - [Is there an authentication and authorization system?](#is-there-an-authentication-and-authorization-system)
+  - [Is there an authentication system?](#is-there-an-authentication-system)
+  - [Is there a discovery system to learn what feeds the other peer shares?](#is-there-a-discovery-system-to-learn-what-feeds-the-other-peer-shares)
 - [If Hypercore is a P2P Web, what is its URL format?](#if-hypercore-is-a-p2p-web-what-is-its-url-format)
 - [Does hypercore support writing by multiple people?](#does-hypercore-support-writing-by-multiple-people)
-    - [Is it multi-process-safe?](#is-it-multi-process-safe)
-    - [What is the biggest gotcha with Hypercore?](#what-is-the-biggest-gotcha-with-hypercore)
+  - [Is it multi-process-safe?](#is-it-multi-process-safe)
+  - [What is the biggest gotcha with Hypercore?](#what-is-the-biggest-gotcha-with-hypercore)
+  - [Can Hypercore be backed up?](#can-hypercore-be-backed-up)
+- [Is network traffic encrypted end-to-end?](#is-network-traffic-encrypted-end-to-end)
 - [How to discover all feeds that a peer can give us?](#how-to-discover-all-feeds-that-a-peer-can-give-us)
 - [Is Hypercore push or pull?](#is-hypercore-push-or-pull)
 - [Can Hypercore storage be encrypted at-rest?](#can-hypercore-storage-be-encrypted-at-rest)
 - [Does Hypercore support zero-knowledge store / blind replication?](#does-hypercore-support-zero-knowledge-store--blind-replication)
-- [Is network traffic end-to-end encrypted?](#is-network-traffic-end-to-end-encrypted)
+- [What are the reliability guarantees of Hypercore protocol?](#what-are-the-reliability-guarantees-of-hypercore-protocol)
 - [Does Hypercore support erasure-coding?](#does-hypercore-support-erasure-coding)
 - [Can Hypercore network protocol be extended?](#can-hypercore-network-protocol-be-extended)
 - [Hypercore components / modules](#hypercore-components--modules)
@@ -119,7 +123,7 @@ Each project building on Hypercore is stretching its flexibility and contributes
 - Bitfinex, major crypto exchange uses it in its microservices framework [Grenache](https://github.com/bitfinexcom/grenache). Bitfinex helped extend Hyperswarm DHT to improve peer discovery. Bitfinex also pushed the envelope with Hypercore team on creating the first payments framework for Hypercore.
 - [Cobox community](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/2_work-plan/mvp/mvp-design.md), focused on enabling teams. Cobox community created a KappaDB, a multi-writer database, peer discovery with multifeed, and pushed the envelop on collaborative editing.
 - [Peermaps](https://peermaps.org/), building P2P alternative to Google Maps based on OpenStreetMap
-- [Sonar](https://arso-project.github.io/sonar-book), distributed media archives on Hypercore. Note an interesting [bulk update](https://discordapp.com/channels/709519409932140575/727886901100675083/755750956662128732) feature discussion re:Sonar, which sounds like addressing a pain similar to serverless apps.
+- [Sonar](https://arso-project.github.io/sonar-book), distributed media archives on Hypercore. Note an interesting [bulk update](https://discordapp.com/channels/709519409932140575/727886901100675083/755723909709561856) feature discussion re:Sonar, which sounds like addressing a pain similar to serverless apps.
 - See at the bottom of [Hypercore protocol page](https://hypercore-protocol.org/)
 - See discussion forum where people [showcase their Hyper projects](https://discordapp.com/channels/709519409932140575/712037351244955809/712037741126221924).
 
@@ -137,8 +141,11 @@ Yes. Hypercore is transport-independent. One can use TCP/IP, WebRTC to peers, We
 
 ### Is there support for social key recovery?
 
-No. But a community solution and other open source projects exist that can possibly be adapted.
-This is essential need for any P2P applications, and the same need for Bitcoin, as the user may only rely only on themselves for key management.
+No. But a community solution and other open source projects exist that can possibly be adapted. 
+
+Note that corestore makes this easier as it introduces Master key (and generates deterministically the keypairs for Hypercores it manages). It is much easier to manage one key than many, one per Hypercore.
+
+Key recovery is essential need for any P2P applications, and the same need for Bitcoin, as the user may only rely only on themselves for key management.
 
 - Community solution: [secret into N parts and allows restore with M of N replicas](https://github.com/jwerle/hyper-secret-sharing)
 
@@ -147,6 +154,13 @@ This is essential need for any P2P applications, and the same need for Bitcoin, 
 - A number of implementations of [Shamir secret sharing in JS](https://github.com/topics/shamir-secret-sharing?l=javascript&o=desc&s=stars) exist
   
 For reference, see how open source app [Consento](https://consento.org/) does it.
+
+### Is there a regular key rotation and key replacement mechanism?
+
+No. Only for ephemeral session encryption keys.
+Need help with this.
+Do community solutions exist?
+Can this package help?
 
 ### Does Hyperswarm work in browsers, on mobile?
 
@@ -159,13 +173,18 @@ Note that [WebTorrent uses webrtc](https://webtorrent.io/docs) for DHT, but thei
 
 See a number of issues still pending resolution to make Hyperswarm and Hypercore [work in react-native](https://dat.discourse.group/t/dat-and-react-native/184)
 
-### Is there an authentication and authorization system?
+### Is there an authentication system?
 
-Sort of. Some capabilities exist to build upon.
+Yes. Each Hypercore feed has a corresponding public / private key pair. 
 
-1. Each Hypercore has a public / private key pair. Corestore provides deterministic key generation from a Master key. There is also a keypair generated by [Noise protocol](https://github.com/mafintosh/noise-network), which was added in [Hypercore V8]((https://mafinto.sh/blog/introducing-hypercore-8.html)) im 2018. [Noise protocol](https://noiseprotocol.org/) was designed as part of Signal Messenger and is now used by WhatsApp, WireGuard, Lightning, and I2P.
+1. The receiving feed must prove it knows sending feed's publicKey.
 
-2. There is a hook that can be registered for feed authentication.
+2. There is a hook to registered a custom feed authenticator.
+
+### Is there a discovery system to learn what feeds the other peer shares?
+
+Yes. Managed by Corestore, or community provided multifeed.
+Need help with this.
 
 ## If Hypercore is a P2P Web, what is its URL format?
 
@@ -198,18 +217,35 @@ Aside from a shared database and shared folders discussed above, multi-writer ac
   
 - **Multiple Replicas in Personal Cloud**, used for durability, availability and load-balancing. Again, like with multi-device, each replica is a single-writer with its own private key. But this case has higher concurrency potentially, as in serverless environment 2 concurrent writes may occur. Yet, if those writes come from the devices of the same person, conflict CRDT resolution should be sufficient.
 
-#### Is it multi-process-safe?
+### Is it multi-process-safe?
 
 We know it is single-writer. But can same writer accidentally screw up the Hypercore while being executed from a second processes on the same machine? If so, it will present a significant design challenge in Serverless environment.
 
-#### What is the biggest gotcha with Hypercore?
+### What is the biggest gotcha with Hypercore?
 
 Need help with this. @RangerMauve?
 Probably copying the Hypercore's directory to another machine and copying a private key and trying to write into this Hypercore while making updates in the original Hypercore.
 
+### Can Hypercore be backed up?
+
+Yes. see [Hypercore archiver](https://awesome.datproject.org/hypercore-archiver) 
+
+Need help with this. How archiver can be used to backup to s3 and to quickly restore from S# utilizing streaming (sparse download). This would work like AWS EBS drive recovery from a snapshot. Although restore process is still taking place, EBS drive is already made available.
+
+## Is network traffic encrypted end-to-end?
+
+Yes, but not for Hyperswarm (Need confirmation)
+Hypercore uses [Noise protocol](https://github.com/mafintosh/noise-network) for authentication and encryption (this is the protocol designed as part of Signal Messenger and is now used by WhatsApp, WireGuard, Lightning, and I2P).
+
+A channel is open for sharing one Hypercore. Multiple channels can use the same connection. Each channel gets its own encryption and keys are rotated for forward secrecy (attacker that cracked this session's key will have to crack it again for the next session).
+
+Note, a always with end-to-end encryption, you need to watch out for the cases when you introduce a proxy in the middle, for example to deal with overly restrictive firewalls.
+
 ## How to discover all feeds that a peer can give us?
 
-Hypercore is not like Kafka, which writes everything into one log (at least logically one, with topics). You end up with many Hypercores and you need a way to manage them and discover what hypercores other people have shared with you. The bootstrapping mechanism for this is to find peers, a Hyperswarm. But it is not enough, thus several discovery systems were designed, and the main one is corestore. Simpler one, is multifeed created by community.
+Hypercore is not like Kafka, which is one big log. With Hypercore you usually have many Hypercore logs. So you need a way to manage them and discover what hypercores other people have shared with you.
+
+The bootstrapping mechanism for this is to find peers, a Hyperswarm. But it is not enough, thus several discovery systems were designed, and the main one is corestore. Simpler one, is multifeed created by community, but it assumes all feeds are public.
 
 ## Is Hypercore push or pull?
 
@@ -234,10 +270,20 @@ Current solutions are provided by the community:
   
 - [Cobox community](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/3_mock-up/technology/architecture.md)
 
-## Is network traffic end-to-end encrypted?
+## What are the reliability guarantees of Hypercore protocol?
 
-Need help with this.
-Yes for Hypercore, no for Hyperswarm. Hypercore uses [Noise protocol](https://github.com/mafintosh/noise-network) for authentication and encryption. Same protocol is used by WhatsApp. But as, always with end-to-end encryption, you need to watch out for the cases when you introduce a proxy, as needed to support Hyperswarm in browser. 
+Hypercore [requires the underlying transport](https://www.datprotocol.com/deps/0010-wire-protocol/) to provide the following guarantees:
+
+- reliable delivery (no dropped or partial messages)
+- in-order delivery of messages
+
+Those are satisfied by TCP, WebSockets, WebRTC, QUIC and uTP
+
+Hypercore itself adds:
+
+- no missed messages, no duplicates (note that TCP and others above provide this only on a single connection, but not across interrupted connections)
+- efficiency, a single connection is used for multiple channels
+- persistence of messages
 
 ## Does Hypercore support erasure-coding?
 
