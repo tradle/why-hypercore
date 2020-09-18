@@ -1,6 +1,8 @@
 # Why Hypercore? <!-- omit in toc -->
 
-As we are exploring the design for running Tradle on Hypercore, this summarizes our findings.
+As we are exploring the design for running Tradle on Hypercore, this summarizes our findings. More in this [rapidly growing FAQ](FAQ.md) for more.
+
+Take a look at Issues on this repository for the themes we are actively experimenting with.
 
 - [What is Hypercore?](#what-is-hypercore)
   - [Monopolies are not good](#monopolies-are-not-good)
@@ -33,9 +35,8 @@ As we are exploring the design for running Tradle on Hypercore, this summarizes 
   - [Live streaming](#live-streaming)
   - [CDN](#cdn)
   - [Continuous Backup](#continuous-backup)
-## What is Hypercore?
 
-If you do not find answers to your questions below. See the [extensive FAQ](FAQ.md) for more.
+## What is Hypercore?
 
 ### Monopolies are not good
 
