@@ -216,7 +216,7 @@ Hypertrie now provides Mounts which allow to present other people's drives as yo
 
 ### Union of Hyperbees?
 
-Maybe [streaming sort-merge mechanism](http://github.com/mafintosh/sorted-union-stream) can help? I wonder if it is performant across millions of Hyperbees? Like on an e-commerce site, a merchant would search for orders from a million people? May be with incremental merges?
+Maybe [streaming sort-merge mechanism](http://github.com/mafintosh/sorted-union-stream) can help? I wonder if it is performant across millions of Hyperbees? Like on an e-commerce site, a merchant would search for orders from a million people? May be with incremental merges? Cabal / Cobox / Kappa have gained some experience with [re-indexing of multiple remote feeds in a local feed](https://discordapp.com/channels/709519409932140575/709519410557222964/756414542669676573) and their approach works for groups but does not scale for e-commerce use cases.
 
 ### Practical conflict resolution for common use cases
 
