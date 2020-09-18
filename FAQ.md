@@ -19,6 +19,9 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [Is there a discovery system to learn what feeds the other peer shares?](#is-there-a-discovery-system-to-learn-what-feeds-the-other-peer-shares)
 - [If Hypercore is a P2P Web, what is its URL format?](#if-hypercore-is-a-p2p-web-what-is-its-url-format)
 - [Does hypercore support writing by multiple people?](#does-hypercore-support-writing-by-multiple-people)
+  - [Union of Hyperbees?](#union-of-hyperbees)
+  - [Practical conflict resolution for common use cases](#practical-conflict-resolution-for-common-use-cases)
+  - [Simulated multi-writer on top of multiple single-writers](#simulated-multi-writer-on-top-of-multiple-single-writers)
   - [Is it multi-process-safe?](#is-it-multi-process-safe)
   - [What is the biggest gotcha with Hypercore?](#what-is-the-biggest-gotcha-with-hypercore)
   - [Can Hypercore be backed up?](#can-hypercore-be-backed-up)
@@ -200,23 +203,31 @@ When supported, I think such URL needs to have both stable part and version part
 
 No. But keep reading.
 
-An older [HyperDB](https://github.com/mafintosh/hyperdb) project is a multi-writer database, but it is not seeing any support anymore, presumably as it could not be made performant, but it may still help some apps before a replacement comes in (need confirmation).
+Multi-writer is probably the [most requested feature](https://github.com/hypercore-protocol/hyperdrive/issues/230) of Hypercore, as it is a common pattern of using data stores today.
+
+Instead may be we should leverage single-writer advantages of verifiable integrity, and see if some use cases can be redesigned for single-writer, with a simulated multi-writer on top.
+
+For example, in Tradle digital identity product the single-writer is a core pattern, that is no record can be edited other then by it's author, and data models are designed to accommodate this approach. It produces much safer Data Governance and cleaner audit trail. That still requires a search across all single-writer stores, sort of like a union of all Hyperbees.
+
+### Union of Hyperbees?
+
+Maybe [streaming sort-merge mechanism](http://github.com/mafintosh/sorted-union-stream) can help? I wonder if it is performant across millions of Hyperbees? Like on an e-commerce site, a merchant would search for orders from a million people? May be with incremental merges?
+
+### Practical conflict resolution for common use cases
+
+There are cases when CRDT algorithm is more suitable than database concurrency. CRDT is implemented by [Automerge](https://github.com/automerge/automerge), and used by [Hypermerge](https://github.com/automerge/hypermerge). It is also independently implemented by [YJS](https://github.com/yjs/yjs). Such cases are:
+
+- **Collaborative editing**. A P2P Google Doc alternative allowing document to be edited by multiple people simultaneously. 
+  
+- **Multi-device support**. Each device is a single writer with unique key per hypercore. Normally a single person will not be using 2 devices simultaneously. Yet because of the loss of connectivity changes on two devices may need to be merged, and CRDT is ok for that. Besides, with the help of always-on Personal Cloud and real-time replication in Hypercore the conflicts would arise rarely.
+  
+- **Multiple Replicas of a Personal Cloud** are needed for durability, availability and load-balancing. Again, like with multi-device, each replica is a single-writer with its own private key. But this case has higher concurrency potentially, as in serverless environment 2 concurrent writes may occur. Yet, if those writes come from the devices of the same person, conflict CRDT resolution should be sufficient.
+
+### Simulated multi-writer on top of multiple single-writers
 
 A community produced multi-writer [KappaDB](https://github.com/kappa-db) was created as part of [Cobox community](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/3_mock-up/technology/architecture.md).
 
-Multiple Hyperbees from different writers can be merged with a [streaming sort-merge mechanism](http://github.com/mafintosh/sorted-union-stream). But can this be done for an e-commerce site, where merchant receives orders from a million people? May be incrementally? (need confirmation)
-
-It is important to understand that Hypercore is by design a single-writer system. So one can't have a shared database, as is, or a shared folder. Multi-writer is probably the [most requested feature](https://github.com/hypercore-protocol/hyperdrive/issues/230) of Hypercore, but we should not wait for it, as it is far away on the Hypercore team's roadmap.
-
-Instead for now we should use the above workarounds in a clever way, and leverage single-writer advantages of verifiable integrity.
-
-Aside from a shared database and shared folders discussed above, multi-writer actually has 3 other use cases that can be tackled with an algorithm called CRDT, implemented by [Automerge](https://github.com/automerge/automerge), used by [Hypermerge](https://github.com/automerge/hypermerge) and independently by [YJS](https://github.com/yjs/yjs):
-
-- **Collaborative editing**. This is a case of Google Doc edited by multiple people in parallel. Each person is a single-writer and CRDT should handle conflicts. In fact both Hypermerge and YJS have direct support for this in Hypercore (although YJS is not yet fully baked as of this writing)
-  
-- **Multi-device support**. This is ultimately a single-write use case, as each device will anyway have its own private key, and its own hypercore. It does not present a hard concurrency problem as a single person will be using both devices. Yet because of the loss of connectivity changes on two devices may be made parallel.
-  
-- **Multiple Replicas in Personal Cloud**, used for durability, availability and load-balancing. Again, like with multi-device, each replica is a single-writer with its own private key. But this case has higher concurrency potentially, as in serverless environment 2 concurrent writes may occur. Yet, if those writes come from the devices of the same person, conflict CRDT resolution should be sufficient.
+An older [HyperDB](https://github.com/mafintosh/hyperdb) project is a multi-writer database, but it is not seeing any support anymore, presumably as it could not be made performant, but it may still help some apps before a replacement comes in (need confirmation).
 
 ### Is it multi-process-safe?
 
