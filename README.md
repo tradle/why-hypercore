@@ -109,7 +109,7 @@ Matching a vast array of AWS services is a daunting task, and it is not our goal
 
 #### Data Sovereignty
 
-Ability to build private-first local-first offline-first data applications, with functionality and convenience similar to and surpassing the centralized, Google-style apps, while offering the incomparable data and activities privacy, Data Locality, Residency and Sovereignty.
+Ability address Data Locality / Residency / Sovereignty, building private-first local-first offline-first data applications, with functionality and convenience similar to and surpassing the centralized, Google-style apps.
 
 #### Data Continuum
 
