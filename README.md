@@ -55,7 +55,7 @@ Some P2P technology is inherently very slow. Luckily Hypercore is designed for r
 
 It has been our long held belief that data not services should be the first class citizens on the Web. Enterprises understand that, and Data Governance is at the core of well run businesses. Yet on the Web and mobiles we still build applications that hoard the data. From this, the notion of data sharing between applications arises. Tim Berners-Lee and W3C failed to change that with Semantic Web. May be they failed due to obscure and complex formats they invented, or may be we collectively did not yet then get scared enough of a rapidly centralizing Web.
 
-So what if we built apps the other way around, in a way where all data would belong not to the app / website owner, but to the user. App would visit the data, help the user with some insights and either go away, or go to sleep. Data would remain user's and never get exfiltrated. Later a different app can visit the same data and draw new insights. No need for sharing data between apps, as when data leaves you, you lose control over it. This does not mean we never share data, we do, with friends and teams, but not with apps and their owners.
+So what if we built apps the other way around, in a way where all data would belong not to the app / website owner, but to the user. App would visit the data, help the user with some insights and either go away, or go to sleep. Data would remain user's and never get exfiltrated, or possessed by the app. Later a different app can visit the same data and draw new insights. No need for sharing data between apps, as when data leaves you, you lose control over it. This does not mean we never share data, we do, with friends and teams, but not with apps and their owners.
 
 Hypercore, with its data-first design fits this paradigm.
 
@@ -75,7 +75,7 @@ Initial impulse for the design exploration of Hypercore has arrived from the Dat
 
 We started Tradle with the notion that Credit Bureaus, and any other identity aggregators, are the systemic risk for our economy and personal safety. With Equifax disaster, which lost detailed financial information of all working Americans, we now know for sure that data aggregators are evil.
 
-But Data Sovereignty became a new and powerful phenomena for us as AWS data centers are present in only 15 countries at the moment. Besides, in many countries storing sensitive data in the data center owned by a foreign operator is not permitted. And, interestingly, in Europe it is becoming a sore point too. It is not surprising, as Snowden's revelations showed, that whole population data, centralized in a small number of corporate hands, are so attractive for the governments. The temptation is just too great. And now there is also a [US Cloud Act](https://en.wikipedia.org/wiki/CLOUD_Act).
+But Data Sovereignty became a new and powerful phenomena for us as AWS data centers are present in only 15 countries at the moment (similar with other Cloud Hyperscalers). Besides, in many countries storing sensitive data in the data center owned by a foreign operator is not permitted. And, interestingly, in Europe it has recently [become a sore point](https://www.bbc.com/news/technology-53418898) and a new policy for [Data Sovereignty is forming](https://ec.europa.eu/digital-single-market/en/policies/building-european-data-economy). It is not surprising, as Snowden's revelations showed, that whole population data, centralized in a small number of corporate hands, are a powerful magnet for governments. The temptation is just too great. And now there is also a [US Cloud Act](https://en.wikipedia.org/wiki/CLOUD_Act).
 
 ### Local Data Centers have lost to AWS and other Hyperscalers, so what is the Point?
 
@@ -181,9 +181,13 @@ This is supported by local peer discovery (with the help of MDNS). Allows sharin
 
 Supports for super-large file sizes is important for scientific data sets. Support for BitTorrent-stile download acceleration by downloading from multiple universities simultaneously is also a critical capability. Allows verifying integrity of chunks of data loaded in parallel from untrusted peers.
 
-But let's not forget Hypercore's totally unique capability for Database streaming, which allows Petabyte-scale DB served remotely, without a database server. Hyperbee can be [shoved onto S3](https://github.com/random-access-storage/random-access-s3), or an equivalent store, and streamed without a worry, which is available in Hypercore [since 2017](https://blog.datproject.org/2017/05/24/upgrade-your-dat/).
+But let's not forget Hypercore's totally unique capability for Database streaming, which allows Petabyte-scale DB served remotely, without a database server.
 
-Any Database Server can be accessed remotely and many can serve huge databases. But they need operational management and have associated human resources costs. Such costs are detrimental for example to a new popular with developers class of Serverless applications.
+What new killer apps will this novel database approach create? Here is one possible example, a Database CDN. We are used to static files served on the edge, but a Hyperbee data structure can be [piped onto AWS S3](https://github.com/mafintosh/hypercore-archiver), and streamed from it without a server, with the help of this (https://github.com/random-access-storage/random-access-s3).
+
+Any Database Server can be accessed remotely and many can serve huge databases. But a server needs a machine, and human resources associated with its operational management. Such costs are detrimental for pay-per-use model of the cloud and especially to a new popular with developers class of Serverless applications.
+
+Let's repeat this point again: Hypercore's database structure gives us an ability to access the database remotely, without a database server, and without a database client, too. This point needs to sync in so that engineers can pause and ask themselves the question - how will this reshape [multi-tier applications](https://en.wikipedia.org/wiki/Multitier_architecture)? What applications will benefit from this the most?
 
 ### Live streaming
 
