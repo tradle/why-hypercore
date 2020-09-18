@@ -77,7 +77,7 @@ Tradle MyCloud is installed by its users under their own AWS account, so they en
 
 We started Tradle with the notion that Credit Bureaus, and any other identity aggregators, are a systemic risk for our economy and personal safety. With the Equifax disaster, in which Equifax lost detailed financial information of all working Americans, we now know for sure that data aggregators are evil.
 
-But Data Sovereignty became a new and powerful phenomena for us as AWS data centers are present in only 15 countries at the moment (similar with other Cloud Hyperscalers). Besides, in many countries storing sensitive data in the data center owned by a foreign operator is not permitted. And, interestingly, in Europe it has recently [become a sore point](https://www.bbc.com/news/technology-53418898) and a new policy for [Data Sovereignty is forming](https://ec.europa.eu/digital-single-market/en/policies/building-european-data-economy). It is not surprising, as Snowden's revelations showed, that whole population data, centralized in a small number of corporate hands, are a powerful magnet for governments. The temptation is just too great. And now there is also a [US Cloud Act](https://en.wikipedia.org/wiki/CLOUD_Act).
+So with MyCloud we solved data ownership issue. But Data Sovereignty became a new and powerful phenomena for us as AWS data centers are present in only 15 countries at the moment (similar with other Cloud Hyperscalers). Besides, in many countries storing sensitive data in the data center owned by a foreign operator is not permitted. And, interestingly, in Europe it has recently [become a sore point](https://www.bbc.com/news/technology-53418898) and a new policy for [Data Sovereignty is forming](https://ec.europa.eu/digital-single-market/en/policies/building-european-data-economy). It is not surprising, as Snowden's revelations showed, that whole population data, centralized in a small number of corporate hands, are a powerful magnet for governments. The temptation is just too great. And now there is also a [US Cloud Act](https://en.wikipedia.org/wiki/CLOUD_Act).
 
 ### Local Data Centers have lost to AWS and other Hyperscalers, so what is the Point?
 
@@ -93,9 +93,13 @@ Many other innovations are happening on the Edge of the network, outside of the 
 
 ### Tradle on AWS can be adapted to move to Hypercore
 
-Luckily Tradle uses only a small subset of AWS services, and this makes the task manageable. Even better, [Tradle MyCloud](https://github.com/tradle/mycloud) already uses an emulation layer for AWS, called [Localstack](https://github.com/localstack/localstack). Localstack is sufficient to run and debug Tradle MyCloud but is inherently unreliable and is single-tenant.
+Luckily Tradle uses only a small subset of AWS services, and this makes the task manageable. See our current AWS architecture:
 
-We need a solid base that can be deployed in any Local Data Center, removing our dependency on AWS. This document outlines the steps we can take by replacing one by one its components with the enterprise-grade production-ready components for multi-tenancy. 
+![AWS architecture](Tradle-MyCloud-aws-architecture.png)
+
+What makes this task even more practical is that [Tradle MyCloud](https://github.com/tradle/mycloud) already uses an emulation layer for AWS, called [Localstack](https://github.com/localstack/localstack). Localstack is sufficient to run and debug Tradle MyCloud but is inherently unreliable and is single-tenant.
+
+We need a solid base that can be deployed in any Local Data Center, removing our dependency on AWS. This document outlines the steps we can take by replacing one by one its components with the enterprise-grade production-ready components for multi-tenancy.
 
 ## Assembling a modern Cloud stack on Hypercore
 
