@@ -247,16 +247,23 @@ Probably copying the Hypercore's directory to another machine and copying a priv
 
 Yes. see [Hypercore archiver](https://awesome.datproject.org/hypercore-archiver) 
 
-Need help with this. How archiver can be used to backup to s3 and to quickly restore from S# utilizing streaming (sparse download). This would work like AWS EBS drive recovery from a snapshot. Although restore process is still taking place, EBS drive is already made available.
+Need help with this:
+Unanswered questions:
+
+1) **Backup**. How the above archiver can be used to backup to s3 if [underlying module's](https://github.com/random-access-storage/random-access-s3) write method is not implemented?
+
+2) **Streaming + replicating**. How to restore from S3 utilizing streaming (sparse download). This should work like AWS EBS drive recovery from a snapshot. Although restore process is still taking place, EBS drive is already made available. Sparse download though is downloading only what is requested, leaving.
+
+3) **Key management**. How to assume ownership of the restored Hypercores? How to avoid saving secretKey to backup and where to get it to set on the feed after the restore?
 
 ## Is network traffic encrypted end-to-end?
 
 Yes, but not for Hyperswarm (Need confirmation)
 Hypercore uses [Noise protocol](https://github.com/mafintosh/noise-network) for authentication and encryption (this is the protocol designed as part of Signal Messenger and is now used by WhatsApp, WireGuard, Lightning, and I2P).
 
-A channel is open for sharing one Hypercore. Multiple channels can use the same connection. Each channel gets its own encryption and keys are rotated for forward secrecy (attacker that cracked this session's key will have to crack it again for the next session).
+A new channel is open for sharing each Hypercore, thus multiple channels use the same connection, which is great. With the help of Noise protocol, each channel gets its own encryption and keys are rotated to achieve forward secrecy (attacker who cracked this session's key will have to crack it again for the next session).
 
-Note, a always with end-to-end encryption, you need to watch out for the cases when you introduce a proxy in the middle, for example to deal with overly restrictive firewalls.
+Note, as always with end-to-end encryption, you need to watch out for the cases when you introduce a proxy in the middle, for example to deal with overly restrictive firewalls. The best approach is for the Proxy to be blind, just passing encrypted streams between peers.
 
 ## How to discover all feeds that a peer can give us?
 
