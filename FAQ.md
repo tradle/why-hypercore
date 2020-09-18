@@ -216,7 +216,9 @@ Hypertrie now provides Mounts which allow to present other people's drives as yo
 
 ### Union of Hyperbees?
 
-Maybe [streaming sort-merge mechanism](http://github.com/mafintosh/sorted-union-stream) can help? I wonder if it is performant across millions of Hyperbees? Like on an e-commerce site, a merchant would search for orders from a million people? May be with incremental merges? Cabal / Cobox / Kappa have gained some experience with [re-indexing of multiple remote feeds in a local feed](https://discordapp.com/channels/709519409932140575/709519410557222964/756414542669676573) and their approach works for groups but does not scale for e-commerce use cases.
+Maybe [streaming sort-merge mechanism](http://github.com/mafintosh/sorted-union-stream) can help? I wonder if it is performant across millions of Hyperbees? Like on an e-commerce site, a merchant would search for orders from a million people? May be with incremental merges?
+
+Cabal / Cobox / Kappa have gained some experience with [re-indexing of multiple remote feeds in a local feed](https://discordapp.com/channels/709519409932140575/709519410557222964/756414542669676573) and their approach works for groups but does not scale for e-commerce use cases.
 
 ### Practical conflict resolution for common use cases
 
@@ -388,4 +390,6 @@ Hyperdrive is a library and also provides a [daemon](https://github.com/hypercor
 
 ## Where can I learn more about Hypercore universe?
 
-In the summer of 2020 there was a [Dat Conference](https://www.youtube.com/playlist?list=PL7sG5SCUNyeYx8wnfMOUpsh7rM_g0w_cu). You can see the breadth of discussions that took place, both on tech and the opportunities. Note that Dat is the old name for Hypercore. The transition is in full swing, but you will still see it a lot.
+1. In the summer of 2020 there was a [Dat Conference](https://www.youtube.com/playlist?list=PL7sG5SCUNyeYx8wnfMOUpsh7rM_g0w_cu). You can see the breadth of discussions that took place, both on tech and the opportunities. Note that Dat is the old name for Hypercore. The transition is in full swing, but you will still see it a lot.
+
+2. [Kappa workshop](https://github.com/kappa-db/workshop) is a great basic intro, we [forked it](https://github.com/tradle/hypercore-workshop) to update to new materials and shift focus to core Hypercore modules.
