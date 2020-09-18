@@ -19,6 +19,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [Is there a discovery system to learn what feeds the other peer shares?](#is-there-a-discovery-system-to-learn-what-feeds-the-other-peer-shares)
 - [If Hypercore is a P2P Web, what is its URL format?](#if-hypercore-is-a-p2p-web-what-is-its-url-format)
 - [Does hypercore support writing by multiple people?](#does-hypercore-support-writing-by-multiple-people)
+  - [Filesystem workaround](#filesystem-workaround)
   - [Union of Hyperbees?](#union-of-hyperbees)
   - [Practical conflict resolution for common use cases](#practical-conflict-resolution-for-common-use-cases)
   - [Simulated multi-writer on top of multiple single-writers](#simulated-multi-writer-on-top-of-multiple-single-writers)
@@ -209,6 +210,10 @@ Instead may be we should leverage single-writer advantages of verifiable integri
 
 For example, in Tradle digital identity product the single-writer is a core pattern, that is no record can be edited other then by it's author, and data models are designed to accommodate this approach. It produces much safer Data Governance and cleaner audit trail. That still requires a search across all single-writer stores, sort of like a union of all Hyperbees.
 
+### Filesystem workaround
+
+Hypertrie now provides Mounts which allow to present other people's drives as your read-only subfolders. This is a good workaround, but not a shared filesystem like NFS.
+
 ### Union of Hyperbees?
 
 Maybe [streaming sort-merge mechanism](http://github.com/mafintosh/sorted-union-stream) can help? I wonder if it is performant across millions of Hyperbees? Like on an e-commerce site, a merchant would search for orders from a million people? May be with incremental merges?
@@ -225,9 +230,9 @@ There are cases when CRDT algorithm is more suitable than database concurrency. 
 
 ### Simulated multi-writer on top of multiple single-writers
 
-A community produced multi-writer [KappaDB](https://github.com/kappa-db) was created as part of [Cobox community](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/3_mock-up/technology/architecture.md).
+[Cobox community](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/3_mock-up/technology/architecture.md) produced a multi-writer DB [KappaDB](https://github.com/kappa-db).
 
-An older [HyperDB](https://github.com/mafintosh/hyperdb) project is a multi-writer database, but it is not seeing any support anymore, presumably as it could not be made performant, but it may still help some apps before a replacement comes in (need confirmation).
+[HyperDB](https://github.com/mafintosh/hyperdb) is an older Hypercore project which is a multi-writer database, but it is not seeing any support anymore, presumably as it could not be made performant, but it may still help some apps before a replacement comes in (need confirmation).
 
 ### Is it multi-process-safe?
 
