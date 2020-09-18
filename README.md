@@ -183,7 +183,7 @@ Support for super-large file sizes is important for scientific data sets. Suppor
 
 But let's not forget Hypercore's totally unique capability for Database streaming, which allows Petabyte-scale DB served remotely, without a database server.
 
-What new killer apps will this novel database approach create? Here is one possible example, a Database CDN. We are used to static files served on the edge, but a Hyperbee data structure can be [piped onto AWS S3](https://github.com/mafintosh/hypercore-archiver), and streamed from it without a server, with the help of this (https://github.com/random-access-storage/random-access-s3).
+What new killer apps will this novel database approach create? Here is one possible example, a Database CDN. We are used to static files served on the edge, but a Hyperbee data structure can be [piped onto AWS S3](https://github.com/mafintosh/hypercore-archiver), and streamed from it without a server, with the help of this [module](https://github.com/random-access-storage/random-access-s3).
 
 Any Database Server can be accessed remotely and many can serve huge databases. But a server needs a machine, and human resources associated with its operational management. Such costs are detrimental for pay-per-use model of the cloud and especially to a new popular with developers class of Serverless applications.
 
