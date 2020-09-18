@@ -39,7 +39,7 @@ If you do not find answers to your questions below. See the [extensive FAQ](FAQ.
 
 ### Monopolies are not good
 
-Web's Hub and spoke technical architecture is the reason we have now the monopolies with billions of users, the size of which we never seen before.
+The web's hub and spoke technical architecture is the reason we now have monopolies with billions of users, the size of which was never seen before.
 Billion dollar fines for them seem to be issued every year now, but this is not a solution.
 We need a new P2P architecture and Hypercore is it.
 
@@ -65,15 +65,15 @@ We explored a plethora of systems for privacy-focused first-person data manageme
 
 Our requirements include Personal Cloud that will then evolve to SME Cloud. We have already built an Enterprise Cloud system for the banks (we call it MyCloud), so we know the higher end requirements quite well. Hypercore will give us many things we need, such as reliable messaging for our Transactional Messenger, data sharing for teams, will provide the Data Integrity we need for compliance, and Change Data Management for building search indexes, Data Lakes and to run ETL jobs.
 
-What we have found in Hypercore is highly modularized and composable framework, with many standard APIs, and reusable abstractions that allow developers to plug in alternative implementations. Unlike any competing P2P framework, Hypercore's design allows for a much wider class of privacy-first applications, which is on our roadmap.
+What we have found in Hypercore is a highly modularized and composable framework, with many standard APIs, and reusable abstractions that allow developers to plug in alternative implementations. Unlike any competing P2P framework, Hypercore's design allows for a much wider class of privacy-first applications, which is on our roadmap.
 
-Hypercore is also like a puzzle of hundred pieces. It is its strength but also its complexity. It is not easy to build on top of today, and this limits its potential. At Tradle we would hope to help higher-level developers with tools to build P2P apps really fast.
+Hypercore is also like a puzzle of a hundred pieces. It is its strength but also its complexity. It is not easy to build on top of today, and this limits its potential. At Tradle we would hope to help higher-level developers with tools to build P2P apps really fast.
 
 ### What was the Initial Impulse?
 
 Initial impulse for the design exploration of Hypercore has arrived from the Data Sovereignty demands we got from the banks and the governments for our open source Digital Identity product. Tradle server, called MyCloud, we had decentralization figured out, or so we thought. Tradle MyCloud is installed by its users under their own AWS account, so you end up with your own your Tradle installation. It is serviced by Tradle support staff, but from the outside, without any access to your data or operations. We call it Private SaaS.
 
-We started Tradle with the notion that Credit Bureaus, and any other identity aggregators, are the systemic risk for our economy and personal safety. With Equifax disaster, which lost detailed financial information of all working Americans, we now know for sure that data aggregators are evil.
+We started Tradle with the notion that Credit Bureaus, and any other identity aggregators, are the systemic risk for our economy and personal safety. With the Equifax disaster, which lost detailed financial information of all working Americans, we now know for sure that data aggregators are evil.
 
 But Data Sovereignty became a new and powerful phenomena for us as AWS data centers are present in only 15 countries at the moment (similar with other Cloud Hyperscalers). Besides, in many countries storing sensitive data in the data center owned by a foreign operator is not permitted. And, interestingly, in Europe it has recently [become a sore point](https://www.bbc.com/news/technology-53418898) and a new policy for [Data Sovereignty is forming](https://ec.europa.eu/digital-single-market/en/policies/building-european-data-economy). It is not surprising, as Snowden's revelations showed, that whole population data, centralized in a small number of corporate hands, are a powerful magnet for governments. The temptation is just too great. And now there is also a [US Cloud Act](https://en.wikipedia.org/wiki/CLOUD_Act).
 
@@ -83,7 +83,7 @@ In the past 10 years there were many failed attempts to create Open Source AWS a
 
 The most massive effort was OpenStack. But AWS is a very fast moving target and simulating all that it does (160+ services and counting), became impossible. OpenStack was designed by Rackspace initially, but later adopted a multi-stakeholders committee process, which turned out to be very complex to manage and just plain too slow to chase AWS.
 
-Luckily, in the past 10 years major components of Cloud's virtualization and networking have become part of the standard Linux kernel or have emerged as Open Source projects. This is KVM and WireGuard, FireCracker and Containers, S3-compatible storage like Min.io and scalable low-management databases like Facebook’s RocksDB and the CockroachDB, built on top of it, by former Google Spanner engineers.
+Luckily, in the past 10 years major components of Cloud's virtualization and networking have become part of the standard Linux kernel or have emerged as Open Source projects. This is KVM and WireGuard, FireCracker and Containers, S3-compatible storage like Min.io and scalable low-management databases like Facebook’s RocksDB and CockroachDB, built on top of it, by former Google Spanner engineers.
 
 Many other innovations are happening on the Edge of the network, outside of the AWS stronghold. This is Fly.io serverless offering with FireCracker and Redis, CloudFlare serverless with Node V8 Isolates (like Workers Threads) and Key-Value store, Fastly.io serverless with blazingly fast WebAssembly.
 
@@ -135,27 +135,27 @@ Hyperbee is compliant to Level API, which allows it to become a drop-in replacem
 
 Protects every data item from unauthorized modifications and assures that the old data is intact (Thus is similar to blockchain, where all transactions are added to a Merkle tree and new blocks linked to old ones).
 
-In Hypercore, the writer digitally signs any addition or change. Previous version of the data is kept and can be retrieved later. This creates a very nice audit trail.
+In Hypercore, the writer digitally signs any addition or change. Previous versions of the data are kept and can be retrieved later. This creates a very nice audit trail.
 
-Note that it still lacks secure timestamping and allows author to roll back to a previous version and start again, without the peers that arrived after the fact noticing it. Both can be prevented with a blockchain-based binding (e.g. such as used by Tradle).
+Note that it still lacks secure timestamping and allows the author to roll back to a previous version and start again, without the peers that arrived after the fact noticing it. Both can be prevented with a blockchain-based binding (e.g. such as used by Tradle).
 
 This can further benefit from [qualified digital signatures](https://en.wikipedia.org/wiki/Qualified_digital_certificate) compliant to eIDAS in EU, equivalent US laws [E-Sign Act](http://www.gpo.gov/fdsys/pkg/PLAW-106publ229/content-detail.html) and [UETA](https://www.uniformlaws.org/committees/community-home?communitykey=2c04b76c-2b7d-4399-977e-d5876ba7e034&tab=groupdetails)), and other jurisdictions that accept digital signatures in the court of law. This would also be critical for forensic investigations in regulated industries and for criminal investigations (This lack can be alleviated by Tradle with its finance-grade identity management and associated digital signatures to alleviate this).
 
 ### Uniformity
 
-Hypercore allows to discover peers in the network and connect to them to consistently and reliably exchange all types of data. Hypercore uniquely works for messaging, files, huge media, IoT streams and databases. Uniquely, it allows to stream all those data, a notion that exiting for media but was not attempted before for databases.
+Hypercore allows to discover peers in the network and connect to them to consistently and reliably exchange all types of data. Hypercore uniquely works for messaging, files, huge media, IoT streams and databases. Uniquely, it allows to stream all those data, a notion that existed for media, but was not attempted before for databases.
 
 ### Recovery
 
-Hypercore uniquely works for both files and databases. Provides point-in-time restore from any past versions of the data state. This simulates both the DynamoDB point-in-time backup / restore and S3 object versioning. This capability can also be used as snapshots, as it allows to checkout the store, tagged at a particular version. This may be used for devops and for development. It can also be used for in forensic investigations for regulated industries and in criminal investigations.
+Hypercore uniquely works for both files and databases. Provides point-in-time restore from any past versions of the data state. This simulates both the DynamoDB point-in-time backup / restore and S3 object versioning. This capability can also be used as snapshots, as it allows to checkout the store, tagged at a particular version. This may be used for devops and for development. It can also be used in forensic investigations for regulated industries and in criminal investigations.
 
 ### Shared files and folders (like Dropbox or Google Drive)
 
-Hyperdrive, one of Hypercore components provides the core capabilities. It allows to shared a drive with the family, friends and teams. To compete with Dropbox and Drive, it needs durability, typically associated with the Cloud. Inherent replication capability of Hypercore comes handy as any sharing with peers increases the durability, but it is not enough. What is missing also is mobile and browser implementations and easy UI, permission system, notifications, etc.
+Hyperdrive, one of Hypercore components provides the core capabilities. It allows to share a drive with the family, friends and teams. To compete with Dropbox and Drive, it needs durability, typically associated with the Cloud. Inherent replication capability of Hypercore comes handy as any sharing with peers increases the durability, but it is not enough. What is missing also is mobile and browser implementations and easy UI, permission system, notifications, etc.
 
 ### Shared document editing like Google Docs and Google Slides
 
-Because Hypercore is designed for immediacy of realtime data exchanges, it can be used for simultaneous editing. Its P2P nature allows it to work without a central site. What is also needed is intelligent document merge. There are two community projects that provide the missing capability. [YJS](https://github.com/yjs/yjs) and [Hypermerge](https://github.com/automerge/hypermerge).
+Because Hypercore is designed for immediacy of real time data exchanges, it can be used for simultaneous editing. Its P2P nature allows it to work without a central site. What is also needed is intelligent document merge. There are two community projects that provide the missing capability. [YJS](https://github.com/yjs/yjs) and [Hypermerge](https://github.com/automerge/hypermerge).
 
 Like with the Hyperdrive, the remaining issue to be solved is the always-online nature of competing non-P2P services.
 
@@ -175,14 +175,15 @@ There is still work to be done for making Hypercore more private, e.g. improve H
 
 ### Local file sharing, like Apple Airdrop
 
-This is supported by local peer discovery (with the help of MDNS). Allows sharing on local network, without going to the internet. This is another privacy and security enhancing capability.
+This is supported by local peer discovery (with the help of MDNS). Allows sharing on the local network, without going to the internet. This is another privacy and security enhancing capability.
 
 ### Research data and DB sharing
 
-Supports for super-large file sizes is important for scientific data sets. Support for BitTorrent-stile download acceleration by downloading from multiple universities simultaneously is also a critical capability. Allows verifying integrity of chunks of data loaded in parallel from untrusted peers.
+Support for super-large file sizes is important for scientific data sets. Support for BitTorrent-stile download acceleration by downloading from multiple universities simultaneously is also a critical capability. Allows verifying integrity of chunks of data loaded in parallel from untrusted peers.
 
 But let's not forget Hypercore's totally unique capability for Database streaming, which allows Petabyte-scale DB served remotely, without a database server.
 
+<<<<<<< HEAD
 What new killer apps will this novel database approach create? Here is one possible example, a Database CDN. We are used to static files served on the edge, but a Hyperbee data structure can be [piped onto AWS S3](https://github.com/mafintosh/hypercore-archiver), and streamed from it without a server, with the help of this (https://github.com/random-access-storage/random-access-s3).
 
 Any Database Server can be accessed remotely and many can serve huge databases. But a server needs a machine, and human resources associated with its operational management. Such costs are detrimental for pay-per-use model of the cloud and especially to a new popular with developers class of Serverless applications.
@@ -191,18 +192,18 @@ Let's repeat this point again: Hypercore's database structure gives us an abilit
 
 ### Live streaming
 
-Hypercore enables live streaming as allows to upload video and for viewers to start downloading media, before the whole file is uploaded. Allows to pause, rewind, fast-forward and view from any point.
+Hypercore enables live streaming as allows to upload video and for viewers to start downloading media, before the whole file is uploaded. It also allows to pause, rewind, fast-forward and view from any point.
 
 1. Concerts and podcasting. Note that although critical, Hypercore is not a complete set of capabilities needed for live streaming apps, e.g. they need video transcoding, micro-payments. Note [Dazaar](https://blog.bitfinex.com/dazaar/dazaar-how-the-internet-should-be-open-free-and-hyper-scalable/), a Hypercore team's recent collaboration with Bitfinex on micropayments for streaming apps based on Hypercore.
 2. Security cameras: at the door or inside (nanny cam). Such non-P2P apps are a gross privacy concern.
 3. Other Home sensors.
-4. Car signals and cameras. Cars are expected to generate the majority of data on Internet, at the rate of terabytes per hour. 
+4. Car signals and cameras. Cars are expected to generate the majority of data on the Internet, at the rate of terabytes per hour. 
 5. Wearables signals (fitness, health, location for child / elderly monitoring)
 6. Building and Equipment signals streaming.
 7. Drone cameras. 
 8. Other **IoT** signals
 
- Note that livestreaming also needs always-online capability for content sharing, like any other P2P apps.
+ Note that live streaming also needs always-online capability for content sharing, like any other P2P apps.
 
 ### CDN
 
