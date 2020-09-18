@@ -71,9 +71,11 @@ Hypercore is also like a puzzle of a hundred pieces. It is its strength but also
 
 ### What was the Initial Impulse?
 
-Initial impulse for the design exploration of Hypercore has arrived from the Data Sovereignty demands we got from the banks and the governments for our open source Digital Identity product. Tradle server, called MyCloud, we had decentralization figured out, or so we thought. Tradle MyCloud is installed by its users under their own AWS account, so you end up with your own your Tradle installation. It is serviced by Tradle support staff, but from the outside, without any access to your data or operations. We call it Private SaaS.
+Initial impulse for the design exploration of Hypercore has arrived from the Data Sovereignty demands we got from the banks and the governments for our open source Digital Identity product. With Tradle server, called MyCloud, we had decentralization figured out, or so we thought.
 
-We started Tradle with the notion that Credit Bureaus, and any other identity aggregators, are the systemic risk for our economy and personal safety. With the Equifax disaster, which lost detailed financial information of all working Americans, we now know for sure that data aggregators are evil.
+Tradle MyCloud is installed by its users under their own AWS account, so they end up with their own Tradle installation. It is serviced by Tradle support staff, but from the outside, without any access to their data or operations. We call it Private SaaS.
+
+We started Tradle with the notion that Credit Bureaus, and any other identity aggregators, are a systemic risk for our economy and personal safety. With the Equifax disaster, in which Equifax lost detailed financial information of all working Americans, we now know for sure that data aggregators are evil.
 
 But Data Sovereignty became a new and powerful phenomena for us as AWS data centers are present in only 15 countries at the moment (similar with other Cloud Hyperscalers). Besides, in many countries storing sensitive data in the data center owned by a foreign operator is not permitted. And, interestingly, in Europe it has recently [become a sore point](https://www.bbc.com/news/technology-53418898) and a new policy for [Data Sovereignty is forming](https://ec.europa.eu/digital-single-market/en/policies/building-european-data-economy). It is not surprising, as Snowden's revelations showed, that whole population data, centralized in a small number of corporate hands, are a powerful magnet for governments. The temptation is just too great. And now there is also a [US Cloud Act](https://en.wikipedia.org/wiki/CLOUD_Act).
 
@@ -165,7 +167,7 @@ All data is available when offline. Messages and media (of any size) are deliver
 
 ### Group messaging
 
-using publish / subscribe capability of Hypercore. 
+Using publish / subscribe capability of Hypercore (TBD - need to describe further).
 
 ### Direct media sharing
 
