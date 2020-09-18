@@ -3,7 +3,8 @@
         "automerge",
         "cobox",
         "key",
-        "public"
+        "public",
+        "ueta"
     ],
     "cSpell.words": [
         "ceph"
