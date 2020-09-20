@@ -17,6 +17,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [Does Hyperswarm work in browsers, on mobile?](#does-hyperswarm-work-in-browsers-on-mobile)
   - [Is there an authentication system?](#is-there-an-authentication-system)
   - [Is there a discovery system to learn what feeds the other peer shares?](#is-there-a-discovery-system-to-learn-what-feeds-the-other-peer-shares)
+  - [Help me picture use cases for Hyperswarm?](#help-me-picture-use-cases-for-hyperswarm)
 - [If Hypercore is a P2P Web, what is its URL format?](#if-hypercore-is-a-p2p-web-what-is-its-url-format)
 - [Does hypercore support writing by multiple people?](#does-hypercore-support-writing-by-multiple-people)
   - [Filesystem workaround](#filesystem-workaround)
@@ -204,6 +205,14 @@ Yes. Each Hypercore feed has a corresponding public / private key pair.
 
 Yes. Managed by Corestore, or community provided multifeed.
 Need help with this.
+
+### Help me picture use cases for Hyperswarm?
+
+Hyperswarm's mission is to help discover peers you want to connect to without using a server. So use it when you need to:
+
+- establish a [Video chat session over WebRTC](https://twitter.com/pfrazee/status/1248744869419458561), which otherwise needs a [STUN server](https://www.callstats.io/blog/2017/10/26/webrtc-product-turn-server). You might optionally use Peersockets module, which adds convenience and efficiency for [talking to peers on a swarm topic](https://github.com/andrewosh/peersockets).
+
+- connect to peers sitting behind home routers, which otherwise can't connect to each other. (Hyperswarm's here is so called NAT hole punching). Keep in mind this does not work on mobiles, and requires a proxy. Our idea is to use not a public server, but a Personal Cloud as such a proxy, to avoid loss of privacy.
 
 ## If Hypercore is a P2P Web, what is its URL format?
 
