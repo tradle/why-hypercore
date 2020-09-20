@@ -75,7 +75,16 @@ How is it different from a DB that we normally access via API on the network tod
 
 ### How is Hypercore different from BitTorrent, WebTorrent?
 
-**BitTorrent**. Hypercore can do what BitTorrent does and more. Hypercore can do discovery and accelerated file download with bandwidth-sharing like BitTorrent. But Hypercore can do more - it is built as a data and communications framework for modern applications. Applications need data structures, like Hypercore log, Hypertrie key-value store and Hyperbee database, and importantly data needs to be editable. BitTorrent has none of that and it is inherently immutable (yes, proposals exist for extending BitTorrent to modifiable data, but did they gain ground and are they the afterthought for the protocol?).
+**BitTorrent**. Hypercore can do what BitTorrent does and more. Hypercore can do discovery and accelerated file download with bandwidth-sharing like BitTorrent. 
+
+But Hypercore can do more - it is built as a data and communications framework for modern decentralized applications.
+
+1. Applications need data structures. Hypercore provides append-only log, Hypertrie key-value store, Hyperbee database and Hyperdrive filesystem.
+2. Hypercore support data editing as a design principle. [BitTorrent enhancement BEP 46](https://news.ycombinator.com/item?id=17306106) exists for updating files, but it does not allow updating a record in a database, so is not suitable for applications.
+3. It provides data add/edit version history which allows auditing, point-in-time-recovery, and state snapshots.
+4. It provides sparse download like BitTorrent, but extends it to databases.
+5. Hypercore has data access authentication.
+6. Hypercore has network encryption.
 
 **WebTorrent**. WebTorrent is awesome, it pioneered BitTorrent in browsers and its is a great success, but its mission statement was just that, a BitTorrent for the Web.
 
