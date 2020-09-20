@@ -72,7 +72,9 @@ Note, when reading Hypercore docs you will find many references to Sparse files 
 
 There is a new hot area in Big Data world for querying static databases. In AWS it is Athena, based on Apache Presto engine, and SQL SELECT. CSV Files (or files in JSON, Parquet, ORC, Avro formats) are shoved into S3 and then queried by Serverless applications and by Business Intelligence packages like Tableau.
 
-This requires no databases servers and shows where Hyperbee can be very useful What other applications can we think of that can be enabled by such a server-less DB?
+This requires no databases servers and shows where Hyperbee can be very useful. 
+
+What other applications that can we think of that can be enabled by such a server-less DB, a DB that redefines how querying is done (via sparse data propagation), a DB that embeds a replication mechanism?
 
 Some pointers to possible answers can be found when we compare a P2P source control system Git that replaced SVN and CVS which used central server. Those entrepreneurs that think "Is it possible to make a big business on this?", please note that Microsoft bought Github for $7.5B.
 
