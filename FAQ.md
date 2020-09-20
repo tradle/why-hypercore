@@ -212,7 +212,9 @@ Ideas that fit Hyperswarm's mission to help discover peers and connect to them w
 
 - establish a [Video chat session over WebRTC](https://twitter.com/pfrazee/status/1248744869419458561), which otherwise needs a [STUN server](https://www.callstats.io/blog/2017/10/26/webrtc-product-turn-server). Peersockets module adds convenience and efficiency for [talking to peers on a swarm topic](https://github.com/andrewosh/peersockets).
 
-- connect to peers sitting behind home routers, which otherwise can't connect to each other. (Hyperswarm's here is so called NAT hole punching). Keep in mind this does not work on mobiles, and requires a proxy. Our idea is to use not a public server, but a Personal Cloud as such a proxy, to avoid loss of privacy.
+- connect to peers sitting behind home routers, which otherwise can't connect to each other. (Hyperswarm's here is so called NAT hole punching). Keep in mind this does not work on mobiles (and behind some corporate firewalls), and requires a proxy (e.g. This post says [30% of P2P connections need TURN proxy](https://www.callstats.io/blog/2017/10/26/webrtc-product-turn-server)). Our idea is to use not a public server, but a Personal Cloud as such a proxy, to avoid loss of privacy.
+
+- DNS replacement. E.g. client app needs to find a server. Router / balancer needs to find a particular server.
 
 - Server-less Contact Tracing on DHT. See this idea described in detail [in this paper](https://eprint.iacr.org/2020/398.pdf).
 
