@@ -208,11 +208,15 @@ Need help with this.
 
 ### Help me picture use cases for Hyperswarm?
 
-Hyperswarm's mission is to help discover peers you want to connect to without using a server. So use it when you need to:
+Ideas that fit Hyperswarm's mission to help discover peers and connect to them without using any servers:
 
-- establish a [Video chat session over WebRTC](https://twitter.com/pfrazee/status/1248744869419458561), which otherwise needs a [STUN server](https://www.callstats.io/blog/2017/10/26/webrtc-product-turn-server). You might optionally use Peersockets module, which adds convenience and efficiency for [talking to peers on a swarm topic](https://github.com/andrewosh/peersockets).
+- establish a [Video chat session over WebRTC](https://twitter.com/pfrazee/status/1248744869419458561), which otherwise needs a [STUN server](https://www.callstats.io/blog/2017/10/26/webrtc-product-turn-server). Peersockets module adds convenience and efficiency for [talking to peers on a swarm topic](https://github.com/andrewosh/peersockets).
 
 - connect to peers sitting behind home routers, which otherwise can't connect to each other. (Hyperswarm's here is so called NAT hole punching). Keep in mind this does not work on mobiles, and requires a proxy. Our idea is to use not a public server, but a Personal Cloud as such a proxy, to avoid loss of privacy.
+
+- Server-less Contact Tracing on DHT. See this idea described in detail [in this paper](https://eprint.iacr.org/2020/398.pdf).
+
+- Hyperswarm is also a Publish Subscribe in a way. Need help on this.
 
 ## If Hypercore is a P2P Web, what is its URL format?
 
