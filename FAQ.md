@@ -70,8 +70,11 @@ Note, when reading Hypercore docs you will find many references to Sparse files 
 
 ### What is a streaming DB?
 
-Need help with this.
-How is it different from a DB that we normally access via API on the network today? What applications can we think of that were not feasible before? Some pointers to possible answers can be found when we compare a P2P source control system Git, with the SVN and CVS before it which relied on a central server. Those entrepreneurs that think "Is it possible to make a big business on this?", please note that Microsoft bought Github for $7.5B.
+There is a new hot area in Big Data world for querying static databases. In AWS it is Athena, based on Apache Presto engine, and SQL SELECT. CSV Files (or files in JSON, Parquet, ORC, Avro formats) are shoved into S3 and then queried by Serverless applications and by Business Intelligence packages like Tableau.
+
+This requires no databases servers and shows where Hyperbee can be very useful What other applications can we think of that can be enabled by such a server-less DB?
+
+Some pointers to possible answers can be found when we compare a P2P source control system Git that replaced SVN and CVS which used central server. Those entrepreneurs that think "Is it possible to make a big business on this?", please note that Microsoft bought Github for $7.5B.
 
 ### How is Hypercore different from BitTorrent, WebTorrent?
 
