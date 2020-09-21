@@ -176,11 +176,8 @@ For reference, see how open source app [Consento](https://consento.org/) does it
 
 ### Is there a regular key rotation and key replacement mechanism?
 
-No. Only for ephemeral session encryption keys.
-
-Need help with this.
-Do community solutions exist?
-Can [Hypercore-multi-key](https://github.com/mafintosh/hypercore-multi-key) package help?
+Yes, for ephemeral session encryption keys.
+No, for Hypercore log, but can be added on top with the help of [Hypercore-multi-key](https://github.com/mafintosh/hypercore-multi-key) module which allows to switch to a new keypair. It is your responsibility to sign the new key with the old to establish the secure continuity, and to verify this signature on receiving nodes to prove the legality of key rotation. Perhaps this can be added as a protocol extension?
 
 ### Does Hyperswarm work in browsers, on mobile?
 
@@ -289,10 +286,13 @@ Unanswered questions:
 
 ## Is network traffic encrypted end-to-end?
 
-Yes, but not for Hyperswarm (Need confirmation)
-Hypercore uses [Noise protocol](https://github.com/mafintosh/noise-network) for authentication and encryption (this is the protocol designed as part of Signal Messenger and is now used by WhatsApp, WireGuard, Lightning, and I2P).
+1) Yes for Hypercore and 2) no for Hyperswarm.
 
-A new channel is open for sharing each Hypercore, thus multiple channels use the same connection, which is great. With the help of Noise protocol, each channel gets its own encryption and keys are rotated to achieve forward secrecy (attacker who cracked this session's key will have to crack it again for the next session).
+Hyperswarm uses uTP over UDP to connect to DHT nodes and for NAT traversal (hole-punching). It can use [Noise protocol](https://github.com/mafintosh/noise-network), but doesn't today [for performance reasons](https://discordapp.com/channels/709519409932140575/727886901100675083/757704436289372225). Hyperswarm also does not authenticate peers.
+
+Hypercore uses Noise protocol for authentication and encryption. Noise is the protocol designed as part of Signal Messenger and is now used by WhatsApp, WireGuard, Lightning, I2P, etc.
+
+A new channel is open for each Hypercore and multiple channels use the same connection, which is great. What is cool is that with the help of Noise, each channel gets its own encryption and keys are rotated to achieve forward secrecy (attacker who cracked this session's key will have to crack it again for the next session).
 
 Note, as always with end-to-end encryption, you need to watch out for the cases when you introduce a proxy in the middle, for example to deal with overly restrictive firewalls. The best approach is for the Proxy to be blind, just passing encrypted streams between peers.
 
@@ -304,7 +304,7 @@ The bootstrapping mechanism for this is to find peers, a Hyperswarm. But it is n
 
 ## Is Hypercore push or pull?
 
-Normally updates are pulled by the peers. Protocol supports a Push-ing data as well but it is [not exposed to the APIs](https://discordapp.com/channels/709519409932140575/709519410557222964/755797065879257178)
+Normally updates are pulled by the peers. Protocol supports a Push-ing data as well but it is [not exposed in the API today](https://discordapp.com/channels/709519409932140575/709519410557222964/755797065879257178)
 
 ## Can Hypercore storage be encrypted at-rest?
 
