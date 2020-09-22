@@ -83,7 +83,7 @@ Some pointers to possible answers can be found when we compare a P2P source cont
 
 ### How is Hypercore different from BitTorrent, WebTorrent?
 
-**BitTorrent**. Hypercore can do what BitTorrent does and more. Hypercore can do discovery and accelerated file download with bandwidth-sharing like BitTorrent. 
+**BitTorrent**. Hypercore can do what BitTorrent does and more. Hypercore can do discovery and accelerated file download with bandwidth-sharing like BitTorrent, that is, the more viewers watch, the better it works.
 
 But Hypercore can do more - it is built as a data and communications framework for modern decentralized applications.
 
