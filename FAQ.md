@@ -324,7 +324,7 @@ See the [issue for this](https://github.com/hyperswarm/hyperswarm/issues/62). Su
 
 [This solution uses 2 servers for signaling](https://github.com/RangerMauve/hyperswarm-web).
 
-Note that [WebTorrent works in the browser](https://webtorrent.io/docs). Need to investigate how they do it.
+Note that [WebTorrent works in the browser](https://webtorrent.io/docs). Need to investigate how they do it. They have been discussing ["DHT over WebRTC"](https://github.com/webtorrent/webtorrent/issues/288) for a long time.
 
 See a number of issues still pending resolution to make Hyperswarm and Hypercore [work in react-native](https://dat.discourse.group/t/dat-and-react-native/184)
 
