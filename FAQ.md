@@ -286,7 +286,7 @@ Hypercore itself adds:
 
 1) Yes for Hypercore and 2) no for Hyperswarm.
 
-Hyperswarm uses uTP over UDP to connect to DHT nodes and for NAT traversal (hole-punching). It can use [Noise protocol](https://github.com/mafintosh/noise-network), but doesn't today [for performance reasons](https://discordapp.com/channels/709519409932140575/727886901100675083/757704436289372225). Hyperswarm also does not authenticate peers.
+Hyperswarm uses uTP over UDP to connect to DHT nodes and for NAT traversal (hole-punching). It can use [Noise protocol](https://github.com/mafintosh/noise-network), but doesn't today [as it will cause extra round trips (RTT)](https://discordapp.com/channels/709519409932140575/727886901100675083/757704436289372225). Hyperswarm also does not authenticate peers. Note that TLS 1.3 achieves 0-RTT on re-connections, and QUIC achieves 0-RTT on the first connection. See [analysis and mitigation](https://noise.getoto.net/tag/0-rtt/) of the replay-attacks for these 0-RTT protocols by CloudFlare. Cloudflare open sourced [QUIC / HTTP/3 implementation in Rust](https://github.com/cloudflare/quiche) (so it may be able to run in WebAssembly in Node and browser). See alternative [0-RTT in Noise](https://noisesocket.org/post/1/), which removes dependency on SSL certificates.
 
 Hypercore uses Noise protocol for authentication and encryption. Noise is the protocol designed as part of Signal Messenger and is now used by WhatsApp, WireGuard, Lightning, I2P, etc.
 
