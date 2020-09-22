@@ -34,6 +34,7 @@ Take a look at Issues on this repository for the themes we are actively experime
   - [Research data and DB sharing](#research-data-and-db-sharing)
   - [Live streaming](#live-streaming)
   - [CDN](#cdn)
+  - [Headless CMS](#headless-cms)
   - [Continuous Backup](#continuous-backup)
 
 ## What is Hypercore?
@@ -222,6 +223,13 @@ Hypercore can be used to build a CDN for distributing files to the edge, and dis
 3. Real-time incremental CDN updates. Many CDNs take significant time to replace old files. And many require the full flush of current files. Hypercore can help optimize both with immediate updates and Change Management events.
 
 Note that Hypercore team still has work to do on efficient editing of large files. Editing existing files is inefficient, it currently results in file duplication. This is not good for videos and for FUSE-mounted Hyperdrive that has a big database file or a log file that needs to be appended to.
+
+### Headless CMS
+
+[Headless Content Management System](https://www.storyblok.com/tp/headless-cms-explained) separates a backend and a front-end.
+
+- CMS Backend can be built on Hypercore
+- CMS Front-end needs collaborative editing, that is one of the Hypercore use cases
 
 ### Continuous Backup
 

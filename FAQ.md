@@ -10,11 +10,8 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [How is Hypercore different from ScuttleButt and IPFS?](#how-is-hypercore-different-from-scuttlebutt-and-ipfs)
   - [Why Hypercore is not yet mainstream?](#why-hypercore-is-not-yet-mainstream)
   - [Who is using Hypercore P2P framework today?](#who-is-using-hypercore-p2p-framework-today)
-  - [Can data be deleted?](#can-data-be-deleted)
-  - [Does Hypercore work in the browser, on mobiles?](#does-hypercore-work-in-the-browser-on-mobiles)
   - [Is there support for social key recovery?](#is-there-support-for-social-key-recovery)
   - [Is there a regular key rotation and key replacement mechanism?](#is-there-a-regular-key-rotation-and-key-replacement-mechanism)
-  - [Does Hyperswarm work in browsers, on mobile?](#does-hyperswarm-work-in-browsers-on-mobile)
   - [Is there an authentication system?](#is-there-an-authentication-system)
   - [Is there a discovery system to learn what feeds the other peer shares?](#is-there-a-discovery-system-to-learn-what-feeds-the-other-peer-shares)
   - [Help me picture use cases for Hyperswarm?](#help-me-picture-use-cases-for-hyperswarm)
@@ -27,14 +24,19 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [Is it multi-process-safe?](#is-it-multi-process-safe)
   - [What is the biggest gotcha with Hypercore?](#what-is-the-biggest-gotcha-with-hypercore)
   - [Can Hypercore be backed up?](#can-hypercore-be-backed-up)
-- [Is network traffic encrypted end-to-end?](#is-network-traffic-encrypted-end-to-end)
-- [How to discover all feeds that a peer can give us?](#how-to-discover-all-feeds-that-a-peer-can-give-us)
-- [Is Hypercore push or pull?](#is-hypercore-push-or-pull)
-- [Can Hypercore storage be encrypted at-rest?](#can-hypercore-storage-be-encrypted-at-rest)
-- [Does Hypercore support zero-knowledge store / blind replication?](#does-hypercore-support-zero-knowledge-store--blind-replication)
-- [What are the reliability guarantees of Hypercore protocol?](#what-are-the-reliability-guarantees-of-hypercore-protocol)
-- [Does Hypercore support erasure-coding?](#does-hypercore-support-erasure-coding)
-- [Can Hypercore network protocol be extended?](#can-hypercore-network-protocol-be-extended)
+- [Network](#network)
+  - [What are the reliability guarantees of Hypercore protocol?](#what-are-the-reliability-guarantees-of-hypercore-protocol)
+  - [Is network traffic encrypted end-to-end?](#is-network-traffic-encrypted-end-to-end)
+  - [Is Hypercore push or pull?](#is-hypercore-push-or-pull)
+  - [How to discover all feeds that a peer can give us?](#how-to-discover-all-feeds-that-a-peer-can-give-us)
+  - [Does Hypercore work in the browser, on mobiles?](#does-hypercore-work-in-the-browser-on-mobiles)
+  - [Does Hyperswarm work in browsers, on mobile?](#does-hyperswarm-work-in-browsers-on-mobile)
+  - [Can Hypercore network protocol be extended?](#can-hypercore-network-protocol-be-extended)
+- [Storage](#storage)
+  - [Can Hypercore storage be encrypted at-rest?](#can-hypercore-storage-be-encrypted-at-rest)
+  - [Does Hypercore support zero-knowledge store / blind storage?](#does-hypercore-support-zero-knowledge-store--blind-storage)
+  - [Does Hypercore support erasure-coding?](#does-hypercore-support-erasure-coding)
+  - [Can data be deleted?](#can-data-be-deleted)
 - [Hypercore components / modules](#hypercore-components--modules)
   - [Hyperbee](#hyperbee)
     - [Only one Hyperbee per Hypercore?](#only-one-hyperbee-per-hypercore)
@@ -112,10 +114,11 @@ Some notes on IPFS goodies:
 - IPFS has a human friendly IPNS naming system, which Hypercore currently lacks.
 - IPFS project has produced solid core libraries, like libp2p, solving many of the same issues as Hypercore's Hyperswarm.
 - IPFS has implementations in a number of languages, while Hypercore is only in JavaScript. Rust implementation was recently started and hopefully will lead to overall health of Hypercore, forcing better documented specs and more test-suits.
+- IPFS team runs a number of public servers that help make the network more usable.
 
 ### Why Hypercore is not yet mainstream?
 
-It is a fact that Hypercore is 7 years old and still has no runaway apps built on it. So what gives, if it is so amazing, and it is! Here is my take, aside from making a  P2P framework being super-hard:
+It is a fact that Hypercore is 7 years old and still has no runaway apps built on it. So what gives, if it is so amazing, and it is! Here is my take, aside from a general statement that making a P2P framework work smoothly is super-hard:
 
 Many P2P apps struggle as they lack availability, durability and work in the unforgiving networking environments.
 
@@ -146,18 +149,6 @@ Each project building on Hypercore is stretching its flexibility and contributes
 - See at the bottom of [Hypercore protocol page](https://hypercore-protocol.org/)
 - See discussion forum where people [showcase their Hyper projects](https://discordapp.com/channels/709519409932140575/712037351244955809/712037741126221924).
 
-### Can data be deleted?
-
-[Somewhat](https://discordapp.com/channels/709519409932140575/709519410557222964/755404488415772746) - you can [clear() your content locally](https://github.com/hypercore-protocol/hypercore#feedclearstart-end-callback), but if someone replicated it already, you can’t force them to clear. Also, internal data integrity records are still kept, but they do not leak any data (Merkle tree hashes are kept, so you can keep appending data to your log even if you clear the contents). Use cases:
-
-- Chat. You can delete a chat message locally. To delete the chat message at recipient(s) need to send a custom some message “please delete this”.
-- Mobile. You can delete photos from mobile to save space, but keep them on a replica (your other PC or a Personal Cloud).
-
-
-### Does Hypercore work in the browser, on mobiles?
-
-Yes. Hypercore is transport-independent. One can use TCP/IP, WebRTC to peers, WebSockets to server.
-
 ### Is there support for social key recovery?
 
 No. But a community solution and other open source projects exist that can possibly be adapted. 
@@ -177,18 +168,8 @@ For reference, see how open source app [Consento](https://consento.org/) does it
 ### Is there a regular key rotation and key replacement mechanism?
 
 Yes, for ephemeral session encryption keys.
-No, for Hypercore log, but can be added on top with the help of [Hypercore-multi-key](https://github.com/mafintosh/hypercore-multi-key) module which allows to switch to a new keypair. It is your responsibility to sign the new key with the old to establish the secure continuity, and to verify this signature on receiving nodes to prove the legality of key rotation. Perhaps this can be added as a protocol extension?
+No, for Hypercore log, but can be added on top with the help of [Hypercore-multi-key](https://github.com/mafintosh/hypercore-multi-key) module which allows to switch to a new keypair. It is your responsibility to sign the new key with the old to establish the secure continuity, and to verify this signature on receiving nodes to prove the legality of key rotation. Perhaps this can be added as a [hypercore extension](https://github.com/mafintosh/hypercore-extension-rpc)?
 
-### Does Hyperswarm work in browsers, on mobile?
-
-Not directly, but community solutions exist.
-See the [issue for this](https://github.com/hyperswarm/hyperswarm/issues/62). The difficulty is due to the use of UDP, which is not available in the browser. On mobile NAT hole punching may not succeed. On PCs some corporate firewalls may also block UDP. Need to bridge to DHT over WebSockets or WebRTC.
-
-[This solution uses 2 servers for signaling](https://github.com/RangerMauve/hyperswarm-web).
-
-Note that [WebTorrent uses webrtc](https://webtorrent.io/docs) for DHT, but their approach is not adopted by Hypercore. 
-
-See a number of issues still pending resolution to make Hyperswarm and Hypercore [work in react-native](https://dat.discourse.group/t/dat-and-react-native/184)
 
 ### Is there an authentication system?
 
@@ -211,7 +192,7 @@ Ideas that fit Hyperswarm's mission to help discover peers and connect to them w
 
 - connect to peers sitting behind home routers, which otherwise can't connect to each other. (Hyperswarm's here is so called NAT hole punching). Keep in mind this does not work on mobiles (and behind some corporate firewalls), and requires a proxy (e.g. This post says [30% of P2P connections need TURN proxy](https://www.callstats.io/blog/2017/10/26/webrtc-product-turn-server)). Our idea is to use not a public server, but a Personal Cloud as such a proxy, to avoid loss of privacy.
 
-- DNS replacement. E.g. client app needs to find a server. Router / balancer needs to find a particular server.
+- DNS replacement. E.g. a client app needs to find a server to connect to. Router / balancer needs to find a particular server.
 
 - Server-less Contact Tracing on DHT. See this idea described in detail [in this paper](https://eprint.iacr.org/2020/398.pdf).
 
@@ -284,48 +265,9 @@ Unanswered questions:
 
 3) **Key management**. How to assume ownership of the restored Hypercores? How to avoid saving secretKey to backup and where to get it to set on the feed after the restore?
 
-## Is network traffic encrypted end-to-end?
+## Network
 
-1) Yes for Hypercore and 2) no for Hyperswarm.
-
-Hyperswarm uses uTP over UDP to connect to DHT nodes and for NAT traversal (hole-punching). It can use [Noise protocol](https://github.com/mafintosh/noise-network), but doesn't today [for performance reasons](https://discordapp.com/channels/709519409932140575/727886901100675083/757704436289372225). Hyperswarm also does not authenticate peers.
-
-Hypercore uses Noise protocol for authentication and encryption. Noise is the protocol designed as part of Signal Messenger and is now used by WhatsApp, WireGuard, Lightning, I2P, etc.
-
-A new channel is open for each Hypercore and multiple channels use the same connection, which is great. What is cool is that with the help of Noise, each channel gets its own encryption and keys are rotated to achieve forward secrecy (attacker who cracked this session's key will have to crack it again for the next session).
-
-Note, as always with end-to-end encryption, you need to watch out for the cases when you introduce a proxy in the middle, for example to deal with overly restrictive firewalls. The best approach is for the Proxy to be blind, just passing encrypted streams between peers.
-
-## How to discover all feeds that a peer can give us?
-
-Hypercore is not like Kafka, which is one big log. With Hypercore you usually have many Hypercore logs. So you need a way to manage them and discover what hypercores other people have shared with you.
-
-The bootstrapping mechanism for this is to find peers, a Hyperswarm. But it is not enough, thus several discovery systems were designed, and the main one is corestore. Simpler one, is multifeed created by community, but it assumes all feeds are public.
-
-## Is Hypercore push or pull?
-
-Normally updates are pulled by the peers. Protocol supports a Push-ing data as well but it is [not exposed in the API today](https://discordapp.com/channels/709519409932140575/709519410557222964/755797065879257178)
-
-## Can Hypercore storage be encrypted at-rest?
-
-Yes, offered by community solutions. You will need explore their limitations. See some below:
-
-- [Cobox Hypercore Encryption](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/2_work-plan/mvp/mvp-design.md).
-
-- [hypercore-encrypted](https://www.npmjs.com/package/hypercore-encrypted), a wrapper around hypercore.
-
-## Does Hypercore support zero-knowledge store / blind replication?
-
-Yes, offered by community solutions. 
-the above terms refer to an encrypted replica kept by a friend or a services provider, like [SpiderOak](https://spideroak.com/one/), but can't be read by them.
-
-Current solutions are provided by the community:
-
-- [ciphercore](https://github.com/telamon/ciphercore)
-  
-- [Cobox community](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/3_mock-up/technology/architecture.md)
-
-## What are the reliability guarantees of Hypercore protocol?
+### What are the reliability guarantees of Hypercore protocol?
 
 Hypercore [requires the underlying transport](https://www.datprotocol.com/deps/0010-wire-protocol/) to provide the following guarantees:
 
@@ -340,20 +282,94 @@ Hypercore itself adds:
 - efficiency, a single connection is used for multiple channels
 - persistence of messages
 
-## Does Hypercore support erasure-coding?
+### Is network traffic encrypted end-to-end?
 
-No.
-Erasure coding is used to recover data from a subset of overall amount of replicas.
-S3-compatible object storage provided by [Min.io](https://docs.min.io/docs/minio-erasure-code-quickstart-guide.html) has it.
-For the Data Center, perhaps we need to look at the underlying virtualized file system to provide it, like Ceph (but it is known to be very heavy and hard to manage)
+1) Yes for Hypercore and 2) no for Hyperswarm.
 
-## Can Hypercore network protocol be extended?
+Hyperswarm uses uTP over UDP to connect to DHT nodes and for NAT traversal (hole-punching). It can use [Noise protocol](https://github.com/mafintosh/noise-network), but doesn't today [for performance reasons](https://discordapp.com/channels/709519409932140575/727886901100675083/757704436289372225). Hyperswarm also does not authenticate peers.
+
+Hypercore uses Noise protocol for authentication and encryption. Noise is the protocol designed as part of Signal Messenger and is now used by WhatsApp, WireGuard, Lightning, I2P, etc.
+
+A new channel is open for each Hypercore and multiple channels use the same connection, which is great. What is cool is that with the help of Noise, each channel gets its own encryption and keys are rotated to achieve forward secrecy (attacker who cracked this session's key will have to crack it again for the next session).
+
+Note, as always with end-to-end encryption, you need to watch out for the cases when you introduce a proxy in the middle, for example to deal with overly restrictive firewalls. The best approach is for the Proxy to be blind, just passing encrypted streams between peers.
+
+### Is Hypercore push or pull?
+
+Normally updates are pulled by the peers. Protocol supports a Push-ing data as well but it is [not exposed in the API today](https://discordapp.com/channels/709519409932140575/709519410557222964/755797065879257178)
+
+### How to discover all feeds that a peer can give us?
+
+Hypercore is not like Kafka, which is one big log. With Hypercore you usually have many Hypercore logs. So you need a way to manage them and discover what hypercores other people have shared with you.
+
+The bootstrapping mechanism for this is to find peers, a Hyperswarm. But it is not enough, thus several discovery systems were designed, and the main one is corestore. Simpler one, is multifeed created by community, but it assumes all feeds are public.
+
+### Does Hypercore work in the browser, on mobiles?
+
+Yes. Hypercore is transport-independent. One can use TCP/IP, WebRTC to peers, WebSockets to server.
+
+### Does Hyperswarm work in browsers, on mobile?
+
+Not directly, but community solutions exist.
+
+See the [issue for this](https://github.com/hyperswarm/hyperswarm/issues/62). Summary:
+
+1. **No UDP in browsers**. 
+
+2. **Corporate firewalls may block UDP**. Need to bridge to DHT over WebSockets or WebRTC.
+
+3. **No peer discovery on Cell Phone networks**. Cellphone networks run symmetric firewalls. So mobile apps or PCs on HotSpot can't establish direct connections (although UDP works, NAT hole punching does not).
+
+4. **DHT state needs stability**. Peers that come and go lose DHT state and need to recreate it (although this can be overcome with caching). Peers that change their IP address too often, destabilize DHT.
+
+[This solution uses 2 servers for signaling](https://github.com/RangerMauve/hyperswarm-web).
+
+Note that [WebTorrent works in the browser](https://webtorrent.io/docs). Need to investigate how they do it.
+
+See a number of issues still pending resolution to make Hyperswarm and Hypercore [work in react-native](https://dat.discourse.group/t/dat-and-react-native/184)
+
+### Can Hypercore network protocol be extended?
 
 Yes. The [protocol](https://github.com/hypercore-protocol/hypercore-protocol) is formalized with protobuf and supports [defining extensions](https://github.com/hypercore-protocol/hypercore-protocol/#stream-message-extensions).
 
 See community video that explains the [Extensions system](https://youtu.be/HyHk4aImd_I?list=PL7sG5SCUNyeYx8wnfMOUpsh7rM_g0w_cu&t=4379). Community projects like Cobox and others are using it already.
 
 Possibly useful are [abstract-extension](https://github.com/mafintosh/abstract-extension) and [hypercore-extension-rpc](https://github.com/mafintosh/hypercore-extension-rpc).
+
+## Storage
+
+### Can Hypercore storage be encrypted at-rest?
+
+Yes, offered by community solutions. You will need explore their limitations. See some below:
+
+- [Cobox Hypercore Encryption](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/2_work-plan/mvp/mvp-design.md).
+
+- [hypercore-encrypted](https://www.npmjs.com/package/hypercore-encrypted), a wrapper around hypercore.
+
+### Does Hypercore support zero-knowledge store / blind storage?
+
+Yes, offered by community solutions. 
+the above terms refer to an encrypted replica kept by a friend or a services provider, like [SpiderOak](https://spideroak.com/one/), but can't be read by them.
+
+Current solutions are provided by the community:
+
+- [ciphercore](https://github.com/telamon/ciphercore)
+  
+- [Cobox community](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/3_mock-up/technology/architecture.md)
+
+### Does Hypercore support erasure-coding?
+
+No.
+Erasure coding is used to recover data from a subset of overall amount of replicas.
+Open Source S3-compatible object storage, e.g. provided by [Min.io](https://docs.min.io/docs/minio-erasure-code-quickstart-guide.html) has erasure coding.
+Cloud providers sometimes offer a virtualized file system over multiple replicas. Open Source Ceph offers it and so does AWS with EFS (note that Ceph is not easy to manage).
+
+### Can data be deleted?
+
+[Somewhat](https://discordapp.com/channels/709519409932140575/709519410557222964/755404488415772746) - you can [clear() your content locally](https://github.com/hypercore-protocol/hypercore#feedclearstart-end-callback), but if someone replicated it already, you can’t force them to clear. Also, internal data integrity records are still kept, but they do not leak any data (Merkle tree hashes are kept, so you can keep appending data to your log even if you clear the contents). Use cases:
+
+- Chat. You can delete a chat message locally. To delete the chat message at recipient(s) need to send a custom some message “please delete this”.
+- Mobile. You can delete photos from mobile to save space, but keep them on a replica (your other PC or a Personal Cloud).
 
 ## Hypercore components / modules
 
