@@ -31,6 +31,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [How to discover all feeds that a peer can give us?](#how-to-discover-all-feeds-that-a-peer-can-give-us)
   - [Does Hypercore work in the browser, on mobiles?](#does-hypercore-work-in-the-browser-on-mobiles)
   - [Does Hyperswarm work in browsers, on mobile?](#does-hyperswarm-work-in-browsers-on-mobile)
+    - [A companion Personal Cloud node may address privacy and connectivity issues](#a-companion-personal-cloud-node-may-address-privacy-and-connectivity-issues)
   - [Can Hypercore network protocol be extended?](#can-hypercore-network-protocol-be-extended)
 - [Storage](#storage)
   - [Can Hypercore storage be encrypted at-rest?](#can-hypercore-storage-be-encrypted-at-rest)
@@ -310,23 +311,28 @@ Yes. Hypercore is transport-independent. One can use TCP/IP, WebRTC to peers, We
 
 ### Does Hyperswarm work in browsers, on mobile?
 
-Not directly, but community solutions exist.
+Not directly, but community solutions exist. 
+See the [issue for this](https://github.com/hyperswarm/hyperswarm/issues/62).
 
-See the [issue for this](https://github.com/hyperswarm/hyperswarm/issues/62). Summary:
+It is a hard problem, note that [WebTorrent works in the browser](https://webtorrent.io/docs), but ["DHT in browser"](https://github.com/webtorrent/webtorrent/issues/288), even after 7 years of discussions, is still not realized.
 
-1. **No UDP in browsers**. 
+Current solution, [advised by Hypercore team, uses 2 servers for signaling](https://github.com/RangerMauve/hyperswarm-web).
 
-2. **Corporate firewalls may block UDP**. Need to bridge to DHT over WebSockets or WebRTC.
+Summary of a problem and an alternative solution:
 
-3. **No peer discovery on Cell Phone networks**. Cellphone networks run symmetric firewalls. So mobile apps or PCs on HotSpot can't establish direct connections (although UDP works, NAT hole punching does not).
+1. **No UDP in browsers**. Other transport protocols create connection establishment delays (extra round-trips), which make DHT too slow to be practical. Delegation to signaling servers challenges privacy.
 
-4. **DHT state needs stability**. Peers that come and go lose DHT state and need to recreate it (although this can be overcome with caching). Peers that change their IP address too often, destabilize DHT.
+2. **Corporate firewalls may block UDP**. Although the hope arises with QUIC / HTTP/3 gaining traction as it is using UDP on TLS port 443.
 
-[This solution uses 2 servers for signaling](https://github.com/RangerMauve/hyperswarm-web).
+3. **No peer discovery on Cell Phone networks**. Cellphone networks employ symmetric firewalls that block direct P2P connections (although UDP works, NAT hole punching does not). This affects mobile apps and PCs on HotSpots. With 5G proliferation, more applications operate on cell networks, making progress for direct P2P connections unlikely. 
 
-Note that [WebTorrent works in the browser](https://webtorrent.io/docs). Need to investigate how they do it. They have been discussing ["DHT over WebRTC"](https://github.com/webtorrent/webtorrent/issues/288) for a long time.
+4. **DHT state needs stability**. Peers that come and go (browser tabs) lose DHT state and need to recreate it (although this can be overcome with caching state in browser's database). Peers that change their IP address too often, destabilize DHT. This is the case of cell networks.
 
-See a number of issues still pending resolution to make Hyperswarm and Hypercore [work in react-native](https://dat.discourse.group/t/dat-and-react-native/184)
+5. **Porting Web and mobile environments**. See a number of issues still pending resolution to make Hyperswarm and Hypercore [work in react-native](https://dat.discourse.group/t/dat-and-react-native/184). These problems can be solved.
+
+#### A companion Personal Cloud node may address privacy and connectivity issues
+
+TBD
 
 ### Can Hypercore network protocol be extended?
 
