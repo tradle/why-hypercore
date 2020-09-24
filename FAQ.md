@@ -448,10 +448,10 @@ Hyperdrive is a library and also provides a [daemon](https://github.com/hypercor
 
 ## Planned experiments
 
-1. **Streaming Hyperbee** from static store, AWS S3
-2. **Backing up Hyperbee to S3**, in shards
-3. **Union of Hyperbees** from shards
-4. **Union of Hypertries**. Different from mountable Hypertries, as does not prefix keys.
+1. **Streaming Hyperbee** from the static store, AWS S3
+2. **Backing up Hyperbee to S3**, in shards (segments)
+3. **Union of Hyperbees** from shards (cane be locally or over the network). How can we support more than 2 Hyperbees in union?
+4. **Union of Hypertries**. Different from mountable Hypertries, as it preserves the keys, while mounting prefixes them.
 5. **Key rotation with verification** (using multi-key). Needed for mobility as new machine has its own keypair. Research how to sign keypair transition, in view of not having an old keypair.
-6. **Restore from S3** with key rotation. New machine does not have old 
-7. **Multi-writer via Delta feeds**. Each single-writer publishes only to Delta feed, which everyone in the swarm subscribes to. One elected master publishes to all. Hard problem: master election and fallback.
+6. **Restore from S3** with key rotation, as new machine does not have old keys.
+7. **Multi-writer via Delta feeds**. Each single-writer publishes only to Delta feed, which everyone in the swarm subscribes to. One elected master publishes to all. Hard problem: master election and fallback. Leaderless is almost always better, but can't think of a way to do it with single-writer.
