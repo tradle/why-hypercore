@@ -50,7 +50,6 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [Hyperdrive](#hyperdrive)
     - [How can Hyperdrive be shared?](#how-can-hyperdrive-be-shared)
 - [Where can I learn more about Hypercore universe?](#where-can-i-learn-more-about-hypercore-universe)
-- [Planned experiments](#planned-experiments)
 ## General
 
 This section is for general questions. See other sections for questions specific to individual Hypercore modules.
@@ -450,13 +449,3 @@ Hyperdrive is a library and also provides a [daemon](https://github.com/hypercor
 1. In the summer of 2020 there was a [Dat Conference](https://www.youtube.com/playlist?list=PL7sG5SCUNyeYx8wnfMOUpsh7rM_g0w_cu). You can see the breadth of discussions that took place, both on tech and the opportunities. Note that Dat is the old name for Hypercore. The transition is in full swing, but you will still see it a lot.
 
 2. [Kappa workshop](https://github.com/kappa-db/workshop) is a great basic intro, we [forked it](https://github.com/tradle/hypercore-workshop) to update to new materials and shift focus to core Hypercore modules.
-
-## Planned experiments
-
-1. **Streaming Hyperbee** from the static store, AWS S3
-2. **Backing up Hyperbee to S3**, in shards (segments)
-3. **Union of Hyperbees** from shards (cane be locally or over the network). How can we support more than 2 Hyperbees in union?
-4. **Union of Hypertries**. Different from mountable Hypertries, as it preserves the keys, while mounting prefixes them.
-5. **Key rotation with verification** (using multi-key). Needed for mobility as new machine has its own keypair. Research how to sign keypair transition, in view of not having an old keypair.
-6. **Restore from S3** with key rotation, as new machine does not have old keys.
-7. **Multi-writer via Delta feeds**. Each single-writer publishes only to Delta feed, which everyone in the swarm subscribes to. One elected master publishes to all. Hard problem: master election and fallback. Leaderless is almost always better, but can't think of a way to do it with single-writer.
