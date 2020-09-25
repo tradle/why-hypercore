@@ -1,4 +1,5 @@
 # Hypercore universe FAQ <!-- omit in toc --> 
+Here is an older [Dat FAQ](https://docs.dat.foundation/docs/faq), I will incorporate its answers that are relevant into this FAQ over time.
 
 Many of the answers below are taken from Hypercore protocol discussion forum. All interpretations are ours, and so are the possible mistakes and misunderstandings. Please send corrections as pull requests, or request commit rights. Questions that need answers are marked with **Need help with this**.
 
@@ -244,6 +245,10 @@ There are cases when CRDT algorithm is more suitable than database concurrency. 
 [Cobox community](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/3_mock-up/technology/architecture.md) produced a multi-writer DB [KappaDB](https://github.com/kappa-db).
 
 [HyperDB](https://github.com/mafintosh/hyperdb) is an older Hypercore project which is a multi-writer database, but it is not seeing any support anymore, presumably as it could not be made performant, but it may still help some apps before a replacement comes in (need confirmation).
+
+[Co-Hyperdrive](https://github.com/RangerMauve/co-hyperdrive). A multi-writer hyperdrive implementation. 
+
+As you see it is not a problem that has a generic solution in Hypercore. But maybe instead of focusing on Hyperdrive or a DB we should focus on the use case, specifically a [single-user multi-device use case](https://github.com/tradle/why-hypercore/issues/7).
 
 ### Is it multi-process-safe?
 
