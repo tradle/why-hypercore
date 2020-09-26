@@ -178,8 +178,8 @@ No, for Hypercore log, but can be added on top with the help of [Hypercore-multi
 Yes. Each Hypercore feed has a corresponding public / private key pair. 
 
 1. The receiving feed must prove it knows sending feed's publicKey.
-
-2. There is a hook to registered a custom feed authenticator.
+2. There is an extension that allows to [prove you own feed's publicKey](https://github.com/substack/hypercore-authenticate-session-extension).
+3. There is a hook to registered a custom feed authenticator.
 
 ### Is there a discovery system to learn what feeds the other peer shares?
 
