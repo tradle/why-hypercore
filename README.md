@@ -1,6 +1,6 @@
 # Why Hypercore? <!-- omit in toc -->
 
-As we are exploring the design for running Tradle on Hypercore, this summarizes our findings. More in this [rapidly growing FAQ](FAQ.md) for more.
+As we are exploring the design for running Tradle on Hypercore, this summarizes our findings. You can find a lot more information in this [rapidly growing FAQ](FAQ.md).
 
 Take a look at Issues on this repository for the themes we are actively experimenting with.
 
