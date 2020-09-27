@@ -62,7 +62,8 @@ This section is for general questions. See other sections for questions specific
 
 ### What are the main components / modules / packages?
 
-- **Hypercore**, the underlying append-log-only data structure for all of Hyper universe.
+- **Hypercore protocol**, [network protocol](https://www.datprotocol.com/deps/0010-wire-protocol/), providing messaging and peer data exchanges.
+- **Hypercore**, append-only-log that can be used as-is, and is also used as a building block for other data structures
 - **Hypertrie**, a key-value store, which is used by Hyperdrive as its directory structure.
 - **Hyperbee**, a key-value and sorted range queries (as a database backend)
 - **Corestore**, to managing many Hypercores you typically end up authoring or replicating from others.
