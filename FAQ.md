@@ -11,6 +11,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [How is Hypercore different from BitTorrent, WebTorrent?](#how-is-hypercore-different-from-bittorrent-webtorrent)
   - [How is Hypercore different from ScuttleButt?](#how-is-hypercore-different-from-scuttlebutt)
   - [How is Hypercore different from IPFS?](#how-is-hypercore-different-from-ipfs)
+  - [Does Hypercore have a community?](#does-hypercore-have-a-community)
   - [Why Hypercore is not yet mainstream?](#why-hypercore-is-not-yet-mainstream)
   - [Who is using Hypercore P2P framework today?](#who-is-using-hypercore-p2p-framework-today)
   - [Is there support for social key recovery?](#is-there-support-for-social-key-recovery)
@@ -135,6 +136,10 @@ Some notes on IPFS goodies:
 - IPFS project has produced solid core libraries, like libp2p, solving many of the same issues as Hypercore's Hyperswarm.
 - IPFS has implementations in a number of languages, while Hypercore is only in JavaScript. Rust implementation was recently started and hopefully will lead to overall health of Hypercore, forcing better documented specs and more test-suits.
 - IPFS team runs a number of public servers that help make the network more usable.
+
+### Does Hypercore have a community?
+
+Yes. Community is very active and helps newcomers and developers building on Hypercore. [Join it on Discord](https://discord.com/invite/ga5hxGf), open [issues on Github](https://github.com/mafintosh/hypercore), and follow core developers on Twitter [@mafintosh](https://twitter.com/mafintosh), @pfrazee, and @andrewosh.
 
 ### Why Hypercore is not yet mainstream?
 
@@ -460,6 +465,10 @@ Hyperdrive is a library and also provides a [daemon](https://github.com/hypercor
 
 ## Where can I learn more about Hypercore universe?
 
-1. In the summer of 2020 there was a [Dat Conference](https://www.youtube.com/playlist?list=PL7sG5SCUNyeYx8wnfMOUpsh7rM_g0w_cu). You can see the breadth of discussions that took place, both on tech and the opportunities. Note that Dat is the old name for Hypercore. The transition is in full swing, but you will still see it a lot.
+1. Visit the [Hypercore Protocol site](https://hypercore-protocol.org/). 
 
-2. [Kappa workshop](https://github.com/kappa-db/workshop) is a great basic intro, we [forked it](https://github.com/tradle/hypercore-workshop) to update to new materials and shift focus to core Hypercore modules.
+2. In the summer of 2020 there was a [Dat Conference](https://www.youtube.com/playlist?list=PL7sG5SCUNyeYx8wnfMOUpsh7rM_g0w_cu). You can see the breadth of discussions that took place, both on tech and the opportunities. Note that Dat is the old name for Hypercore. The transition is in full swing, but you will still see it a lot.
+
+3. [Kappa workshop](https://github.com/kappa-db/workshop) is a great basic intro, we [forked it](https://github.com/tradle/hypercore-workshop) to update to new materials and shift focus to core Hypercore modules.
+
+4. Read [old FAQ](https://docs.dat.foundation/docs/faq) (before project was renamed from Dat to Hypercore).
