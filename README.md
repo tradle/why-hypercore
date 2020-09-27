@@ -28,6 +28,7 @@ Take a look at Issues on this repository for the themes we are actively experime
   - [Shared files and folders (like Dropbox or Google Drive)](#shared-files-and-folders-like-dropbox-or-google-drive)
   - [Shared document editing like Google Docs and Google Slides](#shared-document-editing-like-google-docs-and-google-slides)
   - [Offline-first](#offline-first)
+- [Use cases and potential apps](#use-cases-and-potential-apps)
   - [Group messaging](#group-messaging)
   - [Direct media sharing](#direct-media-sharing)
   - [Local file sharing, like Apple Airdrop](#local-file-sharing-like-apple-airdrop)
@@ -170,6 +171,8 @@ Like with the Hyperdrive, the remaining issue to be solved is the always-online 
 ### Offline-first
 
 All data is available when offline. Messages and media (of any size) are delivered from mobiles to server and back with full reliability, in the presence of intermittent or rare connectivity.
+
+## Use cases and potential apps
 
 ### Group messaging
 
