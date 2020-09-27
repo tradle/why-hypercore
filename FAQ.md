@@ -8,7 +8,8 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [What is the USP (Unique Selling Proposition) of Hypercore?](#what-is-the-usp-unique-selling-proposition-of-hypercore)
   - [What is a streaming DB?](#what-is-a-streaming-db)
   - [How is Hypercore different from BitTorrent, WebTorrent?](#how-is-hypercore-different-from-bittorrent-webtorrent)
-  - [How is Hypercore different from ScuttleButt and IPFS?](#how-is-hypercore-different-from-scuttlebutt-and-ipfs)
+  - [How is Hypercore different from ScuttleButt?](#how-is-hypercore-different-from-scuttlebutt)
+  - [How is Hypercore different from IPFS?](#how-is-hypercore-different-from-ipfs)
   - [Why Hypercore is not yet mainstream?](#why-hypercore-is-not-yet-mainstream)
   - [Who is using Hypercore P2P framework today?](#who-is-using-hypercore-p2p-framework-today)
   - [Is there support for social key recovery?](#is-there-support-for-social-key-recovery)
@@ -100,20 +101,26 @@ But Hypercore can do more - it is built as a data and communications framework f
 
 Note that WebTorrent's tech can be helpful to Hypercore, as it perfected peer discovery (via DHT) on the Web and it allowed a number of innovative streaming clients to emerge, which could be helpful for Hypercore applications, like Beaker Browser.
 
-### How is Hypercore different from ScuttleButt and IPFS?
+### How is Hypercore different from ScuttleButt?
 
-Need help with this.
+- ScuttleButt is not suited for streaming, as it does not have a sparse data structure (enabled in Hypercore by Merkle trees, while ScuttleButt uses linked lists).
+
+- Need help with this.
+
+### How is Hypercore different from IPFS?
+
 All three are cool open source P2P data projects that have existed for roughly the same 5-7 years.
 
 Some key differences, [described here](https://www.datprotocol.com/deps/0002-hypercore/), are:
 
-- ScuttleButt is not suited for streaming, as it does not have a sparse data structure (enabled in Hypercore by Merkle trees, while ScuttleButt uses linked lists).
+- IPFS was designed as content-addressed immutable storage. Naming system [IPNS](https://docs.ipfs.io/concepts/ipns/#example-ipns-setup) was added then, to point to the latest version of the data. In Hypercore editable content was a prime design objective, supported by the internal data structures, its protocol, Change Date Capture system, APIs, etc. 
+- Neither [IPNS](https://docs.ipfs.io/concepts/ipns/#example-ipns-setup) nor Hypercore's Beaker URL have human-friendly addresses.
 - IPFS was designed for files, so it is not suitable for databases. It also has limited support for data editing and data integrity (history of changes).
-- IPFS team has produced Filecoin spec and raised $205M on ICO to build it so it is funded to sustain long-term development. Hypercore team on the other hand is quite lightly funded by grants and consulting projects. That said, many ICOs ran into legal trouble with SEC, the most high profile of them was Telegram recently. Other tensions [for IPFS team are rising](https://fortune.com/2020/08/19/are-blockchain-companies-cursed-with-too-much-cash/), as it still did not deliver a Filecoin product.
+- IPFS team has produced Filecoin spec and raised $205M on ICO to build it, so it is funded to sustain long-term development. Hypercore team on the other hand is quite lightly funded by grants and consulting projects. That said, many ICOs ran into legal trouble with SEC in the US, the most high profile of them was Telegram recently. Other tensions [for IPFS team are rising](https://fortune.com/2020/08/19/are-blockchain-companies-cursed-with-too-much-cash/), as it still did not deliver a Filecoin product.
 
 Some notes on IPFS goodies:
 
-- IPFS has a human friendly IPNS naming system, which Hypercore currently lacks.
+- [IPNS has has captured imagination of Ethereum community](https://blog.infura.io/an-introduction-to-ipfs/) to build fully decentralized apps, as most blockchain apps today still keep data and processing centralized.
 - IPFS project has produced solid core libraries, like libp2p, solving many of the same issues as Hypercore's Hyperswarm.
 - IPFS has implementations in a number of languages, while Hypercore is only in JavaScript. Rust implementation was recently started and hopefully will lead to overall health of Hypercore, forcing better documented specs and more test-suits.
 - IPFS team runs a number of public servers that help make the network more usable.
@@ -213,11 +220,11 @@ When supported, I think such URL needs to have both stable part and version part
 
 No. But keep reading.
 
-Multi-writer is probably the [most requested feature](https://github.com/hypercore-protocol/hyperdrive/issues/230) of Hypercore, as it is a common pattern of using data stores today.
+Multi-writer is probably the [most requested feature](https://github.com/hypercore-protocol/hyperdrive/issues/230) of Hypercore, as it is a common pattern of working with files and databases today.
 
-Instead may be we should leverage single-writer advantages of verifiable integrity, and see if some use cases can be redesigned for single-writer, with a simulated multi-writer on top.
+Single-writer advantage is a verifiable integrity. For example, in Tradle digital identity product the single-writer is a core pattern, that is no record can be edited other then by it's author, and data models are designed to accommodate this approach. It produces much safer Data Governance and cleaner audit trail. That still requires a search across all single-writer stores, sort of like a union of all Hyperbees.
 
-For example, in Tradle digital identity product the single-writer is a core pattern, that is no record can be edited other then by it's author, and data models are designed to accommodate this approach. It produces much safer Data Governance and cleaner audit trail. That still requires a search across all single-writer stores, sort of like a union of all Hyperbees.
+It is possible to create a composite multi-writer on top. Note the [multi-hyperdrive](https://github.com/RangerMauve/multi-hyperdrive/) and KappaDB projects as examples.
 
 ### Filesystem workaround
 
