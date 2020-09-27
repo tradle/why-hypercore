@@ -26,6 +26,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [Is it multi-process-safe?](#is-it-multi-process-safe)
   - [What is the biggest gotcha with Hypercore?](#what-is-the-biggest-gotcha-with-hypercore)
   - [Can Hypercore be backed up?](#can-hypercore-be-backed-up)
+    - [Backup to S3](#backup-to-s3)
 - [Network](#network)
   - [What are the reliability guarantees of Hypercore protocol?](#what-are-the-reliability-guarantees-of-hypercore-protocol)
   - [Is network traffic encrypted end-to-end?](#is-network-traffic-encrypted-end-to-end)
@@ -224,11 +225,13 @@ Multi-writer is probably the [most requested feature](https://github.com/hyperco
 
 Single-writer advantage is a verifiable integrity. For example, in Tradle digital identity product the single-writer is a core pattern, that is no record can be edited other then by it's author, and data models are designed to accommodate this approach. It produces much safer Data Governance and cleaner audit trail. That still requires a search across all single-writer stores, sort of like a union of all Hyperbees.
 
-It is possible to create a composite multi-writer on top. Note the [multi-hyperdrive](https://github.com/RangerMauve/multi-hyperdrive/) and KappaDB projects as examples.
+It is possible to create a composite multi-writer on top.
 
 ### Filesystem workaround
 
 Hypertrie now provides Mounts which allow to present other people's drives as your read-only subfolders. This is a good workaround, but not a shared filesystem like NFS.
+
+[Multi-hyperdrive](https://github.com/RangerMauve/multi-hyperdrive/) is a new package that achieves impressive results for multi-writer Hyperdrive. See also co-hyperdrive from the same author that adds authorizations.
 
 ### Union of Hyperbees?
 
@@ -267,16 +270,11 @@ Probably copying the Hypercore's directory to another machine and copying a priv
 
 ### Can Hypercore be backed up?
 
-Yes. see [Hypercore archiver](https://awesome.datproject.org/hypercore-archiver) 
+Yes. see [Hypercore archiver](https://awesome.datproject.org/hypercore-archiver) as a starting point, but more work is needed:
 
-Need help with this:
-Unanswered questions:
+#### Backup to S3
 
-1) **Backup**. How the above archiver can be used to backup to s3 if [underlying module's](https://github.com/random-access-storage/random-access-s3) write method is not implemented?
-
-2) **Streaming + replicating**. How to restore from S3 utilizing streaming (sparse download). This should work like AWS EBS drive recovery from a snapshot. Although restore process is still taking place, EBS drive is already made available. Sparse download though is downloading only what is requested, leaving.
-
-3) **Key management**. How to assume ownership of the restored Hypercores? How to avoid saving secretKey to backup and where to get it to set on the feed after the restore?
+Backup to s3 is not supported yet. This [underlying module's](https://github.com/random-access-storage/random-access-s3) dows not have the write method implemented yet. This is work in progress, tracked by [this issue](https://github.com/tradle/why-hypercore/issues/1).
 
 ## Network
 
