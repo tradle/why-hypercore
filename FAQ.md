@@ -231,13 +231,13 @@ It must be followed by the <publicKey> of a Hypercore feed.
 
 Note that in the future it is planned to support [Strong linking](https://github.com/mafintosh/hypercore-strong-link) to a particular version of the data element.
 
-When supported, I think such URL needs to have both stable part and version part. It also needs to allow URLs to be used by internal components and apps, not just in Beaker. A typical use case for this is link from a data element in Hyperbee to a file Hyperdrive.
+When supported, I think such URL needs to have both stable part and version part. It also needs to allow URLs to be used by internal components and apps, not just in Beaker. A typical use case for this is link from a data element in Hyperbee to a file on Hyperdrive.
 
 ## Does hypercore support writing by multiple people?
 
 No. But keep reading.
 
-Multi-writer is probably the [most requested feature](https://github.com/hypercore-protocol/hyperdrive/issues/230) of Hypercore, as it is a common pattern of working with files and databases today.
+Multi-writer is probably the [most wanted feature](https://github.com/hypercore-protocol/hyperdrive/issues/230) of Hypercore, as it is a common pattern of working with files and databases today.
 
 Single-writer advantage is a verifiable integrity. For example, in Tradle digital identity product the single-writer is a core pattern, that is no record can be edited other then by it's author, and data models are designed to accommodate this approach. It produces much safer Data Governance and cleaner audit trail. That still requires a search across all single-writer stores, sort of like a union of all Hyperbees.
 
@@ -451,9 +451,9 @@ Now, Hyperswarm announces IP and Port.
 
 ### Hyperdrive
 
-Hyperdrive provides many of the hard to create components to replicate the functionality of Dropbox and Google Drive. Beaker Browser adds the UI it.
+Hyperdrive provides many of the hard to create components to replicate the functionality of Dropbox and Google Drive. Beaker Browser adds the UI to it.
 
-Hyperdrive is a library and also provides a [daemon](https://github.com/hypercore-protocol/hyperdrive-daemon) to run as a service, accessible via an API and can show up as a [normal directory on your disk](https://github.com/hypercore-protocol/hyperdrive-daemon#fuse) (This part works on MacOS and Linux, with Windows in works).
+Hyperdrive is a library and can also [run as a service](https://github.com/hypercore-protocol/hyperdrive-daemon), that is accessible via an API and can show up as a [normal directory on your disk](https://github.com/hypercore-protocol/hyperdrive-daemon#fuse) (this part works on MacOS and Linux, with Windows in works).
 
 #### How can Hyperdrive be shared?
 
