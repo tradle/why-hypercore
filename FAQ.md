@@ -53,6 +53,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
     - [Is Hyperswarm anonymous?](#is-hyperswarm-anonymous)
   - [Hyperdrive](#hyperdrive)
     - [How can Hyperdrive be shared?](#how-can-hyperdrive-be-shared)
+    - [What are the limits on file sizes?](#what-are-the-limits-on-file-sizes)
 - [Where can I learn more about Hypercore universe?](#where-can-i-learn-more-about-hypercore-universe)
 
 ## General
@@ -104,7 +105,7 @@ But Hypercore can do more - it is built as a data and communications framework f
 
 1. Applications need data structures. Hypercore provides append-only log, Hypertrie key-value store, Hyperbee database and Hyperdrive filesystem.
 2. Hypercore support data editing as a design principle. [BitTorrent enhancement BEP 46](https://news.ycombinator.com/item?id=17306106) exists for updating files, but it does not allow updating a record in a database, so is not suitable for applications.
-3. It provides data add/edit version history which allows auditing, point-in-time-recovery, and state snapshots.
+3. It provides full data add/edit version history which allows auditing, point-in-time-recovery, and state snapshots.
 4. It provides sparse download like BitTorrent, but extends it to databases.
 5. Hypercore has data access authentication.
 6. Hypercore has network encryption.
@@ -463,12 +464,18 @@ Hyperdrive is a library and also provides a [daemon](https://github.com/hypercor
 
 4. Hypertrie also supports mounts, which allows a Key-Value store supported by the whole team. [Mountable Hypertrie](https://github.com/andrewosh/mountable-hypertrie) is actually what Hyperdrive uses underneath for mounts.
 
+#### What are the limits on file sizes?
+
+There is no inherent size limits. As a demo Hypercore team put a complete Wikipedia mirror with tens of millions of files on Hyperdrive and it reads very fast.
+
 ## Where can I learn more about Hypercore universe?
 
 1. Visit the [Hypercore Protocol site](https://hypercore-protocol.org/). 
 
 2. In the summer of 2020 there was a [Dat Conference](https://www.youtube.com/playlist?list=PL7sG5SCUNyeYx8wnfMOUpsh7rM_g0w_cu). You can see the breadth of discussions that took place, both on tech and the opportunities. Note that Dat is the old name for Hypercore. The transition is in full swing, but you will still see it a lot.
 
-3. [Kappa workshop](https://github.com/kappa-db/workshop) is a great basic intro, we [forked it](https://github.com/tradle/hypercore-workshop) to update to new materials and shift focus to core Hypercore modules.
+3. [Workshop at the 2020 Conference](https://github.com/RangerMauve/dat-workshop) with sources and video.
 
-4. Read [old FAQ](https://docs.dat.foundation/docs/faq) (before project was renamed from Dat to Hypercore).
+4. [Kappa workshop](https://github.com/kappa-db/workshop) is a great basic intro, we [forked it](https://github.com/tradle/hypercore-workshop) to update to new materials and shift focus to core Hypercore modules.
+
+5. Read [old FAQ](https://docs.dat.foundation/docs/faq) (before project was renamed from Dat to Hypercore).
