@@ -6,6 +6,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
 - [General](#general)
   - [What are the main components / modules / packages?](#what-are-the-main-components--modules--packages)
   - [What is the USP (Unique Selling Proposition) of Hypercore?](#what-is-the-usp-unique-selling-proposition-of-hypercore)
+  - [What is offline-first principle?](#what-is-offline-first-principle)
   - [What is a streaming DB?](#what-is-a-streaming-db)
   - [How is Hypercore different from BitTorrent, WebTorrent?](#how-is-hypercore-different-from-bittorrent-webtorrent)
   - [How is Hypercore different from ScuttleButt?](#how-is-hypercore-different-from-scuttlebutt)
@@ -52,6 +53,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [Hyperdrive](#hyperdrive)
     - [How can Hyperdrive be shared?](#how-can-hyperdrive-be-shared)
 - [Where can I learn more about Hypercore universe?](#where-can-i-learn-more-about-hypercore-universe)
+
 ## General
 
 This section is for general questions. See other sections for questions specific to individual Hypercore modules.
@@ -74,6 +76,14 @@ Hypercore's USP is **streaming**. You can think of it as video streaming, but no
 This point needs to be repeated again and again, as streaming data (files, videos, databases, messages, IoT, and any other structured data constructs), just by itself, without any other wonderful Hypercore capabilities, may create a new class of applications, much like Netflix re-invented the movie watching. This paradigm shift is one reason why Hypercore is hard to grok for app developers, it just requires full rethinking of our current architectures.
 
 Note, when reading Hypercore docs you will find many references to Sparse files and sparse DB. This is the capability used for streaming, that is a peer can efficiently request individual blocks from remote peers, instead of loading the whole thing, be it a video file or a database.
+
+### What is offline-first principle?
+
+Hypercore is built to give you full control of your data. This means, it continues to work even when you have no connectivity, when your other peers are offline, and when hosting / cloud provider closes your account. It also allows portability to other machines or hosting providers.
+
+Note for example, that Google Docs only has support for offline work in Chrome, but not in other browsers. This is how these services tie you up. The new phenomenon is de-platforming, when app provider, like Twitter closes your account, or App Store blocks your app downloads. Facebook and Twitter famously killed rich ecosystems of apps on their platforms.
+
+By relying on providers without a mobility we give up on self-sovereignty and core freedoms and become slaves of the platforms, morphing our behavior to their demands, and facilitating creation of mass surveillance systems, like happened with WeChat and other platforms in China.
 
 ### What is a streaming DB?
 
@@ -179,7 +189,6 @@ For reference, see how open source app [Consento](https://consento.org/) does it
 
 Yes, for ephemeral session encryption keys.
 No, for Hypercore log, but can be added on top with the help of [Hypercore-multi-key](https://github.com/mafintosh/hypercore-multi-key) module which allows to switch to a new keypair. It is your responsibility to sign the new key with the old to establish the secure continuity, and to verify this signature on receiving nodes to prove the legality of key rotation. Perhaps this can be added as a [hypercore extension](https://github.com/mafintosh/hypercore-extension-rpc)?
-
 
 ### Is there an authentication system?
 
