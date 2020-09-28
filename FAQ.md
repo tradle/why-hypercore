@@ -143,7 +143,8 @@ Some notes on IPFS goodies:
 
 #### more work needed to compare IPFS and Hypercore
 
-Review these:
+Review these and structure its content for summary below:
+https://medium.com/decentralized-web/comparing-ipfs-and-dat-8f3891d3a603
 https://blog.cloudflare.com/e2e-integrity/
 https://docs.ipfs.io/concepts/usage-ideas-examples/#usage-ideas-and-examples
 
