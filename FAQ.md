@@ -61,13 +61,15 @@ This section is for general questions. See other sections for questions specific
 
 ### What are the main components / modules / packages?
 
-- **Hypercore protocol**, [network protocol](https://www.datprotocol.com/deps/0010-wire-protocol/), providing messaging and peer data exchanges.
-- **Hypercore**, append-only-log that can be used as-is, and is also used as a building block for other data structures
-- **Hypertrie**, a key-value store, which is used by Hyperdrive as its directory structure.
-- **Hyperbee**, a key-value and sorted range queries (as a database backend)
+- **Hypercore protocol**, [network protocol](https://www.datprotocol.com/deps/0010-wire-protocol/), providing messaging and peer data exchanges. 
+- **Hypercore**, append-only-log that can be used as-is, and is also used as a building block for other data structures. Hypercore is similar to block storage in Data Centers.
+- **Hypertrie**, a key-value store, which uses the underlying Hypercore and is used by other higher level services, like Hyperdrive for its directory structure and the file metadata. You can view key-value store as a simplest possible database and it is a common component in modern applications, and especially as embedded part of P2P applications. E.g. Ethereum uses KV store for [smart-contract storage](https://medium.com/hackernoon/getting-deep-into-ethereum-how-data-is-stored-in-ethereum-e3f669d96033).
+- **Hyperbee**, a key-value store, that also provides sorted range queries and therefore can be used by the database on top to build indexes.
 - **Corestore**, to managing many Hypercores you typically end up authoring or replicating from others.
 - **Hyperdrive**, a P2P alternative to Google Drive and Dropbox 
 - **Beaker Browser**, a full-blown browser that also supports the Web without servers (P2P Web).
+
+
 
 ### What is the USP (Unique Selling Proposition) of Hypercore?
 
