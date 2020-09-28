@@ -10,6 +10,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [How is Hypercore different from BitTorrent, WebTorrent?](#how-is-hypercore-different-from-bittorrent-webtorrent)
   - [How is Hypercore different from ScuttleButt?](#how-is-hypercore-different-from-scuttlebutt)
   - [How is Hypercore different from IPFS?](#how-is-hypercore-different-from-ipfs)
+    - [more work needed to compare IPFS and Hypercore](#more-work-needed-to-compare-ipfs-and-hypercore)
   - [Does Hypercore have a community?](#does-hypercore-have-a-community)
   - [Why Hypercore is not yet mainstream?](#why-hypercore-is-not-yet-mainstream)
   - [Who is using Hypercore P2P framework today?](#who-is-using-hypercore-p2p-framework-today)
@@ -139,6 +140,36 @@ Some notes on IPFS goodies:
 - IPFS project has produced solid core libraries, like libp2p, solving many of the same issues as Hypercore's Hyperswarm.
 - IPFS has implementations in a number of languages, while Hypercore is only in JavaScript. Rust implementation was recently started and hopefully will lead to overall health of Hypercore, forcing better documented specs and more test-suits.
 - IPFS team runs a number of public servers that help make the network more usable.
+
+#### more work needed to compare IPFS and Hypercore
+
+Review these:
+https://blog.cloudflare.com/e2e-integrity/
+https://docs.ipfs.io/concepts/usage-ideas-examples/#usage-ideas-and-examples
+
+Rough outline: 
+
+- Sparse loading
+- Integrity - Hyper verifies blocks via Merkle branch. ISo how is integrity of the drive is achieved? Integrity of the dir?
+- Granularity, not just files, e.g. with Hypercore you can do live updates in the UI in Hypercore, like Gmail does it.
+- Does IPFS support connection Multiplexing? Hypercore has sessions with forward secrecy.
+- DHT differences?
+- how is NAT traversal different?
+- Docs availability and depth
+- Sparse. Diff with how IPFS support sparse
+- Bandwidth sharing. How does IPFS support it?
+- Multiplexing one connection. Secure Session management.
+- Pinning of files and dirs in IPFS. How management of local cache compares to Hypercore
+- Addressing / swarming individual files vs Drives (vs Peers?). IPFS uses a DHT for every single data chunk globally, for global dedup. However, IPFS architecture creates an enormous overhead of DHT traffic compared to the other protocols. It also fails to benefit from the assumed knowledge that peers who have one chunk of the repository you’re interested in are likely to also have more chunks you’re interested in.
+- Mutability: IPFS uses immutable content addressing. It also provides IPNS, so links between chunks need to use IPNS, do they? 
+- Change Data Capture - does not exist in IPFS, attempts are being made to create something for 4 years
+- PubSub
+- Database. OrbitDB, ThreadDB, AvionDB.https://medium.com/@rossbulat/orbitdb-deploying-the-distributed-ipfs-database-with-react-79afa1a7fabb
+- S3: https://docs.ipfs.io/concepts/usage-ideas-examples/#aws-s3-integration
+- Hosting - https://docs.ipfs.io/concepts/usage-ideas-examples/#ipfs-hosting-with-textile
+- Mobile support https://twitter.com/jarredsumner/status/1223633060551225344
+- How to build chat and other apps on IPFS and Hypercore
+- Git on IPFS or Hypercore. How P2P supports Git: https://www.ctrl.blog/entry/git-p2p-compared.html
 
 ### Does Hypercore have a community?
 
