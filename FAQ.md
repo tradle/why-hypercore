@@ -160,7 +160,8 @@ Rough outline:
 - Bandwidth sharing. How does IPFS support it?
 - Multiplexing one connection. Secure Session management.
 - Pinning of files and dirs in IPFS. How management of local cache compares to Hypercore
-- Addressing / swarming individual files vs Drives (vs Peers?). IPFS uses a DHT for every single data chunk globally, for global dedup. However, IPFS architecture creates an enormous overhead of DHT traffic compared to the other protocols. It also fails to benefit from the assumed knowledge that peers who have one chunk of the repository you’re interested in are likely to also have more chunks you’re interested in.
+- Addressing / swarming individual files vs Drives (vs Peers?). IPFS uses a DHT for every single data chunk globally, for global dedup. However, IPFS architecture creates an enormous overhead of DHT traffic compared to the other protocols. It also fails to benefit from the assumed knowledge that peers who have one chunk of the repository you’re interested in, are likely to also have more chunks you’re interested in.
+- URL to individual data elements: File, Resource in the database.
 - Mutability: IPFS uses immutable content addressing. It also provides IPNS, so links between chunks need to use IPNS, do they? 
 - Change Data Capture - does not exist in IPFS, attempts are being made to create something for 4 years
 - PubSub
