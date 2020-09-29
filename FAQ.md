@@ -276,10 +276,9 @@ Ideas that fit Hyperswarm's mission to help discover peers and connect to them w
 
 ## If Hypercore is a P2P Web, what is its URL format?
 
-URL is designed to be used in Beaker. Its schema is dat:// or hyper://
-It must be followed by the <publicKey> of a Hypercore feed.
+URL is designed to be used in Beaker. Its schema is `hyper://<public-key>[+<version>]/[<path>][?<query>][#<hash>]` where `public-key` is the address of the hypercore feed, `version` is an optional numeric identifier of a specific revision of the feed, and `path` `query` `hash` are fragments akin to HTTP URLs (though `query` has no defined interpretation).
 
-Note that in the future it is planned to support [Strong linking](https://github.com/mafintosh/hypercore-strong-link) to a particular version of the data element.
+The `version` identifier gives a weak guarantee of the content (it is likely but not fully guaranteed that a versioned URL will provide the same data). There is a proposal for [Strong linking](https://github.com/mafintosh/hypercore-strong-link) which would include a content-hash in the URL, providing the strong guarantee of content. (If strong links do not become part of the URL spec, they may still be leveraged in separate channels, such as manifest files which record the "strong link" hashes along with the target URL.)
 
 When supported, I think such URL needs to have both stable part and version part. It also needs to allow URLs to be used by internal components and apps, not just in Beaker. A typical use case for this is link from a data element in Hyperbee to a file on Hyperdrive.
 
