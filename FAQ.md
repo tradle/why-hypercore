@@ -150,6 +150,7 @@ https://docs.ipfs.io/concepts/usage-ideas-examples/#usage-ideas-and-examples
 
 Rough outline: 
 
+- Availability. See for example [Our Networks](https://ournetworks.ca/) page referring to both IPFS and Dat URLs and Dat URL does not open. Same [here](https://2019.ournetworks.ca/).
 - Sparse loading
 - Support for streaming 1) live streaming, 2) recorded content 3) or just sharing a video on a messenger app.
 - Integrity - Hyper verifies blocks via Merkle branch. ISo how is integrity of the drive is achieved? Integrity of the dir?
@@ -292,7 +293,7 @@ Cabal / Cobox / Kappa have gained some experience with [re-indexing of multiple 
 
 ### Practical conflict resolution for common use cases
 
-There are cases when CRDT algorithm is more suitable than database concurrency. CRDT is implemented by [Automerge](https://github.com/automerge/automerge), and used by [Hypermerge](https://github.com/automerge/hypermerge). It is also independently implemented by [YJS](https://github.com/yjs/yjs). Such cases are:
+There are cases when CRDT algorithm is more suitable than database concurrency. CRDT is implemented by [Automerge](https://github.com/automerge/automerge), and used by [Hypermerge](https://github.com/automerge/hypermerge). It is also independently implemented by [YJS](https://github.com/yjs/yjs) and [Delta-CRDT](https://github.com/peer-base/js-delta-crdts). Such cases are:
 
 - **Collaborative editing**. A P2P Google Doc alternative allowing document to be edited by multiple people simultaneously. 
   
