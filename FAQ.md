@@ -127,6 +127,8 @@ Note that WebTorrent's tech can be helpful to Hypercore, as it perfected peer di
 
 All three are cool open source P2P data projects that have existed for roughly the same 5-7 years.
 
+You can review Reddit discussion that makes [some good points](https://www.reddit.com/r/ipfs/comments/glnra9/hypercore_protocol/).
+
 Some key differences, [described here](https://www.datprotocol.com/deps/0002-hypercore/), are:
 
 - IPFS was designed as content-addressed immutable storage. Naming system [IPNS](https://docs.ipfs.io/concepts/ipns/#example-ipns-setup) was added then, to point to the latest version of the data. In Hypercore editable content was a prime design objective, supported by the internal data structures, its protocol, Change Data Capture system, APIs, etc. 
