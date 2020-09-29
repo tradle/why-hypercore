@@ -130,7 +130,6 @@ All three are cool open source P2P data projects that have existed for roughly t
 Some key differences, [described here](https://www.datprotocol.com/deps/0002-hypercore/), are:
 
 - IPFS was designed as content-addressed immutable storage. Naming system [IPNS](https://docs.ipfs.io/concepts/ipns/#example-ipns-setup) was added then, to point to the latest version of the data. In Hypercore editable content was a prime design objective, supported by the internal data structures, its protocol, Change Data Capture system, APIs, etc. 
-- Neither [IPNS](https://docs.ipfs.io/concepts/ipns/#example-ipns-setup) nor Hypercore's Beaker URL have human-friendly addresses.
 - IPFS team has produced Filecoin spec and raised $205M on ICO to build it, so it is funded to sustain long-term development. Hypercore team on the other hand is quite lightly funded by grants and consulting projects. That said, many ICOs ran into legal trouble with SEC in the US, the most high profile of them was Telegram recently. Other tensions [for IPFS team are rising](https://fortune.com/2020/08/19/are-blockchain-companies-cursed-with-too-much-cash/), as it still did not deliver a Filecoin product.
 
 Some notes on IPFS goodies:
