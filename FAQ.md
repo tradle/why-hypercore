@@ -125,15 +125,14 @@ Note that WebTorrent's tech can be helpful to Hypercore, as it perfected peer di
 
 ### How is Hypercore different from IPFS?
 
-All three are cool open source P2P data projects that have existed for roughly the same 5-7 years.
+Both are cool open source P2P data projects that have existed for roughly the same 5-7 years.
 
-Some key differences, [described here](https://www.datprotocol.com/deps/0002-hypercore/), are:
-
-- IPFS was designed as content-addressed immutable storage. Naming system [IPNS](https://docs.ipfs.io/concepts/ipns/#example-ipns-setup) was added then, to point to the latest version of the data. In Hypercore editable content was a prime design objective, supported by the internal data structures, its protocol, Change Data Capture system, APIs, etc. 
-- IPFS team has produced Filecoin spec and raised $205M on ICO to build it, so it is funded to sustain long-term development. Hypercore team on the other hand is quite lightly funded by grants and consulting projects. That said, many ICOs ran into legal trouble with SEC in the US, the most high profile of them was Telegram recently. Other tensions [for IPFS team are rising](https://fortune.com/2020/08/19/are-blockchain-companies-cursed-with-too-much-cash/), as it still did not deliver a Filecoin product.
+The key difference is focus: IPFS is designed as content-addressed immutable storage while Hypercore is designed for pubkey-address mutable storage. In practice, this difference manifests mainly as differences in code-patterns and ecosystem, but (especially this early) it's hard to make an pros and cons analysis comparing the two.
 
 Some notes on IPFS goodies:
 
+- IPFS is developing Filecoin, a novel blockchain for ensuring durability by automating purchasing of storage & block hosting. Hypercore doesn't intend to leverage any blockchains in its design and instead relies on user devices and services to provide durability and availability.
+- IPFS uses a naming system [IPNS](https://docs.ipfs.io/concepts/ipns/#example-ipns-setup) to support mutable data. In Hypercore editable content was a prime design objective, supported by the internal data structures, its protocol, Change Data Capture system, APIs, etc. 
 - [IPNS has has captured imagination of Ethereum community](https://blog.infura.io/an-introduction-to-ipfs/) to build fully decentralized apps, as most blockchain apps today still keep data and processing centralized.
 - IPFS project has produced solid core libraries, like libp2p, solving many of the same issues as Hypercore's Hyperswarm.
 - IPFS has implementations in a number of languages, while Hypercore is only in JavaScript. Rust implementation was recently started and hopefully will lead to overall health of Hypercore, forcing better documented specs and more test-suits.
