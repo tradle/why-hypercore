@@ -195,6 +195,20 @@ Hypercore is so much more. It is a foundation ford apps, that is storage, conten
 
 We believe the answer is not in copying the mining model and offering crypt-incentives. The answer we believe is a Personal Cloud, your always-available durable peer, a companion to your less-capable personal devices, a place to run many Hypercore apps that can't run on personal devices. We believe Personal Cloud will make Hypercore shine.
 
+---
+
+I'm going to just give my take here, you can decide how to incorporate this. *-pfrazee* 
+
+At this stage, there's no blockchain or P2P project that's reached wider market adoption. Crypto currencies found a niche as unregulated securities and a vehicle for speculative trading, and IPFS has found a place in the Ethereum stack. However, I would still categorize almost every project as actively seeking adoption and largely held back by the numerous overlapping needs for this novel tech to hit a wider market.
+
+The difference between Hypercore and other projects in the space is that Hypercore has moved relatively slowly with its marketing. I (and anybody I spoke to) chose not to start any "hype cycles" until we felt like the technology was somewhat market-ready. This was in part because IPFS had already captured the hype cycle, and we figured we'd hit the stage more effectively by stealthing until we could ship. (No weak plays!)
+
+We made initial releases of Hypercore (then "Dat") in 2016-2018 and discovered, most importantly, scaling issues. This is when we decided to address the "streaming database" design more effectively. Our decision to stop and fix the scaling issues halted our marketing and adoption process, but I think will prove to be the right decision. I and my team plan to get more aggressive about marketing this year (2020) as we shape up the Hypercore tooling and Beaker ecosystem.
+
+The observations about availability and networking are accurate but not 100% sufficient. There have been various public and private cloud solutions for some time, including Hashbase and Homebase. The more accurate take, I think, is that we have been heads down hitting our targets for quality of protocol performance, tooling, and applications. As we're approaching those targets in 2020, we'll begin to push the technology more aggressively, and adoption will grow.
+
+---
+
 ### Who is using Hypercore P2P framework today?
 
 Need help with this.
