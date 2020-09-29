@@ -245,6 +245,8 @@ For reference, see how open source app [Consento](https://consento.org/) does it
 Yes, for ephemeral session encryption keys.
 No, for Hypercore log, but can be added on top with the help of [Hypercore-multi-key](https://github.com/mafintosh/hypercore-multi-key) module which allows to switch to a new keypair. It is your responsibility to sign the new key with the old to establish the secure continuity, and to verify this signature on receiving nodes to prove the legality of key rotation. Perhaps this can be added as a [hypercore extension](https://github.com/mafintosh/hypercore-extension-rpc)?
 
+Key rotation/replacement is one of the motivations for introducing DNS to Hyper's addressing scheme as it would enable key rotation via the indirection of name lookup.
+
 ### Is there an authentication system?
 
 Yes. Each Hypercore feed has a corresponding public / private key pair. 
