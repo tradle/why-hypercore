@@ -8,11 +8,12 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [What is offline-first principle?](#what-is-offline-first-principle)
   - [What is a streaming DB?](#what-is-a-streaming-db)
   - [How is Hypercore different from BitTorrent, WebTorrent?](#how-is-hypercore-different-from-bittorrent-webtorrent)
-  - [How is Hypercore different from ScuttleButt?](#how-is-hypercore-different-from-scuttlebutt)
+  - [How is Hypercore different from ScuttleButt (SSB)?](#how-is-hypercore-different-from-scuttlebutt-ssb)
   - [How is Hypercore different from IPFS?](#how-is-hypercore-different-from-ipfs)
     - [more work needed to compare IPFS and Hypercore](#more-work-needed-to-compare-ipfs-and-hypercore)
   - [Does Hypercore have a community?](#does-hypercore-have-a-community)
   - [Why Hypercore is not yet mainstream?](#why-hypercore-is-not-yet-mainstream)
+  - [P2P state and evolution](#p2p-state-and-evolution)
   - [Who is using Hypercore P2P framework today?](#who-is-using-hypercore-p2p-framework-today)
   - [Is there support for social key recovery?](#is-there-support-for-social-key-recovery)
   - [Is there a regular key rotation and key replacement mechanism?](#is-there-a-regular-key-rotation-and-key-replacement-mechanism)
@@ -117,24 +118,29 @@ But Hypercore can do more - it is built as a data and communications framework f
 
 Note that WebTorrent's tech can be helpful to Hypercore, as it perfected peer discovery (via DHT) on the Web and it allowed a number of innovative streaming clients to emerge, which could be helpful for Hypercore applications, like Beaker Browser.
 
-### How is Hypercore different from ScuttleButt?
+### How is Hypercore different from ScuttleButt (SSB)?
 
-- ScuttleButt is not suited for streaming, as it does not have a sparse data structure (enabled in Hypercore by Merkle trees, while ScuttleButt uses linked lists).
-
-- Need help with this.
+- SSB is a peer-to-peer network for streaming feeds of JSON objects. Its primary data-structure is the "feed."
+- SSB is not suited for streaming, as it does not have a sparse data structure (enabled in Hypercore by Merkle trees, while SSB uses linked lists).
+- SSB uses a gossip protocol to sync data between peers. It does not automate peer discovery for a given dataset (e.g. via DHT) so topology must be manually managed. Hypercore uses a DHT to automate discovery of peers for exchanging of data.
+- SSB is primarily focused on social media applications. Hypercore has been growing towards a more generic model of structured data (file systems, databases) spread and synchronized over many devices.
 
 ### How is Hypercore different from IPFS?
 
-All three are cool open source P2P data projects that have existed for roughly the same 5-7 years.
+Both are cool open source P2P data projects that have existed for roughly the same 5-7 years.
 
 You can review Reddit discussion that makes [some good points](https://www.reddit.com/r/ipfs/comments/glnra9/hypercore_protocol/).
 
 Some key differences, [described here](https://www.datprotocol.com/deps/0002-hypercore/), are:
 
-- IPFS was designed as content-addressed immutable storage. Naming system [IPNS](https://docs.ipfs.io/concepts/ipns/#example-ipns-setup) was added then, to point to the latest version of the data. In Hypercore editable content was a prime design objective, supported by the internal data structures, its protocol, Change Data Capture system, APIs, etc. 
+- Mutability. From the start IPFS was designed as an immutable storage, while Hypercore was designed as a mutable storage. In Hypercore editable content was a prime design objective, supported by the internal data structures, its protocol, Change Data Capture system, APIs, etc.
+
+- Discovery. Both IPFS and Hypercore use DHT for discovery nowadays. This allows avoiding dependency on a more centralized DNS system. But they use DHT very differently. IPFS is more like BitTorrent, puts individual file reference in DHT, specifically the hash of file's contents (content-addressed). Since hash changes with file modifications, IPFS added a naming system [IPNS](https://docs.ipfs.io/concepts/ipns/#example-ipns-setup) so that the name in IPNS points to the file's latest version's hash. In Hypercore discovery is at higher level, to avoid overloading DHT. By default, the whole drives (Hyperdrives with potentially millions of files) are addressed via the DHT, URL of the file becomes drive/file. In addition, Hyperswarm service provides a flexible mechanism to design your own DHT-based discovery system, e.g. discover communities, teams, people, etc.
+
+- Directory structures and file metadata. IPFS simulates directories by creating files with links to other files. Hypercore does full file system emulation and therefore can be mounted natively (via FUSE) to be viewed in File Explorer, Finder and to be used from the command line as a normal file system.
+
+- File metadata. 
 - Neither [IPNS](https://docs.ipfs.io/concepts/ipns/#example-ipns-setup) nor Hypercore's Beaker URL have human-friendly addresses.
-- IPFS was designed for files, so it is not suitable for databases. It also has limited support for data editing and data integrity (history of changes).
-- IPFS team has produced Filecoin spec and raised $205M on ICO to build it, so it is funded to sustain long-term development. Hypercore team on the other hand is quite lightly funded by grants and consulting projects. That said, many ICOs ran into legal trouble with SEC in the US, the most high profile of them was Telegram recently. Other tensions [for IPFS team are rising](https://fortune.com/2020/08/19/are-blockchain-companies-cursed-with-too-much-cash/), as it still did not deliver a Filecoin product.
 
 Some notes on IPFS goodies:
 
@@ -167,10 +173,11 @@ Rough outline:
 - Pinning of files and dirs in IPFS. How management of local cache compares to Hypercore
 - Addressing / swarming individual files vs Drives (vs Peers?). IPFS uses a DHT for every single data chunk globally, for global dedup. However, IPFS architecture creates an enormous overhead of DHT traffic compared to the other protocols. It also fails to benefit from the assumed knowledge that peers who have one chunk of the repository you’re interested in, are likely to also have more chunks you’re interested in.
 - URL to individual data elements: File, Resource in the database.
-- Mutability: IPFS uses immutable content addressing. It also provides IPNS, so links between chunks need to use IPNS, do they? 
 - Change Data Capture - does not exist in IPFS, attempts are being made to create something for 4 years
 - PubSub
-- Database. OrbitDB, ThreadDB, AvionDB.https://medium.com/@rossbulat/orbitdb-deploying-the-distributed-ipfs-database-with-react-79afa1a7fabb
+- Databases. OrbitDB, ThreadDB, AvionDB.https://medium.com/@rossbulat/orbitdb-deploying-the-distributed-ipfs-database-with-react-79afa1a7fabb
+  Wasn't IPFS was designed just for files? How can it support DBs?
+- How does IPFS support data integrity? Hypercore proves to the recipients the that a subset of blocks sent belongs to a whole. It also supports versioning of data elements. It also allows supports point in-time recovery, allowing to restore Hypercore to any previous state.
 - S3: https://docs.ipfs.io/concepts/usage-ideas-examples/#aws-s3-integration
 - Hosting - https://docs.ipfs.io/concepts/usage-ideas-examples/#ipfs-hosting-with-textile
 - Mobile support https://twitter.com/jarredsumner/status/1223633060551225344
@@ -197,7 +204,25 @@ Is there an answer to those perpetual problems of P2P? We believe there is. In c
 
 Hypercore is so much more. It is a foundation ford apps, that is storage, content distribution, compute, messaging, networking, analytics, AI, etc.
 
-We believe the answer is not in copying the mining model and offering crypt-incentives. The answer we believe is a Personal Cloud, your always-available durable peer, a companion to your less-capable personal devices, a place to run many Hypercore apps that can't run on personal devices. We believe Personal Cloud will make Hypercore shine.
+We believe the answer is not in copying the mining model and offering crypto-incentives. The answer we believe is a Personal Cloud, your always-available durable peer, a companion to your less-capable personal devices, a place to run many Hypercore apps that can't run on personal devices. We believe Personal Cloud will make Hypercore shine.
+
+### P2P state and evolution
+
+Both classes of P2P systems, blockchains and P2P data are nudging towards mass market adoption. Cryptocurrencies made huge strides in creating a new foundation for global financial system, especially evidenced by the rise of DeFi in 2020.
+
+In addition, many new projects are employing tokens as incentives mechanisms to avoid points of centralization that exist today. Examples are VPN (Orchid), Routing (PKT + CJDNS), social media (Steam), live streaming (Theta.tv), Web Browsing (Brave), Storage (StorJ, IPFS FileCoin). Several high-profile projects were shut down (Telegram TON) or have hit high resistance from governments (Facebook Libra).
+
+Crypto-currency P2P projects are a huge step ahead of data-centric P2P projects like Hypercore and IPFS, as they have found their native hosting model, in the form of miners. This makes them independent of the Cloud providers, which is essential for their survivability in the face of regulatory scrutiny.
+
+P2P Data projects do not experience such a resistance, but they have not invented their own sustainable infrastructure. IPFS is looking to Filecoin to incentivize storage providers, while meanwhile subsidizing hosting via ipfs.io.
+
+Hypercore community has produced Hashbase, Homebase, DatDot and other hosting solutions, but they have not reached significant maturity and adoption. Could Personal Cloud be the answer (shameless plug)?
+
+Almost every P2P project is still largely held back by numerous overlapping infrastructure needs for this novel tech to hit a wider market. E.g. one common problem is the management of the ownership keys.
+
+The difference between Hypercore and IPFS is that it has moved relatively slowly with its marketing. The core team chose to patiently and somewhat stealthily build the foundational technology and avoid starting the "hype cycle", that is until it is ready for prime time. Initial releases of Hypercore (then called "Dat") in 2016-2018 had scaling issues, which have been addressed by subsequent releases.
+
+Specifically, Hypercore team focused on the performance of its unique "streaming database" design (see below). Team prepares for marketing push at the end of this year (2020), starting with the Beaker ecosystem (Beaker is the Web and P2P Browser and authoring platform built on Hypercore)
 
 ### Who is using Hypercore P2P framework today?
 
