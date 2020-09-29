@@ -330,6 +330,8 @@ As you see it is not a problem that has a generic solution in Hypercore. But may
 
 We know it is single-writer. But can same writer accidentally screw up the Hypercore while being executed from a second processes on the same machine? If so, it will present a significant design challenge in Serverless environment.
 
+*note* Talk to maf or andrew about this, but last I checked with them, there are transaction and locking tools in the hyperspace daemon to ensure correctness during multi-process access. -prf
+
 ### What is the biggest gotcha with Hypercore?
 
 Need help with this. @RangerMauve?
