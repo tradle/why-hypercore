@@ -117,11 +117,12 @@ But Hypercore can do more - it is built as a data and communications framework f
 
 Note that WebTorrent's tech can be helpful to Hypercore, as it perfected peer discovery (via DHT) on the Web and it allowed a number of innovative streaming clients to emerge, which could be helpful for Hypercore applications, like Beaker Browser.
 
-### How is Hypercore different from ScuttleButt?
+### How is Hypercore different from Secure ScuttleButt (SSB)?
 
-- ScuttleButt is not suited for streaming, as it does not have a sparse data structure (enabled in Hypercore by Merkle trees, while ScuttleButt uses linked lists).
-
-- Need help with this.
+- SSB is a peer-to-peer network for streaming feeds of JSON objects. Its primary data-structure is the "feed."
+- SSB is not suited for streaming, as it does not have a sparse data structure (enabled in Hypercore by Merkle trees, while ScuttleButt uses linked lists).
+- SSB uses a gossip protocol to sync data between peers. It does not automate peer discovery for a given dataset (eg via DHT) so topology must be manually managed. Hypercore uses a DHT to automate discovery of peers for data-sync.
+- SSB is primarily focused on social media applications.
 
 ### How is Hypercore different from IPFS?
 
