@@ -151,6 +151,7 @@ https://docs.ipfs.io/concepts/usage-ideas-examples/#usage-ideas-and-examples
 Rough outline: 
 
 - Sparse loading
+- Support for streaming 1) live streaming, 2) recorded content 3) or just sharing a video on a messenger app.
 - Integrity - Hyper verifies blocks via Merkle branch. ISo how is integrity of the drive is achieved? Integrity of the dir?
 - Granularity, not just files, e.g. with Hypercore you can do live updates in the UI in Hypercore, like Gmail does it.
 - Does IPFS support connection Multiplexing? Hypercore has sessions with forward secrecy.
