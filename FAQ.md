@@ -163,7 +163,8 @@ Rough outline:
 - Availability. See for example [Our Networks](https://ournetworks.ca/) page referring to both IPFS and Dat URLs and Dat URL does not open. Same [here](https://2019.ournetworks.ca/).
 - Sparse loading
 - Support for streaming 1) live streaming, 2) recorded content 3) or just sharing a video on a messenger app.
-- Integrity - Hypercore verifies blocks via Merkle branch. But how is integrity of the whole drive achieved? Or integrity of the dir?
+- Integrity - See section on one Hypercore integrity. But how is the integrity of the multiple feeds achieved, e.g. metadata and content feeds in Hyperdrive, or composite feeds like multi-hyperdrive? 
+How does IPFS support data integrity? 
 - Granularity, not just files, e.g. with Hypercore you can do live updates in the UI in Hypercore, like Gmail does it.
 - Does IPFS support connection Multiplexing? Hypercore has sessions with forward secrecy.
 - DHT differences?
@@ -179,7 +180,6 @@ Rough outline:
 - PubSub
 - Databases. OrbitDB, ThreadDB, AvionDB.https://medium.com/@rossbulat/orbitdb-deploying-the-distributed-ipfs-database-with-react-79afa1a7fabb
   Wasn't IPFS was designed just for files? How can it support DBs?
-- How does IPFS support data integrity? See section on Hypercore integrity. 
 - S3: https://docs.ipfs.io/concepts/usage-ideas-examples/#aws-s3-integration
 - Hosting - https://docs.ipfs.io/concepts/usage-ideas-examples/#ipfs-hosting-with-textile
 - Mobile support https://twitter.com/jarredsumner/status/1223633060551225344
@@ -243,7 +243,7 @@ Each project building on Hypercore is stretching its flexibility and contributes
 
 ### How integrity of the data is assured?
 
-Hypercore goes into great length to provide data integrity. For that it uses a Merkle tree hashing into it each block that is added to the append-only log.  On every change the root of the Merkle tree is signed by the private key of the of this Hypercore (note that this also creates a limitation of a single writer, see later how it is overcome). When Hypercore is shared to another peer, with the help of Merkle branches it is possible to to prove authenticity and integrity of of a subset of blocks, without sharing the whole Hypercore. This allows creation of many different use cases, like distributed caching, bandwidth sharing, etc.
+Hypercore goes into great length to provide data integrity. For that it uses a Merkle tree hashing into it each block that is added to the append-only log.  On every change the root of the Merkle tree is signed by the private key of the of this Hypercore (note that this also creates a limitation of a single writer, see later how it is overcome). When Hypercore is shared to another peer, with the help of Merkle branches it is possible to to prove authenticity and integrity of a subset of blocks, without sharing the whole Hypercore. This allows to accept data from the untrusted peers (as they can't fudge the data). This capability support a number of use cases, like CDN, distributed caching, bandwidth sharing, etc.
 
 Append-only log also allows to recover the state of Hypercore at any prior a point-in-time, a highly desirable function in databases. It allows to preserve Hypercore backup snapshots at a particular point in time.
 
