@@ -15,6 +15,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [Why Hypercore is not yet mainstream?](#why-hypercore-is-not-yet-mainstream)
   - [P2P state and evolution](#p2p-state-and-evolution)
   - [Who is using Hypercore P2P framework today?](#who-is-using-hypercore-p2p-framework-today)
+  - [How integrity of the data is assured?](#how-integrity-of-the-data-is-assured)
   - [Is there support for social key recovery?](#is-there-support-for-social-key-recovery)
   - [Is there a regular key rotation and key replacement mechanism?](#is-there-a-regular-key-rotation-and-key-replacement-mechanism)
   - [Is there an authentication system?](#is-there-an-authentication-system)
@@ -161,7 +162,7 @@ Rough outline:
 - Availability. See for example [Our Networks](https://ournetworks.ca/) page referring to both IPFS and Dat URLs and Dat URL does not open. Same [here](https://2019.ournetworks.ca/).
 - Sparse loading
 - Support for streaming 1) live streaming, 2) recorded content 3) or just sharing a video on a messenger app.
-- Integrity - Hyper verifies blocks via Merkle branch. ISo how is integrity of the drive is achieved? Integrity of the dir?
+- Integrity - Hypercore verifies blocks via Merkle branch. But how is integrity of the whole drive achieved? Or integrity of the dir?
 - Granularity, not just files, e.g. with Hypercore you can do live updates in the UI in Hypercore, like Gmail does it.
 - Does IPFS support connection Multiplexing? Hypercore has sessions with forward secrecy.
 - DHT differences?
@@ -177,7 +178,7 @@ Rough outline:
 - PubSub
 - Databases. OrbitDB, ThreadDB, AvionDB.https://medium.com/@rossbulat/orbitdb-deploying-the-distributed-ipfs-database-with-react-79afa1a7fabb
   Wasn't IPFS was designed just for files? How can it support DBs?
-- How does IPFS support data integrity? Hypercore proves to the recipients the that a subset of blocks sent belongs to a whole. It also supports versioning of data elements. It also allows supports point in-time recovery, allowing to restore Hypercore to any previous state.
+- How does IPFS support data integrity? See section on Hypercore integrity. 
 - S3: https://docs.ipfs.io/concepts/usage-ideas-examples/#aws-s3-integration
 - Hosting - https://docs.ipfs.io/concepts/usage-ideas-examples/#ipfs-hosting-with-textile
 - Mobile support https://twitter.com/jarredsumner/status/1223633060551225344
@@ -239,6 +240,14 @@ Each project building on Hypercore is stretching its flexibility and contributes
 - See at the bottom of [Hypercore protocol page](https://hypercore-protocol.org/)
 - See discussion forum where people [showcase their Hyper projects](https://discordapp.com/channels/709519409932140575/712037351244955809/712037741126221924).
 
+### How integrity of the data is assured?
+
+Hypercore goes into great length to provide data integrity. For that it uses a Merkle tree hashing into it each block that is added to the append-only log.  On every change the root of the Merkle tree is signed by the private key of the of this Hypercore (note that this also creates a limitation of a single writer, see later how it is overcome). When Hypercore is shared to another peer, with the help of Merkle branches it is possible to to prove authenticity and integrity of of a subset of blocks, without sharing the whole Hypercore. This allows creation of many different use cases, like distributed caching, bandwidth sharing, etc.
+
+Append-only log also allows to recover the state of Hypercore at any prior a point-in-time, a highly desirable function in databases. It allows to preserve Hypercore backup snapshots at a particular point in time.
+
+In addition, Hypercore supports versioning of data elements, a capability highly sought after in enterprise systems. Versioning allows protect data from accidental overwrite by a human being or a broken or malicious program. It also provides auditability and regulatory compliance.
+
 ### Is there support for social key recovery?
 
 No. But a community solution and other open source projects exist that can possibly be adapted. 
@@ -289,10 +298,9 @@ Ideas that fit Hyperswarm's mission to help discover peers and connect to them w
 
 ## If Hypercore is a P2P Web, what is its URL format?
 
-URL is designed to be used in Beaker. Its schema is dat:// or hyper://
-It must be followed by the <publicKey> of a Hypercore feed.
+URL is designed to be used in Beaker. Its schema is `hyper://<public-key>[+<version>]/[<path>][?<query>][#<hash>]` where `public-key` is the address of the hypercore feed, `version` is an optional numeric identifier of a specific revision of the feed, and `path` `query` `hash` are fragments akin to HTTP URLs (though `query` has no defined interpretation).
 
-Note that in the future it is planned to support [Strong linking](https://github.com/mafintosh/hypercore-strong-link) to a particular version of the data element.
+The `version` identifier gives a weak guarantee of the content (it is likely but not fully guaranteed that a versioned URL will provide the same data). There is a proposal for [Strong linking](https://github.com/mafintosh/hypercore-strong-link) which would include a content-hash in the URL, providing the strong guarantee of content. (If strong links do not become part of the URL spec, they may still be leveraged in separate channels, such as manifest files which record the "strong link" hashes along with the target URL.)
 
 When supported, I think such URL needs to have both stable part and version part. It also needs to allow URLs to be used by internal components and apps, not just in Beaker. A typical use case for this is link from a data element in Hyperbee to a file on Hyperdrive.
 
