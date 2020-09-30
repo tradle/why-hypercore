@@ -55,6 +55,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
     - [Can we distinguish between peers before connecting to them?](#can-we-distinguish-between-peers-before-connecting-to-them)
     - [Is Hyperswarm anonymous?](#is-hyperswarm-anonymous)
   - [Hyperdrive](#hyperdrive)
+    - [Can you help me picture use cases for Hyperdrive?](#can-you-help-me-picture-use-cases-for-hyperdrive)
     - [How can Hyperdrive be shared?](#how-can-hyperdrive-be-shared)
     - [What are the limits on file sizes?](#what-are-the-limits-on-file-sizes)
 - [Where can I learn more about Hypercore universe?](#where-can-i-learn-more-about-hypercore-universe)
@@ -167,8 +168,10 @@ Rough outline:
 How does IPFS support data integrity? 
 - Granularity, not just files, e.g. with Hypercore you can do live updates in the UI in Hypercore, like Gmail does it.
 - Does IPFS support connection Multiplexing? Hypercore has sessions with forward secrecy.
-- DHT differences?
+- DHT differences with IPFS?
 - how is NAT traversal different?
+- HTTPS and other gateways to provide access when other things do not work. For example, see discussion on Hypercore not working on [campus network](https://github.com/datproject/discussions/issues/87).
+- Download progress and health of seeded data. See [discussion here](https://github.com/datproject/discussions/issues/81). How does IPFS handle it?
 - Docs availability and depth
 - Sparse. Diff with how IPFS support sparse
 - Bandwidth sharing. How does IPFS support it?
@@ -243,7 +246,7 @@ Each project building on Hypercore is stretching its flexibility and contributes
 
 ### How integrity of the data is assured?
 
-Hypercore goes into great length to provide data integrity. For that it uses a Merkle tree hashing into it each block that is added to the append-only log.  On every change the root of the Merkle tree is signed by the private key of the of this Hypercore (note that this also creates a limitation of a single writer, see later how it is overcome). When Hypercore is shared to another peer, with the help of Merkle branches it is possible to to prove authenticity and integrity of a subset of blocks, without sharing the whole Hypercore. This allows to accept partial data from the untrusted peers (as they can't fudge the data). This capability supports a number of use cases, like distributed caching and CDNs, bandwidth sharing, distributed files systems, streaming databases, audit protocols and supervision, etc.
+Hypercore goes into great length to provide data integrity. For that it uses a Merkle tree hashing into it each block that is added to the append-only log.  On every change the root of the Merkle tree is signed by the private key of the of this Hypercore (note that this also creates a limitation of a single writer, see later how it is overcome). When Hypercore is shared to another peer, with the help of Merkle branches it is possible to to prove authenticity and integrity of a subset of blocks, without sharing the whole Hypercore. This allows to accept partial data from the untrusted peers (as they can't fudge the data). This capability supports a number of use cases, like distributed caching and CDNs, bandwidth sharing, distributed files systems, streaming databases, audit protocols and supervision, etc. See an [interesting discussion](https://github.com/AljoschaMeyer/bamboo/issues/2) in which Hypercore integrity guarantees were challenged and defended.
 
 Append-only log also allows to recover the state of Hypercore at any prior a point-in-time, a highly desirable function in databases. It allows to preserve Hypercore backup snapshots at a particular point in time.
 
@@ -352,7 +355,7 @@ Note that CRDT resolution is much better if clocks between machines are well syn
 
 [HyperDB](https://github.com/mafintosh/hyperdb) is an older Hypercore project which is a multi-writer database, but it is not seeing any support anymore, presumably as it could not be made performant, but it may still help some apps before a replacement comes in (need confirmation).
 
-[Co-Hyperdrive](https://github.com/RangerMauve/co-hyperdrive). A multi-writer hyperdrive implementation. 
+[Multi-Hyperdrive](https://github.com/RangerMauve/multi-hyperdrive). A very clever yet simple multi-writer hyperdrive implementation.
 
 As you see it is not a problem that has a generic solution in Hypercore. But maybe instead of focusing on Hyperdrive or a DB we should focus on the use case, specifically a [single-user multi-device use case](https://github.com/tradle/why-hypercore/issues/7).
 
@@ -535,6 +538,16 @@ Now, Hyperswarm announces IP and Port.
 Hyperdrive provides many of the hard to create components to replicate the functionality of Dropbox and Google Drive. Beaker Browser adds the UI to it.
 
 Hyperdrive is a library and can also [run as a service](https://github.com/hypercore-protocol/hyperdrive-daemon), that is accessible via an API and can show up as a [normal directory on your disk](https://github.com/hypercore-protocol/hyperdrive-daemon#fuse) (this part works on MacOS and Linux, with Windows in works).
+
+#### Can you help me picture use cases for Hyperdrive?
+
+- Dropbox, Google Drive, etc. alternative without a central server. These systems are used by millions of teams and everyone's privacy is compromised. In addition, Hyperdrive adds magic powers of media streaming and bandwidth sharing with peers (Hyperdrive is helped by a companion Hyperspace service (daemon), which runs like a Dropbox service in the background).
+
+- Distributed, replicated file system, an alternative to NFS, Samba/cifs or sshfs. Distributed file system is essential component of Cloud services. Hyperdrive is much better suited to run in multi-tenant environment.
+
+- A building block to create a real alternative to Object Storage (S3).
+
+- Distribution of software and large datasets to / from / between Data Centers and any case of Big Data fan-out.
 
 #### How can Hyperdrive be shared?
 
