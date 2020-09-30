@@ -16,6 +16,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [P2P state and evolution](#p2p-state-and-evolution)
   - [Who is using Hypercore P2P framework today?](#who-is-using-hypercore-p2p-framework-today)
   - [How integrity of the data is assured?](#how-integrity-of-the-data-is-assured)
+  - [Can Hypercore's author change history?](#can-hypercores-author-change-history)
   - [Is there support for social key recovery?](#is-there-support-for-social-key-recovery)
   - [Is there a regular key rotation and key replacement mechanism?](#is-there-a-regular-key-rotation-and-key-replacement-mechanism)
   - [Is there an authentication system?](#is-there-an-authentication-system)
@@ -248,9 +249,15 @@ Append-only log also allows to recover the state of Hypercore at any prior a poi
 
 In addition, Hypercore supports versioning of data elements, a capability highly sought after in enterprise systems. Versioning allows protect data from accidental overwrite by a human being or a broken or malicious program. It also provides auditability and regulatory compliance.
 
+### Can Hypercore's author change history?
+
+An actor could decide to revert Hypercore to a previous state, and share this fork. This could also be used in the attack where attacker aims for the initial data gets to either get deleted or destroyed by backups.
+
+The preventive measure for this is to seal Merkle root of the Hypercore on public blockchain.
+
 ### Is there support for social key recovery?
 
-No. But a community solution and other open source projects exist that can possibly be adapted. 
+No. But a community solution and other open source projects exist that can possibly be adapted.
 
 Note that corestore makes this easier as it introduces Master key (and generates deterministically the keypairs for Hypercores it manages). It is much easier to manage one key than many, one per Hypercore.
 
