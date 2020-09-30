@@ -251,7 +251,7 @@ In addition, Hypercore supports versioning of data elements, a capability highly
 
 ### Can Hypercore's author change history?
 
-An actor could decide to revert Hypercore to a previous state, and share this fork. This could also be used in the attack where attacker aims for the initial data gets to either get deleted or destroyed by backups. Another possibility is for the author to rewind and serve different version of the history to different peers.
+An actor could decide to revert Hypercore to a previous state, and share this fork. This could also be used in the attack where attacker aims for the initial data gets to either get deleted or destroyed by backups. Another possibility is for the author to rewind and serve different version of the history to different peers. See this [discussed on Gitter](https://gitter.im/datproject/discussions?at=5d9d962e973587467320b241).
 
 The preventive measure for this is to employ the blockchain, sealing Merkle root of the Hypercore on the public blockchain, utilizing blockchain's immutability guarantee and its secure timestamping property.
 
@@ -286,7 +286,8 @@ Yes. Each Hypercore feed has a corresponding public / private key pair.
 
 ### Is there a discovery system to learn what feeds the other peer shares?
 
-Yes. Managed by Corestore, or community provided multifeed.
+Yes. Managed by Corestore, or by the community-provided multifeed.
+
 Need help with this.
 
 ### Help me picture use cases for Hyperswarm?
