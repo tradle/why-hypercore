@@ -48,6 +48,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [Can data be deleted?](#can-data-be-deleted)
 - [Hypercore components / modules](#hypercore-components--modules)
   - [Hyperbee](#hyperbee)
+    - [Help me picture use cases for Hyperbee?](#help-me-picture-use-cases-for-hyperbee)
     - [Only one Hyperbee per Hypercore?](#only-one-hyperbee-per-hypercore)
     - [What are the limitations on consistency?](#what-are-the-limitations-on-consistency)
     - [Can it serve as LevelDB replacement?](#can-it-serve-as-leveldb-replacement)
@@ -491,6 +492,15 @@ Cloud providers sometimes offer a virtualized file system over multiple replicas
 
 ### Hyperbee
 
+#### Help me picture use cases for Hyperbee?
+
+- Personal use replacement for AWS DynamoDB (Azure Cosmos, etc.), providing complete isolation in multi-tenant Cloud environment.
+- Multi-device Calendar, like Google Calendar, but without Google or any other central provider.
+- Multi-device email front-end? It is a tall order, but we do need to stop giving Google all our mail.
+- Multi-device chat and group chat. See [Cabal](https://cabal.chat/), an attempt to do just that.
+- Use cases for embedded replicated streaming DB are plentiful.
+Need help with this.
+
 #### Only one Hyperbee per Hypercore?
 
 Yes. But one replication stream [can carry many Hypercores](https://discordapp.com/channels/709519409932140575/709519410557222964/755415844808556594). Use Corestore to manage multiple hypercore feeds, with permissions.
@@ -543,7 +553,7 @@ Hyperdrive is a library and can also [run as a service](https://github.com/hyper
 
 - Dropbox, Google Drive, etc. alternative without a central server. These systems are used by millions of teams and everyone's privacy is compromised. In addition, Hyperdrive adds magic powers of media streaming and bandwidth sharing with peers (Hyperdrive is helped by a companion Hyperspace service (daemon), which runs like a Dropbox service in the background).
 
-- Distributed, replicated file system, an alternative to NFS, Samba/cifs or sshfs. Distributed file system is essential component of Cloud services. Hyperdrive is much better suited to run in multi-tenant environment.
+- Distributed, replicated file system, an alternative to NFS, Samba/cifs or sshfs. Distributed file system is essential component of Cloud services, e.g. many serverless applications [can't be built without it](https://lumigo.io/blog/unlocking-more-serverless-use-cases-with-efs-and-lambda/). Hyperdrive could provide a better isolation of personal data in a multi-tenant Cloud environment.
 
 - A building block to create a real alternative to Object Storage (S3).
 
