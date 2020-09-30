@@ -251,9 +251,9 @@ In addition, Hypercore supports versioning of data elements, a capability highly
 
 ### Can Hypercore's author change history?
 
-An actor could decide to revert Hypercore to a previous state, and share this fork. This could also be used in the attack where attacker aims for the initial data gets to either get deleted or destroyed by backups.
+An actor could decide to revert Hypercore to a previous state, and share this fork. This could also be used in the attack where attacker aims for the initial data gets to either get deleted or destroyed by backups. Another possibility is for the author to rewind and serve different version of the history to different peers.
 
-The preventive measure for this is to seal Merkle root of the Hypercore on public blockchain.
+The preventive measure for this is to employ the blockchain, sealing Merkle root of the Hypercore on the public blockchain, utilizing blockchain's immutability guarantee and its secure timestamping property.
 
 ### Is there support for social key recovery?
 
