@@ -547,7 +547,7 @@ Hyperdrive is a library and can also [run as a service](https://github.com/hyper
 
 - A building block to create a real alternative to Object Storage (S3).
 
-- Distribution of software and large datasets to / from / between Data Centers and any case of Big Data fan-out.
+- Distribution of software and large datasets to / from / between Data Centers, as described in [older eBay paper](https://tech.ebayinc.com/engineering/bittorrent-for-package-distribution-in-the-enterprise/), and any case of Big Data fan-out.
 
 #### How can Hyperdrive be shared?
 
