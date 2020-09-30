@@ -5,7 +5,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
 - [General](#general)
   - [What are the main components / modules / packages?](#what-are-the-main-components--modules--packages)
   - [What is the USP (Unique Selling Proposition) of Hypercore?](#what-is-the-usp-unique-selling-proposition-of-hypercore)
-  - [What is offline-first principle?](#what-is-offline-first-principle)
+  - [What is offline-first local-first principle?](#what-is-offline-first-local-first-principle)
   - [What is a streaming DB?](#what-is-a-streaming-db)
   - [How is Hypercore different from BitTorrent, WebTorrent?](#how-is-hypercore-different-from-bittorrent-webtorrent)
   - [How is Hypercore different from ScuttleButt (SSB)?](#how-is-hypercore-different-from-scuttlebutt-ssb)
@@ -87,7 +87,7 @@ This point needs to be repeated again and again, as streaming data (files, video
 
 Note, when reading Hypercore docs you will find many references to Sparse files and sparse DB. This is the capability used for streaming, that is a peer can efficiently request individual blocks from remote peers, instead of loading the whole thing, be it a video file or a database.
 
-### What is offline-first principle?
+### What is offline-first local-first principle?
 
 Hypercore is built to give you full control of your data. This means, it continues to work even when you have no connectivity, when your other peers are offline, and when hosting / cloud provider closes your account. It also allows portability to other machines or hosting providers.
 
@@ -494,11 +494,16 @@ Cloud providers sometimes offer a virtualized file system over multiple replicas
 
 #### Help me picture use cases for Hyperbee?
 
-- Personal use replacement for AWS DynamoDB (Azure Cosmos, etc.), providing complete isolation in multi-tenant Cloud environment.
-- Multi-device Calendar, like Google Calendar, but without Google or any other central provider.
-- Multi-device email front-end? It is a tall order, but we do need to stop giving Google all our mail.
+A database that is automatically syncing between all personal devices, but without the help of Apple, Google or any other central provider. For Cloud this could be a serverless personal-use replacement for AWS DynamoDB (Azure Cosmos, etc.), while providing **complete isolation** in multi-tenant environment. Some use cases:
+
+- Multi-device Contact list.
+- Multi-device Calendar.
+- Multi-device Bookmarks.
+- Multi-device list of installed apps and their respective settings.
 - Multi-device chat and group chat. See [Cabal](https://cabal.chat/), an attempt to do just that.
-- Use cases for embedded replicated streaming DB are plentiful.
+- Multi-device email front-end? It is a tall order, but we do need to stop giving Google all our mail.
+
+Use cases for embedded replicated streaming DB are plentiful.
 Need help with this.
 
 #### Only one Hyperbee per Hypercore?
