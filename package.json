@@ -1,0 +1,34 @@
+{
+  "name": "why-hypercore",
+  "version": "1.0.0",
+  "description": "As we are exploring the design for running Tradle on Hypercore, this summarizes our findings. You can find a lot more information in this [rapidly growing FAQ](FAQ.md).",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tradle/why-hypercore.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tradle/why-hypercore/issues"
+  },
+  "homepage": "https://github.com/tradle/why-hypercore#readme",
+  "dependencies": {
+    "@geut/hyperdrive-promise": "^3.1.0",
+    "corestore": "^5.7.3",
+    "hyperbee": "0.0.18",
+    "hypercore": "^9.5.4",
+    "hyperdrive": "^10.18.0",
+    "mountable-hypertrie": "^2.8.0",
+    "multi-hyperdrive": "^1.1.4",
+    "random-access-memory": "^3.1.1",
+    "random-access-s3": "^1.0.0",
+    "sorted-union-stream": "github:tradle/sorted-union-stream"
+  },
+  "devDependencies": {
+    "tape": "^5.0.1"
+  }
+}
