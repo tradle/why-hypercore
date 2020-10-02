@@ -100,9 +100,9 @@ Luckily Tradle uses only a small subset of AWS services, and this makes the task
 
 ![AWS architecture](Tradle-MyCloud-aws-architecture.png)
 
-What makes this task even more practical is that [Tradle MyCloud](https://github.com/tradle/mycloud) already uses an emulation layer for AWS, called [Localstack](https://github.com/localstack/localstack). Localstack is sufficient to run and debug Tradle MyCloud but is inherently unreliable and is single-tenant.
+What makes this task even more practical is that [Tradle MyCloud](https://github.com/tradle/mycloud) already uses an emulation layer for AWS, called [Localstack](https://github.com/localstack/localstack). Localstack is sufficient to run and debug Tradle MyCloud, but does not robust underlying components to run in production environment.
 
-We need a solid base that can be deployed in any Local Data Center, removing our dependency on AWS. This document outlines the steps we can take by replacing one by one its components with the enterprise-grade production-ready components for multi-tenancy.
+We need a solid base that can be deployed in any Local Data Center, removing our dependency on AWS. This document outlines the steps we can take by replacing one by one its components with the production-ready components for **singe-tenant** use cases, with replication, reliability, security and performance guarantees.
 
 ## Assembling a modern Cloud stack on Hypercore
 
