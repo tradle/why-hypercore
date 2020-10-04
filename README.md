@@ -17,6 +17,10 @@ Take a look at Issues on this repository for the themes we are actively experime
     - [Data Sovereignty](#data-sovereignty)
     - [Data Continuum](#data-continuum)
   - [Rethinking AWS from P2P first-principles](#rethinking-aws-from-p2p-first-principles)
+  - [Simplifying Cloud for individuals](#simplifying-cloud-for-individuals)
+    - [Undo and redo](#undo-and-redo)
+    - [Forego the Object store](#forego-the-object-store)
+    - [Database](#database)
   - [What makes Hypercore suitable for Tradle?](#what-makes-hypercore-suitable-for-tradle)
   - [Data Durability, Load balancing, and Mobility](#data-durability-load-balancing-and-mobility)
     - [Data Durability](#data-durability)
@@ -124,6 +128,37 @@ Ability to build apps that work in the Cloud **and** on local PCs and mobiles. M
 The core idea of Personal Cloud is to give individuals access to Infrastructure and Platform level of services (IaaS and PaaS), which are sold only to organizations. Direct infrastructure ownership provides the level of isolation, security and privacy that most closely resembles PCs at home. This Personal Computing platform would then allow to build truly personal apps, which we abandoned with SaaS, giving SaaS vendors access to all our data.
 
 To make infrastructure acceptable to people, it needs to be simple.
+
+### Simplifying Cloud for individuals
+
+We must use abstractions users already know.
+
+#### Undo and redo
+
+With the help of Hypercore any type of data, document, database, files can support undo / redo right off the bat. Versioning of files like undo / redo.
+
+#### Forego the Object store
+
+S3 Object Store today is the staple of cloud services. But it is very different from the file system that people already understand. Users will get lost in storage classes, and different ways of working with them. Storage classes have capabilities, guarantees and costs, defined by durability, access time, ability for random access, immutability, searches, replication to other regions, etc.
+
+We should implement these capabilities without asking users to sign up for some additional services, and understand upfront their different levels of service and costs involved.
+
+For example, the following policies could apply:
+
+- Least used files should move to cold storage automatically, and should be available from cold-storage immediately (albeit with slower access). Sparse replication will come very handy here.
+- Photo albums are much less sensitive to the loss of one of thousands of pictures, than personal databases. Videos could be moved to cold storage more aggressively. Hypercore's streaming from cold storage comes handy here.
+- IoT signals could go to cold storage directly. IoT signals never need to be edited, so can use cheaper non-editable storage (S3 for example. only allows to replace objects, which helps it to be cheaper).
+- Delete protection. Hypercore offers versioning that allows to undo deletes. Deleted files could be moved to cold storage, and auto-removed after 30 days.
+
+With that said, storage classes and other capabilities above should be offered to app developers on the granular level with the help of file / folder metadata, while preserving file system abstraction.
+
+#### Database
+
+Personal database, that people would use for simple planning and tracking should behave in a robust and most predictable way. It should support multiple devices sync out-of-the-box, seamlessly, behind the scenes (using Hypercore's native replication capabilities).
+
+Underlying syncing should use protective measures, such as conditional writes (update only if version read is not different) to avoid overwriting data, incremental adds so that operations are commutative, and with CRDT and causal clocks to facilitate conflict-free merges when a person made conflicting changes.
+
+Users interact directly with data, database is just a file, like xls. The viewer and editor for database are built in.
 
 ### What makes Hypercore suitable for Tradle?
 
