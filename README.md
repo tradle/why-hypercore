@@ -21,6 +21,7 @@ Take a look at Issues on this repository for the themes we are actively experime
     - [Undo and redo](#undo-and-redo)
     - [Forego the Object store](#forego-the-object-store)
     - [Database](#database)
+    - [Identity](#identity)
   - [What makes Hypercore suitable for Tradle?](#what-makes-hypercore-suitable-for-tradle)
   - [Data Durability, Load balancing, and Mobility](#data-durability-load-balancing-and-mobility)
     - [Data Durability](#data-durability)
@@ -159,6 +160,16 @@ Personal database, that people would use for simple planning and tracking should
 Underlying syncing should use protective measures, such as conditional writes (update only if version read is not different) to avoid overwriting data, incremental adds so that operations are commutative, and with CRDT and causal clocks to facilitate conflict-free merges when a person made conflicting changes.
 
 Users interact directly with data, database is just a file, like xls. The viewer and editor for database are built in.
+
+#### Identity
+
+Identity is a big subject and Tradle has spent years getting deep understanding of it. Cloud services offer a [multitude of identity services](https://aws.amazon.com/identity/) which are complex and not suitable for personal use. Yet identity is critical for building apps and controlling access to data.
+
+The way mobile apps and web apps ask us to create an app-specific identity, with a new login and password, is insane. Reuse of passwords and their general weakness is one of the reasons we have many data breaches.
+
+Identity should be intrinsic to our actions in the Cloud, and we should not need to manage it so much. With Personal Cloud Tradle is redefining person's relationship with the apps, making data always personal, it does anymore belong to the apps. Apps are visitors, helpers, service providers, they come to our home, Personal Cloud, do what we ask them to do, and go away, taking nothing of ours with them. In this setup, identity changes its meaning to the app.
+
+More on this later, but note that WeChat's vast apps ecosystems is greatly enabled by identity.
 
 ### What makes Hypercore suitable for Tradle?
 
