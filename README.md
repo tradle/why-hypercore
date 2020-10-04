@@ -16,6 +16,7 @@ Take a look at Issues on this repository for the themes we are actively experime
   - [What do we gain from Hypercore, at the high level?](#what-do-we-gain-from-hypercore-at-the-high-level)
     - [Data Sovereignty](#data-sovereignty)
     - [Data Continuum](#data-continuum)
+  - [Rethinking AWS from P2P first-principles](#rethinking-aws-from-p2p-first-principles)
   - [What makes Hypercore suitable for Tradle?](#what-makes-hypercore-suitable-for-tradle)
   - [Data Durability, Load balancing, and Mobility](#data-durability-load-balancing-and-mobility)
     - [Data Durability](#data-durability)
@@ -27,7 +28,7 @@ Take a look at Issues on this repository for the themes we are actively experime
   - [Recovery](#recovery)
   - [Shared files and folders (like Dropbox or Google Drive)](#shared-files-and-folders-like-dropbox-or-google-drive)
   - [Shared document editing like Google Docs and Google Slides](#shared-document-editing-like-google-docs-and-google-slides)
-  - [Offline-first](#offline-first)
+  - [Offline-first, local-first](#offline-first-local-first)
 - [Use cases and potential apps](#use-cases-and-potential-apps)
   - [Group messaging](#group-messaging)
   - [Direct media sharing](#direct-media-sharing)
@@ -118,6 +119,12 @@ Ability to offer Data Locality / Residency / Sovereignty for private-first offli
 
 Ability to build apps that work in the Cloud **and** on local PCs and mobiles. Many cloud-native systems only work in the Cloud, which limits their scope of use, and makes them extremely difficult for developers to debug and test, leading to a huge loss in productivity. AWS is notoriously difficult in that respect.
 
+### Rethinking AWS from P2P first-principles
+
+The core idea of Personal Cloud is to give individuals access to Infrastructure and Platform level of services (IaaS and PaaS), which are sold only to organizations. Direct infrastructure ownership provides the level of isolation, security and privacy that most closely resembles PCs at home. This Personal Computing platform would then allow to build truly personal apps, which we abandoned with SaaS, giving SaaS vendors access to all our data.
+
+To make infrastructure acceptable to people, it needs to be simple.
+
 ### What makes Hypercore suitable for Tradle?
 
 ### Data Durability, Load balancing, and Mobility
@@ -168,7 +175,7 @@ Because Hypercore is designed for immediacy of real time data exchanges, it can 
 
 Like with the Hyperdrive, the remaining issue to be solved is the always-online nature of competing non-P2P services.
 
-### Offline-first
+### Offline-first, local-first
 
 All data is available when offline. Messages and media (of any size) are delivered from mobiles to server and back with full reliability, in the presence of intermittent or rare connectivity.
 
