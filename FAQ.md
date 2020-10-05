@@ -564,6 +564,7 @@ Hyperdrive provides many primitives needed in distributed systems. But it lacks 
   - for document editing
   - access control
 - Topology management. Devices have different storage capacity (cloud vs mobile, durability (e.g. browser vs desktop app vs cloud), and different networks (fast, metered, caps, etc). CPU and RAM capacity might also need to be factors. Replication and storage management algorithms might take above into account.
+- Schema / data model / data dictionary. As apps have a need to understand each other, as automation needs arise, as AI needs to understand the data it is trained on, the data modeling emerges as a necessity. If that does not happen, then data models get buried inside the apps. Data models become a top priority in systems that allow users to interact with the data directly. Hypercore leaves this area to what it calls a "userland".
 
 ## How are above issues handled today in Hypercore?
 
