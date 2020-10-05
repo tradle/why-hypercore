@@ -56,6 +56,11 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
     - [How can Hyperdrive be shared?](#how-can-hyperdrive-be-shared)
     - [What are the limits on file sizes?](#what-are-the-limits-on-file-sizes)
 - [What is missing in Hypercore?](#what-is-missing-in-hypercore)
+  - [Distributed Time / Clocks](#distributed-time--clocks)
+  - [Multi-device editing with conflict resolution (CRDT)](#multi-device-editing-with-conflict-resolution-crdt)
+  - [Collaborative (team) editing with conflict resolution](#collaborative-team-editing-with-conflict-resolution)
+  - [Topology management](#topology-management)
+  - [Schema / data model / data dictionary](#schema--data-model--data-dictionary)
 - [How are above issues handled today in Hypercore?](#how-are-above-issues-handled-today-in-hypercore)
   - [Filesystem workaround](#filesystem-workaround)
   - [Union of Hyperbees?](#union-of-hyperbees)
@@ -549,22 +554,33 @@ There is no inherent size limits. As a demo Hypercore team put a complete Wikipe
 
 ## What is missing in Hypercore?
 
-Hyperdrive provides many primitives needed in distributed systems. But it lacks certain primitives that are essential:
+Hyperdrive provides many key primitives needed in distributed systems. But it lacks certain others that you will need to build yourself, and to avoid frustration it is better to be aware of them upfront.
 
-- Distributed Time / Clocks (e.g. [generation / causal clocks](https://martinfowler.com/articles/patterns-of-distributed-systems/generation.html), and newer hybrid clocks like [HLC](https://jaredforsyth.com/posts/.hybrid-logical-clocks/)).
-  - Every message, including the heartbeat message needs to carry this time
-  - Point-in-time recovery and snapshots could utilize this stronger time
-  - Secure timestamping is necessary in legal documents and in compliance, and time could be sealed on the blockchain
-- Multi-device editing with conflict resolution (CRDT), which would utilize above clocks
-  - for structured data
-  - for document editing (docs, slides)
-  - per-device key management
-- Teams editing with conflict resolution
-  - for structured data
-  - for document editing
-  - access control
-- Topology management. Devices have different storage capacity (cloud vs mobile, durability (e.g. browser vs desktop app vs cloud), and different networks (fast, metered, caps, etc). CPU and RAM capacity might also need to be factors. Replication and storage management algorithms might take above into account.
-- Schema / data model / data dictionary. As apps have a need to understand each other, as automation needs arise, as AI needs to understand the data it is trained on, the data modeling emerges as a necessity. If that does not happen, then data models get buried inside the apps. Data models become a top priority in systems that allow users to interact with the data directly. Hypercore leaves this area to what it calls a "userland".
+### Distributed Time / Clocks
+
+To reach the same state peers in distributed systems need to synchronize clocks in view of computer time drift and network disconnects from other peers. Typical solutions include [generation / causal clocks](https://martinfowler.com/articles/patterns-of-distributed-systems/generation.html), and newer hybrid clocks like [HLC](https://jaredforsyth.com/posts/.hybrid-logical-clocks/)).
+
+- Every message, including the heartbeat message needs to carry this time
+- Point-in-time recovery and snapshots could utilize this stronger time
+- Secure timestamping is necessary in legal documents and in compliance, and time could be sealed on the blockchain
+
+### Multi-device editing with conflict resolution (CRDT)
+
+- CRDT must use the above clocks for structured data and for document editing (docs, slides).
+- With multiple devices comes a need for per-device key management, key coordination and revocation. Key management in general is missing in Hypercore.
+
+### Collaborative (team) editing with conflict resolution
+
+- Structured data and document editing need different approaches.
+- With teams we also need access control.
+
+### Topology management
+
+Devices have different storage capacity (cloud vs mobile, durability (e.g. browser vs desktop app vs cloud), and different networks (fast, metered, caps, etc). CPU and RAM capacity might also need to be factors. Replication and storage management algorithms might take above into account.
+
+### Schema / data model / data dictionary
+
+As apps have a need to understand each other, as automation needs arise, as AI needs to understand the data it is trained on, the data modeling emerges as a necessity. If that does not happen, then data models get buried inside the apps. Data models become a top priority in systems that allow users to interact with the data directly. Hypercore leaves this area to what it calls a "userland".
 
 ## How are above issues handled today in Hypercore?
 
