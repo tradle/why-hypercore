@@ -7,7 +7,9 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [What is the USP (Unique Selling Proposition) of Hypercore?](#what-is-the-usp-unique-selling-proposition-of-hypercore)
     - [Streaming](#streaming)
     - [Common functions of distributed systems](#common-functions-of-distributed-systems)
-  - [What is offline-first local-first principle?](#what-is-offline-first-local-first-principle)
+    - [Large file handling](#large-file-handling)
+    - [Bottom line on USP](#bottom-line-on-usp)
+  - [What is offline-first local-first software?](#what-is-offline-first-local-first-software)
   - [What is a streaming DB?](#what-is-a-streaming-db)
   - [How is Hypercore different from BitTorrent, WebTorrent?](#how-is-hypercore-different-from-bittorrent-webtorrent)
   - [How is Hypercore different from ScuttleButt (SSB)?](#how-is-hypercore-different-from-scuttlebutt-ssb)
@@ -89,7 +91,7 @@ Hypercore is Open Source, it is not selling, but it is offering itself to develo
 
 #### Streaming
 
-Hypercore's USP is **streaming**. You can think of it as video streaming, but now for any data, videos and databases and more. With streaming, you get almost immediate access, even though the data is not yet fully downloaded or never will be fully downloaded.
+Hypercore's key USP is **streaming**. You can think of it as video streaming, but now for any data, videos and databases and more. With streaming, you get almost immediate access, even though the data is not yet fully downloaded or never will be fully downloaded.
 
 This point needs to be repeated again and again, as streaming data (files, videos, databases, messages, IoT, and any other structured data constructs), just by itself, without any other wonderful Hypercore capabilities, may create a new class of applications, much like Netflix re-invented the movie watching. This paradigm shift is one reason why Hypercore is hard to grok for app developers, it just requires full rethinking of our current architectures.
 
@@ -97,18 +99,26 @@ Note, when reading Hypercore docs you will find many references to Sparse files 
 
 #### Common functions of distributed systems
 
-Another USP of Hypercore is that it implements essential patterns of distributed systems in a reusable way, so that systems and applications are not forced to re-invent the wheel. 
+Another USP of Hypercore is that it implements essential patterns of distributed systems in a reusable way, so that systems and applications are not forced to re-invent the wheel.
 
 **WAL**.All distributed systems need a [Write Ahead Log (WAL)](https://martinfowler.com/articles/patterns-of-distributed-systems/wal.html), be it databases, orchestration engines, like Zookeeper or etcd, or event streaming systems like Kafka. Every system implements its own WAL today. Hypercore generalized this pattern as an append-only-log and consistently uses it in its higher-level data structures such as Hypertrie, Hyperbee, Hyperdrive.
 
 **History**. Same goes for other patterns like point in time recovery, snapshots, versioning, undo-redo and rewinds, and data integrity assurance. Non-distributed apps can also benefit from these capabilities. For example, it is great for experiments or risky operations, as you can always go back to the previous state (this is a common pattern with VM snapshots, disk snapshots, container image layers).
 
-Distributed apps needs these and therefore apps using hypercore become simpler to write.
+#### Large file handling
+
+Many applications (like chat, group chat, photo apps, social media apps and collaborative apps) need an ability to handle file sync, especially for very large media files. Hypercore is geared really well to enable these.
+
+#### Bottom line on USP
+
+Distributed apps need these and therefore apps using hypercore become simpler to write.
 
 Need help with this:
 how would one implement in Hypercore as message with a large video forwarded from one chat to another (both in singular and a group chat).
 
-### What is offline-first local-first principle?
+### What is offline-first local-first software?
+
+Take a look at [Jared Forsyth's criteria](https://jaredforsyth.com/posts/in-search-of-a-local-first-database/) for the above and the various products he reviewed using these criteria. The framework for this type of software is very hard to create, but it is a fresh direction away from massive aggregation of our personal data, and it is close to become a reality. Isn't it why you are here?
 
 Hypercore is built to give you full control of your data. This means, it continues to work even when you have no connectivity, when your other peers are offline, and when hosting / cloud provider closes your account. It also allows portability to other machines or hosting providers.
 
