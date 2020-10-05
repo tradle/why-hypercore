@@ -5,6 +5,8 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
 - [General](#general)
   - [What are the main components / modules / packages?](#what-are-the-main-components--modules--packages)
   - [What is the USP (Unique Selling Proposition) of Hypercore?](#what-is-the-usp-unique-selling-proposition-of-hypercore)
+    - [Streaming](#streaming)
+    - [Common functions of distributed systems](#common-functions-of-distributed-systems)
   - [What is offline-first local-first principle?](#what-is-offline-first-local-first-principle)
   - [What is a streaming DB?](#what-is-a-streaming-db)
   - [How is Hypercore different from BitTorrent, WebTorrent?](#how-is-hypercore-different-from-bittorrent-webtorrent)
@@ -23,12 +25,6 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [Is there a discovery system to learn what feeds the other peer shares?](#is-there-a-discovery-system-to-learn-what-feeds-the-other-peer-shares)
   - [Help me picture use cases for Hyperswarm?](#help-me-picture-use-cases-for-hyperswarm)
 - [If Hypercore is a P2P Web, what is its URL format?](#if-hypercore-is-a-p2p-web-what-is-its-url-format)
-- [Does hypercore support writing by multiple people?](#does-hypercore-support-writing-by-multiple-people)
-  - [Filesystem workaround](#filesystem-workaround)
-  - [Union of Hyperbees?](#union-of-hyperbees)
-  - [Practical conflict resolution for common use cases](#practical-conflict-resolution-for-common-use-cases)
-  - [Simulated multi-writer on top of multiple single-writers](#simulated-multi-writer-on-top-of-multiple-single-writers)
-  - [Is it multi-process-safe?](#is-it-multi-process-safe)
   - [What is the biggest gotcha with Hypercore?](#what-is-the-biggest-gotcha-with-hypercore)
   - [Can Hypercore be backed up?](#can-hypercore-be-backed-up)
     - [Backup to S3](#backup-to-s3)
@@ -59,6 +55,13 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
     - [Can you help me picture use cases for Hyperdrive?](#can-you-help-me-picture-use-cases-for-hyperdrive)
     - [How can Hyperdrive be shared?](#how-can-hyperdrive-be-shared)
     - [What are the limits on file sizes?](#what-are-the-limits-on-file-sizes)
+- [What is missing in Hypercore?](#what-is-missing-in-hypercore)
+- [How are above issues handled today in Hypercore?](#how-are-above-issues-handled-today-in-hypercore)
+  - [Filesystem workaround](#filesystem-workaround)
+  - [Union of Hyperbees?](#union-of-hyperbees)
+  - [Practical conflict resolution for common use cases](#practical-conflict-resolution-for-common-use-cases)
+  - [Simulated multi-writer on top of multiple single-writers](#simulated-multi-writer-on-top-of-multiple-single-writers)
+  - [Is it multi-process-safe?](#is-it-multi-process-safe)
 - [Where can I learn more about Hypercore universe?](#where-can-i-learn-more-about-hypercore-universe)
 
 ## General
@@ -75,17 +78,30 @@ This section is for general questions. See other sections for questions specific
 - **Hyperdrive**, a P2P alternative to Google Drive and Dropbox 
 - **Beaker Browser**, a full-blown browser that also supports the Web without servers (P2P Web).
 
-
-
 ### What is the USP (Unique Selling Proposition) of Hypercore?
 
 Hypercore is Open Source, it is not selling, but it is offering itself to developers. So what is it that is absolutely unique about it? It is P2P, but we saw other P2P technologies, BitTorrent and Bitcoin.
+
+#### Streaming
 
 Hypercore's USP is **streaming**. You can think of it as video streaming, but now for any data, videos and databases and more. With streaming, you get almost immediate access, even though the data is not yet fully downloaded or never will be fully downloaded.
 
 This point needs to be repeated again and again, as streaming data (files, videos, databases, messages, IoT, and any other structured data constructs), just by itself, without any other wonderful Hypercore capabilities, may create a new class of applications, much like Netflix re-invented the movie watching. This paradigm shift is one reason why Hypercore is hard to grok for app developers, it just requires full rethinking of our current architectures.
 
 Note, when reading Hypercore docs you will find many references to Sparse files and sparse DB. This is the capability used for streaming, that is a peer can efficiently request individual blocks from remote peers, instead of loading the whole thing, be it a video file or a database.
+
+#### Common functions of distributed systems
+
+Another USP of Hypercore is that it implements essential patterns of distributed systems in a reusable way, so that systems and applications are not forced to re-invent the wheel. 
+
+**WAL**.All distributed systems need a [Write Ahead Log (WAL)](https://martinfowler.com/articles/patterns-of-distributed-systems/wal.html), be it databases, orchestration engines, like Zookeeper or etcd, or event streaming systems like Kafka. Every system implements its own WAL today. Hypercore generalized this pattern as an append-only-log and consistently uses it in its higher-level data structures such as Hypertrie, Hyperbee, Hyperdrive.
+
+**History**. Same goes for other patterns like point in time recovery, snapshots, versioning, undo-redo and rewinds, and data integrity assurance. Non-distributed apps can also benefit from these capabilities. For example, it is great for experiments or risky operations, as you can always go back to the previous state (this is a common pattern with VM snapshots, disk snapshots, container image layers).
+
+Distributed apps needs these and therefore apps using hypercore become simpler to write.
+
+Need help with this:
+how would one implement in Hypercore as message with a large video forwarded from one chat to another (both in singular and a group chat).
 
 ### What is offline-first local-first principle?
 
@@ -239,7 +255,7 @@ Partial answer is:
 Each project building on Hypercore is stretching its flexibility and contributes back solutions that are not yet available in the core. Then Hypercore team generalizes them and makes available for everyone. See some of the projects and their notable contributions:
 
 - Bitfinex, major crypto exchange uses it in its microservices framework [Grenache](https://github.com/bitfinexcom/grenache). Bitfinex helped extend Hyperswarm DHT to improve peer discovery. Bitfinex also pushed the envelope with Hypercore team on creating the first payments framework for Hypercore.
-- [Cobox community](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/2_work-plan/mvp/mvp-design.md), focused on enabling teams. Cobox community created a KappaDB, a multi-writer database, peer discovery with multifeed, and pushed the envelop on collaborative editing.
+- [Cobox community](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/2_work-plan/mvp/mvp-design.md), focused on enabling teams. Cobox community created a KappaDB and collaborative editing.
 - [Peermaps](https://peermaps.org/), building P2P alternative to Google Maps based on OpenStreetMap
 - [Sonar](https://arso-project.github.io/sonar-book), distributed media archives on Hypercore. Note an interesting [bulk update](https://discordapp.com/channels/709519409932140575/727886901100675083/755723909709561856) feature discussion re:Sonar, which sounds like addressing a pain similar to serverless apps.
 - See at the bottom of [Hypercore protocol page](https://hypercore-protocol.org/)
@@ -316,53 +332,6 @@ The `version` identifier gives a weak guarantee of the content (it is likely but
 
 When supported, I think such URL needs to have both stable part and version part. It also needs to allow URLs to be used by internal components and apps, not just in Beaker. A typical use case for this is link from a data element in Hyperbee to a file on Hyperdrive.
 
-## Does hypercore support writing by multiple people?
-
-No. But keep reading.
-
-Multi-writer is probably the [most wanted feature](https://github.com/hypercore-protocol/hyperdrive/issues/230) of Hypercore, as it is a common pattern of working with files and databases today.
-
-Single-writer advantage is a verifiable integrity. For example, in Tradle digital identity product the single-writer is a core pattern, that is no record can be edited other then by it's author, and data models are designed to accommodate this approach. It produces much safer Data Governance and cleaner audit trail. That still requires a search across all single-writer stores, sort of like a union of all Hyperbees.
-
-It is possible to create a composite multi-writer on top.
-
-### Filesystem workaround
-
-Hypertrie now provides Mounts which allow to present other people's drives as your read-only subfolders. This is a good workaround, but not a shared filesystem like NFS.
-
-[Multi-hyperdrive](https://github.com/RangerMauve/multi-hyperdrive/) is a new package that achieves impressive results for multi-writer Hyperdrive. See also co-hyperdrive from the same author that adds authorizations.
-
-### Union of Hyperbees?
-
-Maybe [streaming sort-merge mechanism](http://github.com/mafintosh/sorted-union-stream) can help? I wonder if it is performant across millions of Hyperbees? Like on an e-commerce site, a merchant would search for orders from a million people? May be with incremental merges?
-
-Cabal / Cobox / Kappa have gained some experience with [re-indexing of multiple remote feeds in a local feed](https://discordapp.com/channels/709519409932140575/709519410557222964/756414542669676573) and their approach works for groups but does not scale for e-commerce use cases.
-
-### Practical conflict resolution for common use cases
-
-There are cases when CRDT algorithm is more suitable than database concurrency. CRDT is implemented by [Automerge](https://github.com/automerge/automerge), and used by [Hypermerge](https://github.com/automerge/hypermerge). It is also independently implemented by [YJS](https://github.com/yjs/yjs) and [Delta-CRDT](https://github.com/peer-base/js-delta-crdts). Such cases are:
-
-- **Collaborative editing**. A P2P Google Doc alternative allowing document to be edited by multiple people simultaneously. 
-  
-- **Multi-device support**. Each device is a single writer with unique key per hypercore. Normally a single person will not be using 2 devices simultaneously. Yet because of the loss of connectivity changes on two devices may need to be merged, and CRDT is ok for that. Besides, with the help of always-on Personal Cloud and real-time replication in Hypercore the conflicts would arise rarely.
-  
-- **Multiple Replicas of a Personal Cloud** are needed for durability, availability and load-balancing. Again, like with multi-device, each replica is a single-writer with its own private key. But this case has higher concurrency potentially, as in serverless environment 2 concurrent writes may occur. Yet, if those writes come from the devices of the same person, conflict CRDT resolution should be sufficient. 
-  
-Note that CRDT resolution is much better if clocks between machines are well synchronized. NTP existed for years, and now there is a new iteration [NTS, published by Cloudflare](https://blog.cloudflare.com/announcing-cfnts/).
-
-### Simulated multi-writer on top of multiple single-writers
-
-[Cobox community](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/3_mock-up/technology/architecture.md) produced a multi-writer DB [KappaDB](https://github.com/kappa-db).
-
-[HyperDB](https://github.com/mafintosh/hyperdb) is an older Hypercore project which is a multi-writer database, but it is not seeing any support anymore, presumably as it could not be made performant, but it may still help some apps before a replacement comes in (need confirmation).
-
-[Multi-Hyperdrive](https://github.com/RangerMauve/multi-hyperdrive). A very clever yet simple multi-writer hyperdrive implementation.
-
-As you see it is not a problem that has a generic solution in Hypercore. But maybe instead of focusing on Hyperdrive or a DB we should focus on the use case, specifically a [single-user multi-device use case](https://github.com/tradle/why-hypercore/issues/7).
-
-### Is it multi-process-safe?
-
-We know it is single-writer. But can same writer accidentally screw up the Hypercore while being executed from a second processes on the same machine? If so, it will present a significant design challenge in Serverless environment.
 
 ### What is the biggest gotcha with Hypercore?
 
@@ -577,6 +546,72 @@ Hyperdrive is a library and can also [run as a service](https://github.com/hyper
 #### What are the limits on file sizes?
 
 There is no inherent size limits. As a demo Hypercore team put a complete Wikipedia mirror with tens of millions of files on Hyperdrive and it reads very fast.
+
+## What is missing in Hypercore?
+
+Hyperdrive provides many primitives needed in distributed systems. But it lacks certain primitives that are essential:
+
+- Distributed Time / Clocks (e.g. [generation / causal clocks](https://martinfowler.com/articles/patterns-of-distributed-systems/generation.html), and newer hybrid clocks like [HLC](https://jaredforsyth.com/posts/.hybrid-logical-clocks/)).
+  - Every message, including the heartbeat message needs to carry this time
+  - Point-in-time recovery and snapshots could utilize this stronger time
+  - Secure timestamping is necessary in legal documents and in compliance, and time could be sealed on the blockchain
+- Multi-device editing with conflict resolution (CRDT), which would utilize above clocks
+  - for structured data
+  - for document editing (docs, slides)
+  - per-device key management
+- Teams editing with conflict resolution
+  - for structured data
+  - for document editing
+  - access control
+- Topology management. Devices have different storage capacity (cloud vs mobile, durability (e.g. browser vs desktop app vs cloud), and different networks (fast, metered, caps, etc). CPU and RAM capacity might also need to be factors. Replication and storage management algorithms might take above into account.
+
+## How are above issues handled today in Hypercore?
+
+Multi-writer is probably the [most wanted feature](https://github.com/hypercore-protocol/hyperdrive/issues/230) of Hypercore, as it is a common pattern of working with files and databases today. Unfortunately today Hypercore is strictly a single-writer system.
+
+The advantage of single-writer is a strong verifiable integrity.
+
+For example, in Tradle's digital identity product a single-writer is a core pattern. No record in Tradle can be edited other then by it's author. The schemas / data models are shaped intentionally to support this single-writer approach. Result is a much safer Data Governance with a cleaner audit trail.
+
+But in Tradle you can still search across all records created by single-writers, as you would expect in any database nowadays. In Hypercore this requires multiple workarounds, like below:
+
+### Filesystem workaround
+
+Hypertrie now provides Mounts which allow to present other people's drives as your read-only subfolders. This is a good workaround, but not a shared filesystem like NFS.
+
+[Multi-hyperdrive](https://github.com/RangerMauve/multi-hyperdrive/) is a new package that achieves impressive results for multi-writer Hyperdrive. See also co-hyperdrive from the same author that adds authorizations.
+
+### Union of Hyperbees?
+
+Maybe [streaming sort-merge mechanism](http://github.com/mafintosh/sorted-union-stream) can help? I wonder if it is performant across millions of Hyperbees? Like on an e-commerce site, a merchant would search for orders from a million people? May be with incremental merges?
+
+Cabal / Cobox / Kappa have gained some experience with [re-indexing of multiple remote feeds in a local feed](https://discordapp.com/channels/709519409932140575/709519410557222964/756414542669676573) and their approach works for groups but does not scale for e-commerce use cases.
+
+### Practical conflict resolution for common use cases
+
+There are cases when CRDT algorithm is more suitable than database concurrency. CRDT is implemented by [Automerge](https://github.com/automerge/automerge), and used by [Hypermerge](https://github.com/automerge/hypermerge). It is also independently implemented by [YJS](https://github.com/yjs/yjs) and [Delta-CRDT](https://github.com/peer-base/js-delta-crdts). Such cases are:
+
+- **Collaborative editing**. A P2P Google Doc alternative allowing document to be edited by multiple people simultaneously. 
+  
+- **Multi-device support**. Each device is a single writer with unique key per hypercore. Normally a single person will not be using 2 devices simultaneously. Yet because of the loss of connectivity changes on two devices may need to be merged, and CRDT is ok for that. Besides, with the help of always-on Personal Cloud and real-time replication in Hypercore the conflicts would arise rarely.
+  
+- **Multiple Replicas of a Personal Cloud** are needed for durability, availability and load-balancing. Again, like with multi-device, each replica is a single-writer with its own private key. But this case has higher concurrency potentially, as in serverless environment 2 concurrent writes may occur. Yet, if those writes come from the devices of the same person, conflict CRDT resolution should be sufficient. 
+  
+Note that CRDT resolution is much better if clocks between machines are well synchronized. NTP existed for years, and now there is a new iteration [NTS, published by Cloudflare](https://blog.cloudflare.com/announcing-cfnts/).
+
+### Simulated multi-writer on top of multiple single-writers
+
+[Cobox community](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/3_mock-up/technology/architecture.md) produced a multi-writer DB [KappaDB](https://github.com/kappa-db).
+
+[HyperDB](https://github.com/mafintosh/hyperdb) is an older Hypercore project which is a multi-writer database, but it is not seeing any support anymore, presumably as it could not be made performant, but it may still help some apps before a replacement comes in (need confirmation).
+
+[Multi-Hyperdrive](https://github.com/RangerMauve/multi-hyperdrive). A very clever yet simple multi-writer hyperdrive implementation.
+
+As you see it is not a problem that has a generic solution in Hypercore. But maybe instead of focusing on Hyperdrive or a DB we should focus on the use case, specifically a [single-user multi-device use case](https://github.com/tradle/why-hypercore/issues/7).
+
+### Is it multi-process-safe?
+
+We know it is single-writer. But can same writer accidentally screw up the Hypercore while being executed from a second processes on the same machine? If so, it will present a significant design challenge in Serverless environment.
 
 ## Where can I learn more about Hypercore universe?
 
