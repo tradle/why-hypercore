@@ -16,6 +16,12 @@ Take a look at Issues on this repository for the themes we are actively experime
   - [What do we gain from Hypercore, at the high level?](#what-do-we-gain-from-hypercore-at-the-high-level)
     - [Data Sovereignty](#data-sovereignty)
     - [Data Continuum](#data-continuum)
+  - [Rethinking AWS from P2P first-principles](#rethinking-aws-from-p2p-first-principles)
+  - [Simplifying Cloud for individuals](#simplifying-cloud-for-individuals)
+    - [Undo and redo](#undo-and-redo)
+    - [Forego the Object store](#forego-the-object-store)
+    - [Database](#database)
+    - [Identity](#identity)
   - [What makes Hypercore suitable for Tradle?](#what-makes-hypercore-suitable-for-tradle)
   - [Data Durability, Load balancing, and Mobility](#data-durability-load-balancing-and-mobility)
     - [Data Durability](#data-durability)
@@ -27,7 +33,7 @@ Take a look at Issues on this repository for the themes we are actively experime
   - [Recovery](#recovery)
   - [Shared files and folders (like Dropbox or Google Drive)](#shared-files-and-folders-like-dropbox-or-google-drive)
   - [Shared document editing like Google Docs and Google Slides](#shared-document-editing-like-google-docs-and-google-slides)
-  - [Offline-first](#offline-first)
+  - [Offline-first, local-first](#offline-first-local-first)
 - [Use cases and potential apps](#use-cases-and-potential-apps)
   - [Group messaging](#group-messaging)
   - [Direct media sharing](#direct-media-sharing)
@@ -118,6 +124,53 @@ Ability to offer Data Locality / Residency / Sovereignty for private-first offli
 
 Ability to build apps that work in the Cloud **and** on local PCs and mobiles. Many cloud-native systems only work in the Cloud, which limits their scope of use, and makes them extremely difficult for developers to debug and test, leading to a huge loss in productivity. AWS is notoriously difficult in that respect.
 
+### Rethinking AWS from P2P first-principles
+
+The core idea of Personal Cloud is to give individuals access to Infrastructure and Platform level of services (IaaS and PaaS), which are sold only to organizations. Direct infrastructure ownership provides the level of isolation, security and privacy that most closely resembles PCs at home. This Personal Computing platform would then allow to build truly personal apps, which we abandoned with SaaS, giving SaaS vendors access to all our data.
+
+To make infrastructure acceptable to people, it needs to be simple.
+
+### Simplifying Cloud for individuals
+
+We must use abstractions users already know.
+
+#### Undo and redo
+
+With the help of Hypercore any type of data, document, database, files can support undo / redo right off the bat. Versioning of files like undo / redo.
+
+#### Forego the Object store
+
+S3 Object Store today is the staple of cloud services. But it is very different from the file system that people already understand. Users will get lost in storage classes, and different ways of working with them. Storage classes have capabilities, guarantees and costs, defined by durability, access time, ability for random access, immutability, searches, replication to other regions, etc.
+
+We should implement these capabilities without asking users to sign up for some additional services, and understand upfront their different levels of service and costs involved.
+
+For example, the following policies could apply:
+
+- Least used files should move to cold storage automatically, and should be available from cold-storage immediately (albeit with slower access). Sparse replication will come very handy here.
+- Photo albums are much less sensitive to the loss of one of thousands of pictures, than personal databases. Videos could be moved to cold storage more aggressively. Hypercore's streaming from cold storage comes handy here.
+- IoT signals could go to cold storage directly. IoT signals never need to be edited, so can use cheaper non-editable storage (S3 for example. only allows to replace objects, which helps it to be cheaper).
+- Delete protection. Hypercore offers versioning that allows to undo deletes. Deleted files could be moved to cold storage, and auto-removed after 30 days.
+
+With that said, storage classes and other capabilities above should be offered to app developers on the granular level with the help of file / folder metadata, while preserving file system abstraction.
+
+#### Database
+
+Personal database, that people would use for simple planning and tracking should behave in a robust and most predictable way. It should support multiple devices sync out-of-the-box, seamlessly, behind the scenes (using Hypercore's native replication capabilities).
+
+Underlying syncing should use protective measures, such as conditional writes (update only if version read is not different) to avoid overwriting data, incremental adds so that operations are commutative, and with CRDT and causal clocks to facilitate conflict-free merges when a person made conflicting changes.
+
+Users interact directly with data, database is just a file, like xls. The viewer and editor for database are built in.
+
+#### Identity
+
+Identity is a big subject and Tradle has spent years getting deep understanding of it. Cloud services offer a [multitude of identity services](https://aws.amazon.com/identity/) which are complex and not suitable for personal use. Yet identity is critical for building apps and controlling access to data.
+
+The way mobile apps and web apps ask us to create an app-specific identity, with a new login and password, is insane. Reuse of passwords and their general weakness is one of the reasons we have many data breaches.
+
+Identity should be intrinsic to our actions in the Cloud, and we should not need to manage it so much. With Personal Cloud Tradle is redefining person's relationship with the apps, making data always personal, it does anymore belong to the apps. Apps are visitors, helpers, service providers, they come to our home, Personal Cloud, do what we ask them to do, and go away, taking nothing of ours with them. In this setup, identity changes its meaning to the app.
+
+More on this later, but note that WeChat's vast apps ecosystems is greatly enabled by identity.
+
 ### What makes Hypercore suitable for Tradle?
 
 ### Data Durability, Load balancing, and Mobility
@@ -168,7 +221,7 @@ Because Hypercore is designed for immediacy of real time data exchanges, it can 
 
 Like with the Hyperdrive, the remaining issue to be solved is the always-online nature of competing non-P2P services.
 
-### Offline-first
+### Offline-first, local-first
 
 All data is available when offline. Messages and media (of any size) are delivered from mobiles to server and back with full reliability, in the presence of intermittent or rare connectivity.
 
