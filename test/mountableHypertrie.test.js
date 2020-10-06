@@ -8,7 +8,7 @@ const { promisifyAndExec, runAll } = require('../utils')
 test('mount hypertries - same corestore', async t => {
   const store = new Corestore(ram)
   await store.ready()
-  const [trie1, trie2, trie3] = create(3, store)
+  const [ trie1, trie2, trie3 ] = await create(3, store)
   try {
     let results = await runAll([
       cb => trie1.ready(cb),
@@ -29,13 +29,11 @@ test('mount hypertries - same corestore', async t => {
   }
 })
 
-
 function create(count, store) {
-  let feed = store.get()
-  const trie1 = new MountableHypertrie(store, null, { feed })
-  feed = store.get()
-  const trie2 = new MountableHypertrie(store, null, { feed })
-  feed = store.get()
-  const trie3 = new MountableHypertrie(store, null, { feed })
-  return [trie1, trie2, trie3]
+  let tries = []
+  for (let i=0; i<count; i++) {
+    let feed = store.get()
+    tries.push(new MountableHypertrie(store, null, { feed }))
+  }
+  return tries
 }
