@@ -20,7 +20,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [P2P state and evolution](#p2p-state-and-evolution)
   - [Who is using Hypercore P2P framework today?](#who-is-using-hypercore-p2p-framework-today)
   - [How integrity of the data is assured?](#how-integrity-of-the-data-is-assured)
-  - [Can Hypercore's author change history?](#can-hypercores-author-change-history)
+    - [Can Hypercore's author change history?](#can-hypercores-author-change-history)
   - [Is there support for social key recovery?](#is-there-support-for-social-key-recovery)
   - [Is there a regular key rotation and key replacement mechanism?](#is-there-a-regular-key-rotation-and-key-replacement-mechanism)
   - [Is there an authentication system?](#is-there-an-authentication-system)
@@ -47,9 +47,10 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
 - [Hypercore components / modules](#hypercore-components--modules)
   - [Hyperbee](#hyperbee)
     - [Help me picture use cases for Hyperbee?](#help-me-picture-use-cases-for-hyperbee)
-    - [Only one Hyperbee per Hypercore?](#only-one-hyperbee-per-hypercore)
+    - [How does Hyperbee relate to Hypercore?](#how-does-hyperbee-relate-to-hypercore)
     - [What are the limitations on consistency?](#what-are-the-limitations-on-consistency)
     - [Can it serve as LevelDB replacement?](#can-it-serve-as-leveldb-replacement)
+    - [What proves the scalability of Hyperbee?](#what-proves-the-scalability-of-hyperbee)
   - [Hyperswarm](#hyperswarm)
     - [Can we distinguish between peers before connecting to them?](#can-we-distinguish-between-peers-before-connecting-to-them)
     - [Is Hyperswarm anonymous?](#is-hyperswarm-anonymous)
@@ -57,6 +58,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
     - [Can you help me picture use cases for Hyperdrive?](#can-you-help-me-picture-use-cases-for-hyperdrive)
     - [How can Hyperdrive be shared?](#how-can-hyperdrive-be-shared)
     - [What are the limits on file sizes?](#what-are-the-limits-on-file-sizes)
+    - [What proves the scalability of Hyperdrive?](#what-proves-the-scalability-of-hyperdrive)
 - [What is missing in Hypercore?](#what-is-missing-in-hypercore)
   - [Distributed Time / Clocks](#distributed-time--clocks)
   - [Multi-device editing with conflict resolution (CRDT)](#multi-device-editing-with-conflict-resolution-crdt)
@@ -285,7 +287,7 @@ Append-only log also allows to recover the state of Hypercore at any prior a poi
 
 In addition, Hypercore supports versioning of data elements, a capability highly sought after in enterprise systems. Versioning allows protect data from accidental overwrite by a human being or a broken or malicious program. It also provides auditability and regulatory compliance.
 
-### Can Hypercore's author change history?
+#### Can Hypercore's author change history?
 
 An actor could decide to revert Hypercore to a previous state, and share this fork. This could also be used in the attack where attacker aims for the initial data gets to either get deleted or destroyed by backups. Another possibility is for the author to rewind and serve different version of the history to different peers. See this [discussed on Gitter](https://gitter.im/datproject/discussions?at=5d9d962e973587467320b241).
 
@@ -347,7 +349,6 @@ URL is designed to be used in Beaker. Its schema is `hyper://<public-key>[+<vers
 The `version` identifier gives a weak guarantee of the content (it is likely but not fully guaranteed that a versioned URL will provide the same data). There is a proposal for [Strong linking](https://github.com/mafintosh/hypercore-strong-link) which would include a content-hash in the URL, providing the strong guarantee of content. (If strong links do not become part of the URL spec, they may still be leveraged in separate channels, such as manifest files which record the "strong link" hashes along with the target URL.)
 
 When supported, I think such URL needs to have both stable part and version part. It also needs to allow URLs to be used by internal components and apps, not just in Beaker. A typical use case for this is link from a data element in Hyperbee to a file on Hyperdrive.
-
 
 ### What is the biggest gotcha with Hypercore?
 
@@ -420,7 +421,7 @@ Summary of a problem and an alternative solution:
 
 2. **Corporate firewalls may block UDP**. Although the hope arises with QUIC / HTTP/3 gaining traction as it is using UDP on TLS port 443.
 
-3. **No peer discovery on Cell Phone networks**. Cellphone networks employ symmetric firewalls that block direct P2P connections (although UDP works, NAT hole punching does not). This affects mobile apps and PCs on HotSpots. With 5G proliferation, more applications operate on cell networks, making progress for direct P2P connections unlikely. 
+3. **No peer discovery on Cell Phone networks**. Cellphone networks employ symmetric firewalls that block direct P2P connections (although UDP works, NAT hole punching does not). This affects mobile apps and PCs on HotSpots. With 5G proliferation, more applications operate on cell networks, making progress for direct P2P connections unlikely.
 
 4. **DHT state needs stability**. Peers that come and go (browser tabs) lose DHT state and need to recreate it (although this can be overcome with caching state in browser's database). Peers that change their IP address too often, destabilize DHT. This is the case of cell networks.
 
@@ -491,20 +492,25 @@ A database that is automatically syncing between all personal devices, but witho
 Use cases for embedded replicated streaming DB are plentiful.
 Need help with this.
 
-#### Only one Hyperbee per Hypercore?
+#### How does Hyperbee relate to Hypercore?
 
-Yes. But one replication stream [can carry many Hypercores](https://discordapp.com/channels/709519409932140575/709519410557222964/755415844808556594). Use Corestore to manage multiple hypercore feeds, with permissions.
+Hyperbee uses Hypercore as an underlying storage and a replication mechanism. The cool thing is that one replication stream [can carry many Hypercores](https://discordapp.com/channels/709519409932140575/709519410557222964/755415844808556594), which can carry Hyperbees, Hypertries, and Hyperdrives. 
+
+To manage multiple hypercore feeds, with permissions, use the corestore.
 
 #### What are the limitations on consistency?
 
-Need help with this.
-While it is eventual consistency today, can higher guarantees be provided?
+This is a trick question :-) Hyperbee, like any other Hypercore-based data structure is single-writer. That means when it is replicated, it is replicated as-is, and eventually reaches the same state.
 
 #### Can it serve as LevelDB replacement?
 
 Yep. Needs to be wrapped into [Hyperbeedown](https://github.com/andrewosh/hyperbeedown) and fed into [LevelUP](https://github.com/Level/levelup).
 
-This is awesome as there are many databases that work on top of the API used by LevelDB.
+This is awesome as there are many databases that work on top of the LevelUP API exposed by LevelDB.
+
+#### What proves the scalability of Hyperbee?
+
+Hyperbee is still in Alpha, but perhaps we can stress-test it on loading the whole of the Ethereum blockchain and indexing it in different ways. This Hyperbee could provide a valuable service to the community. We could even put its snapshots in S3 and let it be streamed. Note that Google BigTable [provides this service](https://cloud.google.com/blog/products/data-analytics/introducing-six-new-cryptocurrencies-in-bigquery-public-datasets-and-how-to-analyze-them).
 
 ### Hyperswarm
 
@@ -563,6 +569,12 @@ Hyperdrive is a library and can also [run as a service](https://github.com/hyper
 
 There is no inherent size limits. As a demo Hypercore team put a complete Wikipedia mirror with tens of millions of files on Hyperdrive and it reads very fast.
 
+#### What proves the scalability of Hyperdrive?
+
+The whole of Wikipedia was loaded into Hyperdrive and it provides a decent speed for finding articles. This also stressed Hypertrie, as Hyperdrive used Hypertries for managing file system directory structure and file metadata.
+
+Need help with this: what other public datasets would be good to load into Hyperdrive? How about the whole of the Web?
+
 ## What is missing in Hypercore?
 
 Hyperdrive provides many key primitives needed in distributed systems. But it lacks certain others that you will need to build yourself for a full P2P application, and to avoid frustration it is better to be aware of them upfront.
@@ -573,7 +585,7 @@ To reach the same state peers in distributed systems need to synchronize clocks 
 
 - Every message, including the heartbeat message needs to carry this time
 - Point-in-time recovery and snapshots could utilize this stronger time
-- Secure timestamping is necessary in legal documents and in compliance, and time could be sealed on the blockchain
+- Secure timestamping is necessary for legal documents and for many forms of compliance. Blockchain is the first [decentralized secure time keeping system](https://grisha.org/blog/2018/01/23/explaining-proof-of-work/), and Hypercore could be enhanced with it.
 
 ### Multi-device editing with conflict resolution (CRDT)
 
