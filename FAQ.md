@@ -512,7 +512,7 @@ This is a trick question :-) Hyperbee, like any other Hypercore-based data struc
 
 Yep. Needs to be wrapped into [Hyperbeedown](https://github.com/andrewosh/hyperbeedown) and fed into [LevelUP](https://github.com/Level/levelup).
 
-This is awesome as there are many databases that work on top of the LevelUP API exposed by LevelDB.
+This is awesome as there are many databases that work on top of the LevelUP API exposed by LevelDB. One example is AWS DynamoDB emulation on top of LevelDB. See its [replacement with Hyperbee](https://github.com/tradle/dynalite/). Some tests are still failing, but it is getting there.
 
 #### What proves the scalability of Hyperbee?
 
@@ -637,7 +637,9 @@ Hypertrie now provides Mounts which allow to present other people's drives as yo
 
 ### Union of Hyperbees?
 
-Maybe [streaming sort-merge mechanism](http://github.com/mafintosh/sorted-union-stream) can help? I wonder if it is performant across millions of Hyperbees? Like on an e-commerce site, a merchant would search for orders from a million people? May be with incremental merges?
+Maybe [streaming sort-merge mechanism](http://github.com/mafintosh/sorted-union-stream) can help? See the tests that show this [method working](https://github.com/tradle/why-hypercore/tree/master/test).
+
+But will it be performant across millions of Hyperbees? Like on an e-commerce site, a merchant would search for orders from a million people, each with its own Hyperbee? Instead of a union in this case we will need to merge data from the individual Hyperbees, into the merchant's Hyperbee.
 
 Cabal / Cobox / Kappa have gained some experience with [re-indexing of multiple remote feeds in a local feed](https://discordapp.com/channels/709519409932140575/709519410557222964/756414542669676573) and their approach works for groups but does not scale for e-commerce use cases.
 
