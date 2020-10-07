@@ -346,7 +346,8 @@ Ideas that fit Hyperswarm's mission to help discover peers and connect to them w
 
 - Server-less Contact Tracing on DHT. See this idea described in detail [in this paper](https://eprint.iacr.org/2020/398.pdf).
 
-- Hyperswarm is also a Publish Subscribe in a way. Need help on this.
+- Hyperswarm is also a Publish Subscribe system, in a way.
+Need help on this.
 
 ## If Hypercore is a P2P Web, what is its URL format?
 
@@ -595,7 +596,7 @@ To reach the same state peers in distributed systems need to synchronize clocks 
 
 - Every message, including the heartbeat message needs to carry this time
 - Point-in-time recovery and snapshots could utilize this stronger time
-- Secure timestamping is necessary for legal documents and for many forms of compliance. Blockchain is the first [decentralized secure time keeping system](https://grisha.org/blog/2018/01/23/explaining-proof-of-work/), and Hypercore could be enhanced with it.
+- Secure timestamping is necessary for legal documents and for many forms of compliance, and today is governed by [IETF RFC 3161 and 5816](https://www.linkedin.com/pulse/why-secure-electronic-signature-requires-timestamp-ott-sarv/), but relies on a trusted provider of time. [eIDAS law in Europe](https://blog.eid.as/tag/time-stamping-authority/) requires such entity for strong digital signatures. In P2P applications we are always looking to decentralize infrastructure that is currently centralized, and Blockchain is the first and the only known so far [decentralized secure time keeping system](https://grisha.org/blog/2018/01/23/explaining-proof-of-work/). Hypercore could benefit from it.
 
 ### Multi-device editing with conflict resolution (CRDT)
 
