@@ -667,7 +667,9 @@ As you see it is not a problem that has a generic solution in Hypercore. But may
 
 ### Is it multi-process-safe?
 
-We know it is single-writer. But can same writer accidentally screw up the Hypercore while being executed from a second processes on the same machine? If so, it will present a significant design challenge in Serverless environment.
+We know it is single-writer. But can the same writer accidentally screw up the Hypercore while being executed from a second processes on the same machine, like from a Nodejs cluster process or a Nodejs worker thread? If so, it will present a significant design challenge in Serverless environment.
+
+For reference, note that LevelDB is not multi-process safe, but [LMDB is](https://dev.doctorevidence.com/lmdb-in-node-29af907aad6e).
 
 ## Where can I learn more about Hypercore universe?
 
