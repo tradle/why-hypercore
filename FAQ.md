@@ -63,6 +63,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [Collaborative (team) editing with conflict resolution](#collaborative-team-editing-with-conflict-resolution)
   - [Topology management](#topology-management)
   - [Schema / data model / data dictionary](#schema--data-model--data-dictionary)
+  - [Identity](#identity)
 - [How are above issues handled today in Hypercore?](#how-are-above-issues-handled-today-in-hypercore)
   - [Filesystem workaround](#filesystem-workaround)
   - [Union of Hyperbees?](#union-of-hyperbees)
@@ -235,7 +236,7 @@ Many P2P apps struggle as they lack availability, durability and work in the unf
 
 - **Durability**. We are spoiled with Google (and others) taking care of preserving our content. We pay a steep price of giving them everything on us, but this convenience is very hard to achieve in P2P world. Your peers may be good friends but there is no guarantee they will not lose your precious content. Many solutions are being tried, including those with Cryptocurrencies incentivizing users to keep content, but they all have technical and convenience frictions. Besides, who wants to be responsible for disseminating a potentially illegal content? Durability problem remains unsolved.
 
-- **Networking**. Current Internet, with its routing and firewalling system is just hostile to P2P connections. Although Hypercore's Hyperswarm offers an ingenious NAT hole punching, there are too many edge cases, when it does not work on mobiles, it needs workarounds in browsers and is often blocked by corporate firewalls. This does not mean it can't be used, we just need a fallback to a trusted server acting as a proxy. But this comes at the same price of decentralization. Reliable Networking remains unsolved.
+- **Networking**. Current Internet, with its routing and firewalling system is just hostile to P2P connections. Although Hypercore's Hyperswarm offers an ingenious NAT hole punching, there are too many edge cases, when it does not work on mobiles, it needs workarounds in browsers and is often blocked by VPNs and corporate firewalls. This does not mean it can't be used, we just need a fallback to a trusted server acting as a proxy. But this comes at the same price of decentralization. Reliable Networking remains unsolved.
 
 Is there an answer to those perpetual problems of P2P? We believe there is. In crypto world the answer was found with the notion of miners. This is why some P2P projects are attempting to repeat this approach introducing their own blockchains. IPFS team's Filecoin, Storj, Theta.tv and a number of others are examples. But they are all focused on data storage.
 
@@ -564,7 +565,7 @@ There is no inherent size limits. As a demo Hypercore team put a complete Wikipe
 
 ## What is missing in Hypercore?
 
-Hyperdrive provides many key primitives needed in distributed systems. But it lacks certain others that you will need to build yourself, and to avoid frustration it is better to be aware of them upfront.
+Hyperdrive provides many key primitives needed in distributed systems. But it lacks certain others that you will need to build yourself for a full P2P application, and to avoid frustration it is better to be aware of them upfront.
 
 ### Distributed Time / Clocks
 
@@ -586,11 +587,15 @@ To reach the same state peers in distributed systems need to synchronize clocks 
 
 ### Topology management
 
-Devices have different storage capacity (cloud vs mobile, durability (e.g. browser vs desktop app vs cloud), and different networks (fast, metered, caps, etc). CPU and RAM capacity might also need to be factors. Replication and storage management algorithms might take above into account.
+Devices have different storage capacity (cloud vs mobile, storage durability (e.g. browser vs desktop app vs cloud), and different networks (fast, metered, capped, etc). CPU and RAM capacity might also be factors. Replication and storage management algorithms might take all above into account. For example, for sharing media from mobile, replication algorithm should only upload each block once, to the peers with a better connection.
 
 ### Schema / data model / data dictionary
 
-As apps have a need to understand each other, as automation needs arise, as AI needs to understand the data it is trained on, the data modeling emerges as a necessity. If that does not happen, then data models get buried inside the apps. Data models become a top priority in systems that allow users to interact with the data directly. Hypercore leaves this area to what it calls a "userland".
+As apps have a need to understand each other. Data modeling emerges as a necessity as automation needs arise, as AI needs to know what data it is trained on, as searching in database needs a guiding UI. If that does not happen, then data models get buried inside the apps. Data models become a top priority in systems that allow users to interact with the data directly. Hypercore leaves this area to what it calls a "userland".
+
+### Identity
+
+Full apps will need some form of identity management. Hypercore provides the basic elements, a keypair per each core (and in corestore master key for corestore and generated keys per core), but identity of a peer is much more than the identity of the core.
 
 ## How are above issues handled today in Hypercore?
 
