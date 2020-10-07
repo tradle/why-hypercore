@@ -15,6 +15,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [How is Hypercore different from ScuttleButt (SSB)?](#how-is-hypercore-different-from-scuttlebutt-ssb)
   - [How is Hypercore different from IPFS?](#how-is-hypercore-different-from-ipfs)
     - [more work needed to compare IPFS and Hypercore](#more-work-needed-to-compare-ipfs-and-hypercore)
+  - [I wonder what P2P apps can be built on Hypercore?](#i-wonder-what-p2p-apps-can-be-built-on-hypercore)
   - [Does Hypercore have a community?](#does-hypercore-have-a-community)
   - [Why Hypercore is not yet mainstream?](#why-hypercore-is-not-yet-mainstream)
   - [P2P state and evolution](#p2p-state-and-evolution)
@@ -223,6 +224,11 @@ How does IPFS support data integrity?
 - Mobile support https://twitter.com/jarredsumner/status/1223633060551225344
 - How to build chat and other apps on IPFS and Hypercore
 - Git on IPFS or Hypercore. How P2P supports Git: https://www.ctrl.blog/entry/git-p2p-compared.html
+
+### I wonder what P2P apps can be built on Hypercore?
+
+Need help with this.
+Meanwhile take a look at ideas [listed by IPFS community](https://docs.ipfs.io/concepts/usage-ideas-examples/):
 
 ### Does Hypercore have a community?
 
