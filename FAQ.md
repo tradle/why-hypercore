@@ -518,6 +518,10 @@ This is awesome as there are many databases that work on top of the LevelUP API 
 
 Hyperbee is still in Alpha, but perhaps we can stress-test it on loading the whole of the Ethereum blockchain and indexing it in different ways. This Hyperbee could provide a valuable service to the community. We could even put its snapshots in S3 and let it be streamed. Note that Google BigTable [provides this service](https://cloud.google.com/blog/products/data-analytics/introducing-six-new-cryptocurrencies-in-bigquery-public-datasets-and-how-to-analyze-them).
 
+There is also a number of benchmarks for LevelDB (e.g. [here](https://github.com/maxogden/leveldb-benchmarks)) that community can help running with Hyperbee, since Hyperbee is LevelUP compatible.
+
+We need your help!!
+
 ### Hyperswarm
 
 #### Can we distinguish between peers before connecting to them?
