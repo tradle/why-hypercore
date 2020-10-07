@@ -596,7 +596,9 @@ To reach the same state peers in distributed systems need to synchronize clocks 
 
 - Every message, including the heartbeat message needs to carry this time
 - Point-in-time recovery and snapshots could utilize this stronger time
-- Secure timestamping is necessary for legal documents and for many forms of compliance, and today is governed by [IETF RFC 3161 and 5816](https://www.linkedin.com/pulse/why-secure-electronic-signature-requires-timestamp-ott-sarv/), but relies on a trusted provider of time. [eIDAS law in Europe](https://blog.eid.as/tag/time-stamping-authority/) requires such entity for strong digital signatures. In P2P applications we are always looking to decentralize infrastructure that is currently centralized, and Blockchain is the first and the only known so far [decentralized secure time keeping system](https://grisha.org/blog/2018/01/23/explaining-proof-of-work/). Hypercore could benefit from it.
+- Secure timestamping is necessary for legal documents, copyright, for many forms of compliance, dashboard cameras, gig economy contracts (e.g. state of rental property at entrance), and today can be achieved with [IETF RFC 3161 and 5816](https://www.linkedin.com/pulse/why-secure-electronic-signature-requires-timestamp-ott-sarv/). But it relies on a trusted provider of time. [eIDAS law in Europe](https://blog.eid.as/tag/time-stamping-authority/) requires such Trusted Provider for strong digital signatures to be accepted by the court. In the P2P applications we are always looking to decentralize infrastructure that is currently centralized, and Blockchain is the first and the only known currently [decentralized secure time keeping system](https://grisha.org/blog/2018/01/23/explaining-proof-of-work/). Hypercore community could benefit from it greatly. For example a public service that [proves the time](https://www.jamieweb.net/blog/proof-of-timestamp/) with a 1-day precision could be quite cheap to build, and could itself be built on a Hypercore.
+
+Any volunteers to help us build it?
 
 ### Multi-device editing with conflict resolution (CRDT)
 
