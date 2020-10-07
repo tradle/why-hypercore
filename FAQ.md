@@ -671,6 +671,8 @@ We know it is single-writer. But can the same writer accidentally screw up the H
 
 For reference, note that LevelDB is not multi-process safe, but [LMDB is](https://dev.doctorevidence.com/lmdb-in-node-29af907aad6e).
 
+Need help with this.
+
 ## Where can I learn more about Hypercore universe?
 
 1. Visit the [Hypercore Protocol site](https://hypercore-protocol.org/). 
