@@ -122,7 +122,7 @@ Many applications (like chat, group chat, photo apps, social media apps and coll
 Distributed apps need these and therefore apps using hypercore become simpler to write.
 
 Need help with this:
-How would one implement in Hypercore forwarding a message with a large video from one chat to another (both in one-on-one and a group chat).
+How would one implement in Hypercore forwarding a message with a large video from one chat to another (both in a one-on-one and a group chat).
 
 ### What is offline-first local-first software?
 
@@ -614,6 +614,7 @@ Any volunteers to help us build it?
 
 ### Multi-device editing with conflict resolution (CRDT)
 
+- CRDT are a new way for achieving consensus. It is super cool as it allows distributed actors to arrive at the same state, like blockchain nodes, but with transactions that are applied in a different order.
 - CRDT must use the above clocks for structured data and for document editing (docs, slides).
 - With multiple devices comes a need for per-device key management, key coordination and revocation. Key management in general is missing in Hypercore.
 
