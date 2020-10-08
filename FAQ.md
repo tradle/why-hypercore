@@ -122,7 +122,7 @@ Many applications (like chat, group chat, photo apps, social media apps and coll
 Distributed apps need these and therefore apps using hypercore become simpler to write.
 
 Need help with this:
-how would one implement in Hypercore as message with a large video forwarded from one chat to another (both in singular and a group chat).
+How would one implement in Hypercore forwarding a message with a large video from one chat to another (both in one-on-one and a group chat).
 
 ### What is offline-first local-first software?
 
