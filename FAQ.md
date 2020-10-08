@@ -291,17 +291,19 @@ Each project building on Hypercore is stretching its flexibility and contributes
 
 Hypercore goes into great length to provide data integrity. For that it uses a Merkle tree hashing into it each block that is added to the append-only log.  On every change the root of the Merkle tree is signed by the private key of the of this Hypercore (note that this also creates a limitation of a single writer, see later how it is overcome). When Hypercore is shared to another peer, with the help of Merkle branches it is possible to to prove authenticity and integrity of a subset of blocks, without sharing the whole Hypercore. This allows to accept partial data from the untrusted peers (as they can't fudge the data). This capability supports a number of potential use cases, like distributed caching and CDNs, bandwidth sharing, distributed files systems, streaming databases, audit trails and supervision protocols, etc. See an [interesting discussion](https://github.com/AljoschaMeyer/bamboo/issues/2) in which Hypercore integrity guarantees were challenged and defended. 
 
-To be precise, Hypercore by itself does not guarantee that history can't be rewritten from some point in the past onward. This protection can be assured by an anchoring and timestamping service, in the form of the blockchain. It also does not guarantee long-term write-once storage. Both need and can be [added on top](https://techblog.bozho.net/audit-trail-overview/).
-
 Append-only log also allows to recover the state of Hypercore at any prior a point-in-time, a highly desirable function in databases. It allows to preserve Hypercore backup snapshots at a particular point in time.
 
 In addition, Hypercore supports versioning of data elements, a capability highly sought after in enterprise systems. Versioning allows protect data from accidental overwrite by a human being or a broken or malicious program. It also provides auditability and regulatory compliance.
 
 #### Can Hypercore's author change history?
 
-An actor could decide to revert Hypercore to a previous state, and share this fork. This could also be used in the attack where attacker aims for the initial data gets to either get deleted or destroyed by backups. Another possibility is for the author to rewind and serve different version of the history to different peers. See this [discussed on Gitter](https://gitter.im/datproject/discussions?at=5d9d962e973587467320b241).
+An actor could decide to revert Hypercore to a previous state, and share this fork. This could also be used in the attack where attacker aims for the initial data gets to either get deleted or destroyed by backups. Another possibility is for the author to rewind and serve different version of the history to different peers. See a [community discussion on this subject](https://gitter.im/datproject/discussions?at=5d9d962e973587467320b241).
 
-The preventive measure for this is to employ the blockchain, sealing Merkle root of the Hypercore on the public blockchain, utilizing blockchain's immutability guarantee and its secure timestamping property.
+The required protection can be achieved by sealing Hypercore's root on public blockchain, utilizing its immutability and secure timestamping properties. Hypercore also does not guarantee long-term write-once storage. See explanation how audit trails benefit from [such services added on top](https://techblog.bozho.net/audit-trail-overview/).
+
+As Hypercore key is rotated, we need a proof that the new key is a valid successor from the old one. Different applications might use different algorithms for such a transition. Recipients of the Hypercore need a way to review the algorithm and verify that it was executed properly. Smart contracts is one way of doing this, but off-chain provable computation is [emerging as another option](https://medium.com/starkware/hello-cairo-3cb43b13b209).
+
+Need help with this.
 
 ### Is there support for social key recovery?
 
