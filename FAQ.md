@@ -301,9 +301,9 @@ An actor could decide to revert Hypercore to a previous state, and share this fo
 
 The required protection can be achieved by sealing Hypercore's root on public blockchain, utilizing its immutability and secure timestamping properties. Hypercore also does not guarantee long-term write-once storage. See explanation how audit trails benefit from [such services added on top](https://techblog.bozho.net/audit-trail-overview/).
 
-As Hypercore signing key is rotated with [multi-key](https://github.com/mafintosh/hypercore-multi-key), we need a proof that the new key is a valid successor from the old one. Different applications might use different algorithms for such a transition, and recipients of hypercore need a way to verify this algo was executed properly, without running the algo themselves. Smart contracts is one way of doing this, and Zero Knowledge provable computation is an [emerging new option](https://medium.com/starkware/hello-cairo-3cb43b13b209). 
+As Hypercore signing key is rotated with [multi-key](https://github.com/mafintosh/hypercore-multi-key), we need a proof that the new key is a valid successor from the old one. Different applications might use different algorithms for such a transition, and recipients of hypercore need a way to verify the code for this algorithm was not altered and was executed properly, but without running the code themselves. Smart contracts is one way of doing this, and Zero Knowledge provable computation is an [emerging new option](https://medium.com/starkware/hello-cairo-3cb43b13b209).
 
-Why can't recipients run the algo themselves, like they do when verifying Merkle tree and signature in Hypercore today? Because the key rotation algo may involve processes that recipient can't repeat, like contacting a 3rd party for key recovery.
+Why can't recipients run the code themselves, like they do when verifying Merkle tree and signature in Hypercore today? Because the key rotation algo may involve processes that recipient can't repeat, like contacting a 3rd party for key recovery, or not having access to some private data that was used by the code but can't be shared.
 
 Need help with this.
 
