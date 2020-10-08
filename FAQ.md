@@ -95,9 +95,12 @@ Hypercore is Open Source, it is not selling, but it is offering itself to develo
 
 #### Streaming
 
-Hypercore's key USP is **streaming**. You can think of it as video streaming, but now for any data, videos and databases and more. With streaming, you get almost immediate access, even though the data is not yet fully downloaded or never will be fully downloaded.
+Hypercore's key USP is **streaming**. You can think of it as video streaming, but now for any data, videos and also files, databases, messages, IoT signals, and any other structured data constructs. With streaming, you get:
 
-This point needs to be repeated again and again, as streaming data (files, videos, databases, messages, IoT, and any other structured data constructs), just by itself, without any other wonderful Hypercore capabilities, may create a new class of applications, much like Netflix re-invented the movie watching. This paradigm shift is one reason why Hypercore is hard to grok for app developers, it just requires full rethinking of our current architectures.
+- **Almost immediate access**, even though the data is not yet fully downloaded or never will need to be fully downloaded
+- **Higher security**, as Hypercore data streaming provides the integrity and authentication guarantees for each data element on the wire. Note that today a typical database, file and messaging servers only are mostly base their security on the initial connection establishment. This is a huge leap!
+
+This point needs to be repeated again and again, as streaming data, just by itself, without any other wonderful Hypercore capabilities, may create a new class of applications, much like Netflix re-invented the movie watching. This paradigm shift is one reason why Hypercore is hard to grok for app developers, it just requires full rethinking of our current architectures.
 
 Note, when reading Hypercore docs you will find many references to Sparse files and sparse DB. This is the capability used for streaming, that is a peer can efficiently request individual blocks from remote peers, instead of loading the whole thing, be it a video file or a database.
 
@@ -303,7 +306,7 @@ The required protection can be achieved by sealing Hypercore's root on public bl
 
 As Hypercore signing key is rotated with [multi-key](https://github.com/mafintosh/hypercore-multi-key), we need a proof that the new key is a valid successor from the old one. Different applications might use different algorithms for such a transition, and recipients of hypercore need a way to verify the code for this algorithm was not altered and was executed properly, but without running the code themselves. Smart contracts is one way of doing this, and Zero Knowledge provable computation is an [emerging new option](https://medium.com/starkware/hello-cairo-3cb43b13b209).
 
-Why can't recipients run the code themselves, like they do when verifying Merkle tree and signature in Hypercore today? Because the key rotation algo may involve processes that recipient can't repeat, like contacting a 3rd party for key recovery, or not having access to some private data that was used by the code but can't be shared.
+Why can't recipients run the code themselves, like they do when verifying Merkle tree and signature in Hypercore today? Because the key rotation algorithm may involve processes that recipient can't repeat, like contacting a 3rd party for key recovery, or not having access to some private data that was used by the algorithm's code, but can't be shared. For reference on Zero Knowledge see this [question on StackExchange](https://crypto.stackexchange.com/questions/37581/why-are-zk-snarks-possible-in-laymans-terms).
 
 Need help with this.
 
