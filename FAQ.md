@@ -95,10 +95,11 @@ Hypercore is Open Source, it is not selling, but it is offering itself to develo
 
 #### Streaming
 
-Hypercore's key USP is **streaming**. You can think of it as video streaming, but now for any data, videos and also files, databases, messages, IoT signals, and any other structured data constructs. With streaming, you get:
+Hypercore's key USP is **streaming**. You can think of it as video streaming, but now for videos and also filesystems, databases, messages, IoT signals, and any other structured data constructs. With streaming, you get:
 
-- **Almost immediate access**, even though the data is not yet fully downloaded or never will need to be fully downloaded
-- **Higher security**, as Hypercore data streaming provides the integrity and authentication guarantees for each data element on the wire. Note that today a typical database, file and messaging servers only are mostly base their security on the initial connection establishment. This is a huge leap!
+- **Almost immediate access**, even though the data is not yet fully downloaded or may never need to be fully downloaded
+- **Higher security**, as it provides the integrity and authentication guarantees for each data element on the wire. A typical database, file and messaging servers base most of their security on the initial connection establishment. This is a huge leap!
+- **Higher scalability**, as you shove your streaming database in S3 and let billion people use it.
 
 This point needs to be repeated again and again, as streaming data, just by itself, without any other wonderful Hypercore capabilities, may create a new class of applications, much like Netflix re-invented the movie watching. This paradigm shift is one reason why Hypercore is hard to grok for app developers, it just requires full rethinking of our current architectures.
 
