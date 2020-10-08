@@ -6,7 +6,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [What are the main components / modules / packages?](#what-are-the-main-components--modules--packages)
   - [What is the USP (Unique Selling Proposition) of Hypercore?](#what-is-the-usp-unique-selling-proposition-of-hypercore)
     - [Streaming](#streaming)
-    - [Common functions of distributed systems](#common-functions-of-distributed-systems)
+    - [Lego blocks for constructing distributed apps](#lego-blocks-for-constructing-distributed-apps)
     - [Large file handling](#large-file-handling)
     - [Bottom line on USP](#bottom-line-on-usp)
   - [What is offline-first local-first software?](#what-is-offline-first-local-first-software)
@@ -91,7 +91,7 @@ This section is for general questions. See other sections for questions specific
 
 ### What is the USP (Unique Selling Proposition) of Hypercore?
 
-Hypercore is Open Source, it is not selling, but it is offering itself to developers. So what is it that is absolutely unique about it? It is P2P, but we saw other P2P technologies, BitTorrent and Bitcoin.
+Hypercore is Open Source, it is not selling :-), but it is offering itself to developers. So what is it that is absolutely unique about it? Hypercore is P2P technology, but we saw other P2P technologies, BitTorrent and Bitcoin. What is unique about Hypercore?
 
 #### Streaming
 
@@ -105,11 +105,11 @@ This point needs to be repeated again and again, as streaming data, just by itse
 
 Note, when reading Hypercore docs you will find many references to Sparse files and sparse DB. This is the capability used for streaming, that is a peer can efficiently request individual blocks from remote peers, instead of loading the whole thing, be it a video file or a database.
 
-#### Common functions of distributed systems
+#### Lego blocks for constructing distributed apps
 
 Another USP of Hypercore is that it implements essential patterns of distributed systems in a reusable way, so that systems and applications are not forced to re-invent the wheel.
 
-**WAL**.All distributed systems need a [Write Ahead Log (WAL)](https://martinfowler.com/articles/patterns-of-distributed-systems/wal.html), be it databases, orchestration engines, like Zookeeper or etcd, or event streaming systems like Kafka. Every system implements its own WAL today. Hypercore generalized this pattern as an append-only-log and consistently uses it in its higher-level data structures such as Hypertrie, Hyperbee, Hyperdrive.
+**WAL**. All distributed systems need a [Write Ahead Log (WAL)](https://martinfowler.com/articles/patterns-of-distributed-systems/wal.html), be it databases, orchestration engines, like Zookeeper or etcd, or event streaming systems like Kafka. Every system implements its own WAL today. Hypercore generalized this pattern as an append-only-log and consistently uses it in its higher-level data structures such as Hypertrie, Hyperbee, Hyperdrive.
 
 **History**. Same goes for other patterns like point in time recovery, snapshots, versioning, undo-redo and rewinds, and data integrity assurance. Non-distributed apps can also benefit from these capabilities. For example, it is great for experiments or risky operations, as you can always go back to the previous state (this is a common pattern with VM snapshots, disk snapshots, container image layers).
 
