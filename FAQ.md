@@ -278,7 +278,9 @@ Partial answer is:
 
 Each project building on Hypercore is stretching its flexibility and contributes back solutions that are not yet available in the core. Then Hypercore team generalizes them and makes available for everyone. See some of the projects and their notable contributions:
 
-- Bitfinex, major crypto exchange uses it in its microservices framework [Grenache](https://github.com/bitfinexcom/grenache). Bitfinex helped extend Hyperswarm DHT to improve peer discovery. Bitfinex also pushed the envelope with Hypercore team on creating the first payments framework for Hypercore.
+- Bitfinex, major crypto exchange, uses:
+  - Hyperswarm in their microservices framework [Grenache](https://github.com/bitfinexcom/grenache). Bitfinex helped extend Hyperswarm DHT to improve peer discovery. Bitfinex also pushed the envelope with Hypercore team on creating the first payments framework for Hypercore.
+  - Hyperbee to deliver [streaming data and signals](https://blog.bitfinex.com/dazaar/backtest-your-trading-strategies-with-bitfinex-terminal-honey-framework/) for backtesting trading strategies. Hyperbee allows Bitfinex to create a community of free and paid providers of trading signals that seed structured data like BitTorrent seeds files. 
 - [Cobox community](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/2_work-plan/mvp/mvp-design.md), focused on enabling teams. Cobox community created a KappaDB and collaborative editing.
 - [Peermaps](https://peermaps.org/), building P2P alternative to Google Maps based on OpenStreetMap
 - [Sonar](https://arso-project.github.io/sonar-book), distributed media archives on Hypercore. Note an interesting [bulk update](https://discordapp.com/channels/709519409932140575/727886901100675083/755723909709561856) feature discussion re:Sonar, which sounds like addressing a pain similar to serverless apps.
