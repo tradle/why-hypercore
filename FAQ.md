@@ -22,7 +22,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [Who is using Hypercore P2P framework today?](#who-is-using-hypercore-p2p-framework-today)
   - [How integrity of the data is assured?](#how-integrity-of-the-data-is-assured)
     - [Can Hypercore's author change history?](#can-hypercores-author-change-history)
-  - [Is there support for social key recovery?](#is-there-support-for-social-key-recovery)
+  - [Is there support for key recovery?](#is-there-support-for-key-recovery)
   - [Is there a regular key rotation and key replacement mechanism?](#is-there-a-regular-key-rotation-and-key-replacement-mechanism)
   - [Is there an authentication system?](#is-there-an-authentication-system)
   - [Is there a discovery system to learn what feeds the other peer shares?](#is-there-a-discovery-system-to-learn-what-feeds-the-other-peer-shares)
@@ -301,11 +301,13 @@ An actor could decide to revert Hypercore to a previous state, and share this fo
 
 The required protection can be achieved by sealing Hypercore's root on public blockchain, utilizing its immutability and secure timestamping properties. Hypercore also does not guarantee long-term write-once storage. See explanation how audit trails benefit from [such services added on top](https://techblog.bozho.net/audit-trail-overview/).
 
-As Hypercore key is rotated, we need a proof that the new key is a valid successor from the old one. Different applications might use different algorithms for such a transition. Recipients of the Hypercore need a way to review the algorithm and verify that it was executed properly. Smart contracts is one way of doing this, but off-chain provable computation is [emerging as another option](https://medium.com/starkware/hello-cairo-3cb43b13b209).
+As Hypercore signing key is rotated with [multi-key](https://github.com/mafintosh/hypercore-multi-key), we need a proof that the new key is a valid successor from the old one. Different applications might use different algorithms for such a transition, and recipients of hypercore need a way to verify this algo was executed properly, without running the algo themselves. Smart contracts is one way of doing this, and Zero Knowledge provable computation is an [emerging new option](https://medium.com/starkware/hello-cairo-3cb43b13b209). 
+
+Why can't recipients run the algo themselves, like they do when verifying Merkle tree and signature in Hypercore today? Because the key rotation algo may involve processes that recipient can't repeat, like contacting a 3rd party for key recovery.
 
 Need help with this.
 
-### Is there support for social key recovery?
+### Is there support for key recovery?
 
 No. But a community solution and other open source projects exist that can possibly be adapted.
 
