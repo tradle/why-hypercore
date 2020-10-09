@@ -38,7 +38,6 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [How to discover all feeds that a peer can give us?](#how-to-discover-all-feeds-that-a-peer-can-give-us)
   - [Does Hypercore work in the browser, on mobiles?](#does-hypercore-work-in-the-browser-on-mobiles)
   - [Does Hyperswarm work in browsers, on mobile?](#does-hyperswarm-work-in-browsers-on-mobile)
-    - [A companion Personal Cloud node may address privacy and connectivity issues](#a-companion-personal-cloud-node-may-address-privacy-and-connectivity-issues)
   - [Can Hypercore network protocol be extended?](#can-hypercore-network-protocol-be-extended)
 - [Storage](#storage)
   - [Can Hypercore storage be encrypted at-rest?](#can-hypercore-storage-be-encrypted-at-rest)
@@ -248,13 +247,21 @@ Many P2P apps struggle as they lack availability, durability and work in the unf
 
 - **Durability**. We are spoiled with Google (and others) taking care of preserving our content. We pay a steep price of giving them everything on us, but this convenience is very hard to achieve in P2P world. Your peers may be good friends but there is no guarantee they will not lose your precious content. Many solutions are being tried, including those with Cryptocurrencies incentivizing users to keep content, but they all have technical and convenience frictions. Besides, who wants to be responsible for disseminating a potentially illegal content? Durability problem remains unsolved.
 
-- **Networking**. Current Internet, with its routing and firewalling system is just hostile to P2P connections. Although Hypercore's Hyperswarm offers an ingenious NAT hole punching, there are too many edge cases, when it does not work on mobiles, it needs workarounds in browsers and is often blocked by VPNs and corporate firewalls. This does not mean it can't be used, we just need a fallback to a trusted server acting as a proxy. But this comes at the same price of decentralization. Reliable Networking remains unsolved.
+- **Networking**. Current Internet, with its routing and firewalling system is just hostile to P2P connections. Although Hypercore's Hyperswarm offers an ingenious NAT hole punching, there are too many edge cases, when it does not work on mobiles, it needs workarounds in browsers and is often blocked by VPNs and corporate firewalls. This does not mean it can't be used, we just need a fallback to a trusted server acting as a proxy. But this comes at the same price of decentralization. Besides, if the user wants to send data to someone else, both devices need to be online simultaneously.
+
+Reliable P2P networking **remains unsolved**.
 
 Is there an answer to those perpetual problems of P2P? We believe there is. In crypto world the answer was found with the notion of miners. This is why some P2P projects are attempting to repeat this approach introducing their own blockchains. IPFS team's Filecoin, Storj, Theta.tv and a number of others are examples. But they are all focused on data storage.
 
-Hypercore is so much more. It is a foundation ford apps, that is storage, content distribution, compute, messaging, networking, analytics, AI, etc.
+Hypercore is so much more. It is a foundation for apps, it is made for storage, content distribution, messaging, decentralized databases, etc. And it feels like it is a good match for analytics and AI as well (more on that later).
 
-We believe the answer is not in copying the mining model and offering crypto-incentives. The answer we believe is a Personal Cloud, your always-available durable peer, a companion to your less-capable personal devices, a place to run many Hypercore apps that can't run on personal devices. We believe Personal Cloud will make Hypercore shine.
+Perhaps the answer to perpetual P2P reliability problems is not in copying the blockchain's mining model or offering crypto-incentives to host files. Maybe the answer is orthogonal, instead of looking to incentivize third-parties to keep our files, we could do it ourselves, with a free and always-available cloud peer, a companion to the sometimes-available personal devices peers.
+
+Viewed this way, cloud peer is not a hosting provider, it is just a different type of a personal device. It does does not have a screen, but it is capable in a different way, it complements our other personal devices with its 100% availability, a durable storage and elastic / expandable compute and data store.
+
+Taking it a step further, the cloud peer could be a place to run many Hypercore apps that can't run on personal devices. Think cloud app store, unencumbered by the domineering Apple and Google app stores.
+
+This will make Hypercore shine!
 
 ### P2P state and evolution
 
@@ -266,7 +273,7 @@ Crypto-currency P2P projects are a huge step ahead of data-centric P2P projects 
 
 P2P Data projects do not experience such a resistance, but they have not invented their own sustainable infrastructure. IPFS is looking to Filecoin to incentivize storage providers, while meanwhile subsidizing hosting via ipfs.io.
 
-Hypercore community has produced Hashbase, Homebase, DatDot and other hosting solutions, but they have not reached significant maturity and adoption. Could Personal Cloud be the answer (shameless plug)?
+Hypercore community has produced Hashbase, Homebase, DatDot and other hosting solutions, but they have not reached significant maturity and adoption. Personal cloud peer could be the alternative to an aggregated hosting model.
 
 Almost every P2P project is still largely held back by numerous overlapping infrastructure needs for this novel tech to hit a wider market. E.g. one common problem is the management of the ownership keys.
 
@@ -352,7 +359,7 @@ Ideas that fit Hyperswarm's mission to help discover peers and connect to them w
 
 - establish a [Video chat session over WebRTC](https://twitter.com/pfrazee/status/1248744869419458561), which otherwise needs a [STUN server](https://www.callstats.io/blog/2017/10/26/webrtc-product-turn-server). Peersockets module adds convenience and efficiency for [talking to peers on a swarm topic](https://github.com/andrewosh/peersockets).
 
-- connect to peers sitting behind home routers, which otherwise can't connect to each other. (Hyperswarm's here is so called NAT hole punching). Keep in mind this does not work on mobiles (and behind some corporate firewalls), and requires a proxy (e.g. This post says [30% of P2P connections need TURN proxy](https://www.callstats.io/blog/2017/10/26/webrtc-product-turn-server)). Our idea is to use not a public server, but a Personal Cloud as such a proxy, to avoid loss of privacy.
+- connect to peers sitting behind home routers, which otherwise can't connect to each other. (Hyperswarm's here is so called NAT hole punching). Keep in mind this does not work on mobiles (and behind some corporate firewalls), and requires a proxy (e.g. This post says [30% of P2P connections need TURN proxy](https://www.callstats.io/blog/2017/10/26/webrtc-product-turn-server)). What if to avoid the loss of privacy, we could use not a public server, but a **personal** cloud peer as such a proxy?
 
 - DNS replacement. E.g. a client app needs to find a server and wants to avoid a centralized DNS, or just avoid a reliance on yet another service, if DHT is already used anyway. Same when Router / balancer needs to find a particular server. See one possible design for [DHT as a decentralized DNS in 2 round-trips](https://github.com/hallettj/my-dns/blob/942370cb2052f0d020564b64710e30ddc92ee5ef/uunet.markdown).
 
@@ -445,10 +452,6 @@ Summary of a problem and an alternative solution:
 4. **DHT state needs stability**. Peers that come and go (browser tabs) lose DHT state and need to recreate it (although this can be overcome with caching state in browser's database). Peers that change their IP address too often, destabilize DHT. This is the case of cell networks.
 
 5. **Porting Web and mobile environments**. See a number of issues still pending resolution to make Hyperswarm and Hypercore [work in react-native](https://dat.discourse.group/t/dat-and-react-native/184). These problems can be solved.
-
-#### A companion Personal Cloud node may address privacy and connectivity issues
-
-TBD
 
 ### Can Hypercore network protocol be extended?
 
@@ -663,13 +666,13 @@ Cabal / Cobox / Kappa have gained some experience with [re-indexing of multiple 
 
 There are cases when CRDT algorithm is more suitable than database concurrency. CRDT is implemented by [Automerge](https://github.com/automerge/automerge), and used by [Hypermerge](https://github.com/automerge/hypermerge). It is also independently implemented by [YJS](https://github.com/yjs/yjs) and [Delta-CRDT](https://github.com/peer-base/js-delta-crdts). Such cases are:
 
-- **Collaborative editing**. A P2P Google Doc alternative allowing document to be edited by multiple people simultaneously. 
+- **Collaborative editing**. A P2P Google Doc alternative allowing document to be edited by multiple people simultaneously.
   
-- **Multi-device support**. Each device is a single writer with unique key per hypercore. Normally a single person will not be using 2 devices simultaneously. Yet because of the loss of connectivity changes on two devices may need to be merged, and CRDT is ok for that. Besides, with the help of always-on Personal Cloud and real-time replication in Hypercore the conflicts would arise rarely.
+- **Multi-device support**. Each device is a single writer with unique key per hypercore. Normally a single person will not be using 2 devices simultaneously. Yet because of the loss of connectivity changes on two devices may need to be merged, and CRDT is a good way to achieve that.
   
-- **Multiple Replicas of a Personal Cloud** are needed for durability, availability and load-balancing. Again, like with multi-device, each replica is a single-writer with its own private key. But this case has higher concurrency potentially, as in serverless environment 2 concurrent writes may occur. Yet, if those writes come from the devices of the same person, conflict CRDT resolution should be sufficient. 
+- **Multiple cloud peers**. With the help of an always-on personal cloud "device" conflicts will arise much less often due to immediate real-time replication. On the other hand CRDT may be needed even more as in a cloud serverless environment 2 concurrent writes may occur easily.
   
-Note that CRDT resolution is much better if clocks between machines are well synchronized. NTP existed for years, and now there is a new iteration [NTS, published by Cloudflare](https://blog.cloudflare.com/announcing-cfnts/).
+Note that CRDT resolution is much better if clocks between machines are well synchronized. NTP existed for years, and now there is a new iteration [NTS, published by Cloudflare](https://blog.cloudflare.com/announcing-cfnts/). Normal clocks are not enough though. Need causal clocks too. See more on that later.
 
 ### Simulated multi-writer on top of multiple single-writers
 
