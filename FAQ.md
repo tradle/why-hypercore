@@ -273,7 +273,7 @@ Crypto-currency P2P projects are a huge step ahead of data-centric P2P projects 
 
 P2P Data projects do not experience such a resistance, but they have not invented their own sustainable infrastructure. IPFS is looking to Filecoin to incentivize storage providers, while meanwhile subsidizing hosting via ipfs.io.
 
-Hypercore community has produced Hashbase, Homebase, DatDot and other hosting solutions, but they have not reached significant maturity and adoption. Personal cloud peer could be the alternative to an aggregated hosting model.
+Hypercore community has produced Hashbase, Homebase, DatDot and other hosting solutions, but they have not reached significant maturity and adoption. Personal cloud peer could be an alternative to the aggregated hosting model.
 
 Almost every P2P project is still largely held back by numerous overlapping infrastructure needs for this novel tech to hit a wider market. E.g. one common problem is the management of the ownership keys.
 
