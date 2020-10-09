@@ -98,12 +98,12 @@ Hypercore is Open Source, it is not selling :-), but it is offering itself to de
 Hypercore's key USP is **streaming**. You can think of it as video streaming, but now for videos and also filesystems, databases, messages, IoT signals, and any other structured data constructs. With streaming, you get:
 
 - **Almost immediate access**, even though the data is not yet fully downloaded or may never need to be fully downloaded
-- **Higher security**, as it provides the integrity and authentication guarantees for each data element on the wire. A typical database, file and messaging servers base most of their security on the initial connection establishment. This is a huge leap!
-- **Higher scalability**, as you shove your streaming database in S3 and let billion people use it.
+- **Higher security**, as it provides the integrity and authentication guarantees for each data element on the wire. This is huge! A typical database, file and messaging servers stake their security on the initial connection establishment and protecting communications on the wire. But normally do not guard against the compromised peer. Anything the peer gives us needs to examined in view of the potential risk and probability of fraud.
+- **Higher scalability**, as you can shove your streaming database in S3 and let billion people use it.
 
-This point needs to be repeated again and again, as streaming data, just by itself, without any other wonderful Hypercore capabilities, may create a new class of applications, much like Netflix re-invented the movie watching. This paradigm shift is one reason why Hypercore is hard to grok for app developers, it just requires full rethinking of our current architectures.
+This streaming point needs to be repeated again and again, as streaming data, just by itself, without any other wonderful Hypercore capabilities, may create a new class of applications, much like Netflix re-invented the movie watching. This paradigm shift is one reason why Hypercore is hard to grok for app developers, it just requires full rethinking of our current architectures.
 
-Note, when reading Hypercore docs you will find many references to Sparse files and sparse DB. This is the capability used for streaming, that is a peer can efficiently request individual blocks from remote peers, instead of loading the whole thing, be it a video file or a database.
+Note, when reading Hypercore docs you will find many references to sparse replication. This is the capability used for streaming, allowing a peer to efficiently request individual blocks from remote peers, instead of loading the whole remote dataset, be it a video file or a database.
 
 #### Lego blocks for constructing distributed apps
 
