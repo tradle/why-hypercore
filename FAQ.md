@@ -136,7 +136,7 @@ We have gotten used to how Gmail automatically refreshes UI when new email arriv
 
 #### Large file handling
 
-Many applications (like chat, group chat, photo apps, social media apps and collaborative apps) need an ability to handle file sync, especially for very large media files. Hypercore is geared really well to enable these.
+Many applications (like chat, group chat, photo apps, social media apps and collaborative apps) need an ability to handle file sync, especially for very large media files. Those providers hold large files in the central holding area, and we never really know of they delete them afterwards, potentially violating our privacy. They also have significant limits on file sizes. Hypercore is geared really well to enable these scenarios without a central server / provider and without limits. And on top of this it adds partial sync or streaming, so data do not need to be loaded fully to be viewed / explored.
 
 #### Bottom line on USP
 
