@@ -523,7 +523,7 @@ A database that is automatically syncing between all personal devices, but witho
 - Multi-device Bookmarks.
 - Multi-device list of installed apps and their respective settings.
 - Multi-device chat and group chat. See [Cabal](https://cabal.chat/), an attempt to do just that.
-- Multi-device email front-end? It is a tall order, but we do need to stop giving Google all our mail.
+- Multi-device email front-end? It is a tall order, but we do need to stop giving Google all our mail. We need to find a backend that takes care of retrieval and sending, spam, virus scanning, and then loads data into Hyperbee + Hyperdrive + [Tantivy search engine](https://github.com/tantivy-search/tantivy).
 
 ##### Marketplace of data feeds
 
