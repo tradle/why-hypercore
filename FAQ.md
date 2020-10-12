@@ -573,11 +573,14 @@ This can be very useful:
 
 #### Is Hyperswarm anonymous?
 
-Now, Hyperswarm announces IP and Port.
+No. Let's explore what is revealed.
+Hyperswarm announces IP and Port of the peer to allow other peers in P2P network to connect with them. Hyperswarm's DHT holds that data, so any observer could simply collect this information. The observer will also learn the topic this peer is advertizing. Aside from that no other information is leaked. Is it worse than DNS? In DNS servers also announce their name and address to the world. But clients do not, while in Hyperswarm they do. On the other hand, topic name is more private than in DNS, it is just some hash, not a human-readable name.
+
+So what can be done to protect IP addresses in DHT?
+
+- Hyperswarm can be improved to encrypt data in DHT, and this way only the peers that know some shared secret could find each other.
 
 - Potentially [I2P](https://dat.discourse.group/t/feature-support-i2p/62/6) can be used in the future.
-
-- Or perhaps DHT data in the future can be encrypted, to be decrypted only ny those who have permission?
 
 ### Hyperdrive
 
