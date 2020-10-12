@@ -116,7 +116,16 @@ Another USP of Hypercore is that it implements essential patterns of distributed
 
 **WAL**. All distributed systems need a [Write Ahead Log (WAL)](https://martinfowler.com/articles/patterns-of-distributed-systems/wal.html), be it databases, orchestration engines, like Zookeeper or etcd, or event streaming systems like Kafka. Every system implements its own WAL today. Hypercore generalized this pattern as an append-only-log and consistently uses it in its higher-level data structures such as Hypertrie, Hyperbee, Hyperdrive.
 
-**Time travel**. Hypercore provides universal history for all data structures on top of it, which gives them a undo-redo, rewind-replay capability. This can be used as usual in collaborative editing, but also for any application using a database, for filesystem operations, for time-travel debugging, for reactive applications (React, [Reflux](https://github.com/reflux/refluxjs#more-on-stores)), for customer support (to replay user actions), for forensic investigations, for playing out what-if scenarios, to support blockchain reorg in a full node, for performing risky operations, knowing you can come back to a starting point and million other use cases, all with one simple abstraction, that all users already know and love.
+**Time travel**. Hypercore provides universal history for all data structures which work on top of it, which gives them a universal undo-redo, rewind-replay. This capability is common in editors, but now it can be used in any application including retracing actions in a filesystem and a database. Use cases are plentiful:
+- [time-travel debugging](https://elm-lang.org/news/time-travel-made-easy)
+- for reactive applications (React, [Reflux](https://github.com/reflux/refluxjs#more-on-stores))
+- customer support (to replay user actions)
+- building a test suite that starts from different checkpoints playing out many scenarios
+- forensic investigations
+- playing out what-if business scenarios
+- to support blockchain reorg in a full node
+- for performing risky operations, knowing you can come back to a starting point 
+- a million other use cases, all with one simple abstraction, that all users already know and love
 
 **Recovery** Same history capability can be used for classic database point-in-time recovery, DB and filesystem snapshots, and versioning for data integrity assurance, VM snapshots, filesystem and DB snapshots, container image layers, etc. etc.
 
