@@ -116,7 +116,9 @@ Another USP of Hypercore is that it implements essential patterns of distributed
 
 **WAL**. All distributed systems need a [Write Ahead Log (WAL)](https://martinfowler.com/articles/patterns-of-distributed-systems/wal.html), be it databases, orchestration engines, like Zookeeper or etcd, or event streaming systems like Kafka. Every system implements its own WAL today. Hypercore generalized this pattern as an append-only-log and consistently uses it in its higher-level data structures such as Hypertrie, Hyperbee, Hyperdrive.
 
-**Time travel**. Same goes for other patterns like point in time recovery, snapshots, versioning, undo-redo and rewinds, and data integrity assurance. Non-distributed apps can also benefit from these capabilities. For example, it is great for experiments or risky operations, as you can always go back to the previous state (this is a common pattern with VM snapshots, disk snapshots, container image layers).
+**Time travel**. Hypercore provides universal history for all data structures on top of it, which gives them a undo-redo, rewind-replay capability. This can be used as usual in collaborative editing, but also for any application using a database, for filesystem operations, for time-travel debugging, for reactive applications (React, [Reflux](https://github.com/reflux/refluxjs#more-on-stores)), for customer support (to replay user actions), for forensic investigations, for playing out what-if scenarios, to support blockchain reorg in a full node, for performing risky operations, knowing you can come back to a starting point and million other use cases, all with one simple abstraction, that all users already know and love.
+
+**Recovery** Same history capability can be used for classic database point-in-time recovery, DB and filesystem snapshots, and versioning for data integrity assurance, VM snapshots, filesystem and DB snapshots, container image layers, etc. etc.
 
 #### Large file handling
 
