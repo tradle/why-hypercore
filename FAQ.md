@@ -495,7 +495,8 @@ Current solutions are provided by the community:
 ### Does Hypercore support erasure-coding?
 
 No.
-Erasure coding is used to recover data from a subset of overall amount of replicas.
+Erasure coding is used to recover data from a subset of overall amount of replicas, and is especially important in hosting across many providers, where none of them has a full version of data, so even if the encryption is cracked, they are not able to read the data.
+
 Open Source S3-compatible object storage, e.g. provided by [Min.io](https://docs.min.io/docs/minio-erasure-code-quickstart-guide.html) has erasure coding.
 Cloud providers sometimes offer a virtualized file system over multiple replicas. Open Source Ceph offers it and so does AWS with EFS (note that Ceph is not easy to manage).
 
@@ -514,7 +515,7 @@ Cloud providers sometimes offer a virtualized file system over multiple replicas
 
 Use cases for embedded replicated streaming DB are plentiful.
 
-##### Personal database 
+##### Personal database
 
 A database that is automatically syncing between all personal devices, but without the help of Apple, Google or any other central provider. For Cloud this could be a serverless personal-use replacement for AWS DynamoDB (Azure Cosmos, etc.), while providing **complete isolation** of data in a multi-tenant execution environment. Some use cases:
 
