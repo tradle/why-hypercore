@@ -312,7 +312,7 @@ Partial answer is:
 Each project building on Hypercore is stretching its flexibility and contributes back solutions that are not yet available in the core. Then Hypercore team generalizes them and makes available for everyone. See some of the projects and their notable contributions:
 
 - Bitfinex, major crypto exchange, uses:
-  - Hyperswarm in their microservices framework [Grenache](https://github.com/bitfinexcom/grenache). Bitfinex helped extend Hyperswarm DHT to improve peer discovery. Bitfinex also pushed the envelope with Hypercore team on creating the first payments framework for Hypercore.
+  - Hyperswarm in their microservices framework [Grenache](https://github.com/bitfinexcom/grenache). Bitfinex helped [extend](https://github.com/bitfinexcom/grenache-grape/pull/73) Hyperswarm DHT to improve peer discovery. Bitfinex also pushed the envelope with Hypercore team on creating the first payments framework for Hypercore.
   - Hyperbee to deliver [streaming data and signals](https://blog.bitfinex.com/dazaar/backtest-your-trading-strategies-with-bitfinex-terminal-honey-framework/) for backtesting trading strategies. Hyperbee allows Bitfinex to create a community of free and paid providers of trading signals that seed structured data like BitTorrent seeds files. 
 - [Cobox community](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/2_work-plan/mvp/mvp-design.md), focused on enabling teams. Cobox community created a KappaDB and collaborative editing.
 - [Peermaps](https://peermaps.org/), building P2P alternative to Google Maps based on OpenStreetMap
@@ -578,6 +578,8 @@ Hyperswarm also allows peer's network address discovery on local network (LAN) v
 Ideas that fit Hyperswarm's mission to help discover peers and connect to them without using any servers:
 
 - **Decentralized DNS**. This allows to find and establish direct connections to peers. In that way it serves as a P2P variant of DNS. Like DNS it provides network location independence. Like DNS it allows to store small data in location records. Unlike DNS it does not require any configuration. So it is well suited for non-technical users. Unlike DNS it does not depend on a service provider - it is fully decentralized. Actually there is still a dependency on a  list of bootstrap servers, but they are not fixed, like DNS root servers, and any Hyperswarm peer can bootstrap from the bootstrap servers it trusts.
+
+To be precise, DNS system has another function, which Hyperswarm does not replace - it provides a friendly recognizable name for IP address. This we do today via some domain registrar. This part is [very hard to decentralize](https://en.wikipedia.org/wiki/Zooko%27s_triangle). DHT does not help here. Namecoin was the first to solve Zooko triangle puzzle, and Ethereum ENS smart contract is now well on the way to be adopted as as decentralized solution for this problem. 
 
 - **Avoid central signaling servers**. For example, a [video chat over WebRTC](https://twitter.com/pfrazee/status/1248744869419458561) requires a [STUN server](https://www.callstats.io/blog/2017/10/26/webrtc-product-turn-server) but with Hyperswarm it is avoided, increasing privacy and avoiding dependency on service providers.
 
