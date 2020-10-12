@@ -7,6 +7,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [What is the USP (Unique Selling Proposition) of Hypercore?](#what-is-the-usp-unique-selling-proposition-of-hypercore)
     - [Streaming](#streaming)
     - [Lego blocks for constructing distributed apps](#lego-blocks-for-constructing-distributed-apps)
+    - [Real-time UI updates](#real-time-ui-updates)
     - [Large file handling](#large-file-handling)
     - [Bottom line on USP](#bottom-line-on-usp)
   - [What is offline-first local-first software?](#what-is-offline-first-local-first-software)
@@ -128,6 +129,10 @@ Another USP of Hypercore is that it implements essential patterns of distributed
 - a million other use cases, all with one simple abstraction, that all users already know and love
 
 **Recovery** Same history capability can be used for classic database point-in-time recovery, DB and filesystem snapshots, and versioning for data integrity assurance, VM snapshots, filesystem and DB snapshots, container image layers, etc. etc.
+
+#### Real-time UI updates
+
+We have gotten used to how Gmail automatically refreshes UI when new email arrives or when you view email on mobile, and it is marked as read now. This capability is pervasively used by Google in Docs, Slides, and other apps. Distributed apps need to match that and Hypercore's real-time updates, including on changes on other devices or by our teammates, provides us with this capability.
 
 #### Large file handling
 
