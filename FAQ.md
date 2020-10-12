@@ -55,6 +55,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
     - [Help me picture use cases for Hyperswarm?](#help-me-picture-use-cases-for-hyperswarm)
     - [Can we distinguish between peers before connecting to them?](#can-we-distinguish-between-peers-before-connecting-to-them)
     - [Is Hyperswarm anonymous?](#is-hyperswarm-anonymous)
+    - [Is Hyperswarm susceptible to DDOS?](#is-hyperswarm-susceptible-to-ddos)
   - [Hyperdrive](#hyperdrive)
     - [Can you help me picture use cases for Hyperdrive?](#can-you-help-me-picture-use-cases-for-hyperdrive)
     - [How can Hyperdrive be shared?](#how-can-hyperdrive-be-shared)
@@ -535,7 +536,7 @@ We need your help!!
 
 ### Hyperswarm
 
-Hyperswarm is a key element of Hypercore system that allows to discover network addresses of the peers by topic names. This allows to find and establish direct connections to peers. In that way it serves as a P2P variant of DNS. Like DNS it provides network location independence. Like DNS it allows to store small data in location records. Unlike DNS is it is fully decentralized. Unfortunately there is still a dependency on bootstrap servers, but they are not fixed like DNS root servers, and any Hyperswarm can bootstrap from servers it trusts.
+Hyperswarm is a key element of Hypercore system that allows to discover network addresses of the peers by topic names using DHT.
 
 Hyperswarm also allows peer's network address discovery on local network (LAN) via mDNS broadcasts. [nDNS](https://en.wikipedia.org/wiki/Multicast_DNS) is a protocol used by Apple [Bonjour](https://en.wikipedia.org/wiki/Bonjour_(software)) for [AirDrop](https://apple.stackexchange.com/questions/24885/use-the-airdrop-network-to-access-a-computer) and is standardized by RFC 6762.
 
@@ -543,11 +544,13 @@ Hyperswarm also allows peer's network address discovery on local network (LAN) v
 
 Ideas that fit Hyperswarm's mission to help discover peers and connect to them without using any servers:
 
-- establish a [Video chat session over WebRTC](https://twitter.com/pfrazee/status/1248744869419458561), which otherwise needs a [STUN server](https://www.callstats.io/blog/2017/10/26/webrtc-product-turn-server). Peersockets module adds convenience and efficiency for [talking to peers on a swarm topic](https://github.com/andrewosh/peersockets).
+- **Decentralized DNS**. This allows to find and establish direct connections to peers. In that way it serves as a P2P variant of DNS. Like DNS it provides network location independence. Like DNS it allows to store small data in location records. Unlike DNS it does not require any configuration. So it is well suited for non-technical users. Unlike DNS it does not depend on a service provider - it is fully decentralized. Actually there is still a dependency on a  list of bootstrap servers, but they are not fixed, like DNS root servers, and any Hyperswarm peer can bootstrap from the bootstrap servers it trusts.
 
-- connect to peers sitting behind home routers, which otherwise can't connect to each other. (Hyperswarm's here is so called NAT hole punching). Keep in mind this does not work on mobiles (and behind some corporate firewalls), and requires a proxy (e.g. This post says [30% of P2P connections need TURN proxy](https://www.callstats.io/blog/2017/10/26/webrtc-product-turn-server)). What if to avoid the loss of privacy, we could use not a public server, but a **personal** cloud peer as such a proxy?
+- **Avoid central signaling servers**. For example, a [video chat over WebRTC](https://twitter.com/pfrazee/status/1248744869419458561) requires a [STUN server](https://www.callstats.io/blog/2017/10/26/webrtc-product-turn-server) but with Hyperswarm it is avoided, increasing privacy and avoiding dependency on service providers.
 
-- DNS replacement. E.g. a client app needs to find a server and wants to avoid a centralized DNS, or just avoid a reliance on yet another service, if DHT is already used anyway. Same when Router / balancer needs to find a particular server. See one possible design for [DHT as a decentralized DNS in 2 round-trips](https://github.com/hallettj/my-dns/blob/942370cb2052f0d020564b64710e30ddc92ee5ef/uunet.markdown).
+- **Connect to peers sitting behind a firewall**, such as home routers, which otherwise can't otherwise connect directly to each other. This can be used for video chats or any other P2P traffic (Hyperswarm's huge value here is so called NAT hole punching, the algorithm is in [DHT-RPC package](https://github.com/mafintosh/dht-rpc/blob/master/lib/io.js#L47-L68)). Keep in mind this does not work on mobiles (and behind some corporate firewalls), and requires a fallback to a relaying proxy (e.g. This post says [30% of P2P connections need TURN proxy](https://www.callstats.io/blog/2017/10/26/webrtc-product-turn-server)). 
+
+Relaying proxy is a potential loss of privacy point. What if we could use a **personal** cloud peer, not a 3rd party service as such a proxy?
 
 - Server-less Contact Tracing on DHT. See this idea described in detail [in this paper](https://eprint.iacr.org/2020/398.pdf).
 
@@ -581,6 +584,12 @@ So what can be done to protect IP addresses in DHT?
 - Hyperswarm can be improved to encrypt data in DHT, and this way only the peers that know some shared secret could find each other.
 
 - Potentially [I2P](https://dat.discourse.group/t/feature-support-i2p/62/6) can be used in the future.
+
+#### Is Hyperswarm susceptible to DDOS?
+
+[Yes](https://pfrazee.hashbase.io/blog/hyperswarm). One potential approach is to have Hyperswarm peers sign data in DHT, and refuse to accept unsigned data. Other measures could include the approach used by Bitcoin, to prove that you have spent some CPU time (e.g. 3-5) when announcing a topic in DHT (crypto-puzzle). This is the area of active research.
+
+A resilience to DDOS could be enhanced by creating a large network of provably legitimate DHT nodes.
 
 ### Hyperdrive
 
