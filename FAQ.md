@@ -18,7 +18,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [I wonder what P2P apps can be built on Hypercore?](#i-wonder-what-p2p-apps-can-be-built-on-hypercore)
   - [Does Hypercore have a community?](#does-hypercore-have-a-community)
   - [Why Hypercore is not yet mainstream?](#why-hypercore-is-not-yet-mainstream)
-  - [P2P state and evolution](#p2p-state-and-evolution)
+  - [What is the state of P2P and its evolution?](#what-is-the-state-of-p2p-and-its-evolution)
   - [Who is using Hypercore P2P framework today?](#who-is-using-hypercore-p2p-framework-today)
   - [How integrity of the data is assured?](#how-integrity-of-the-data-is-assured)
     - [Can Hypercore's author change history?](#can-hypercores-author-change-history)
@@ -26,21 +26,21 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [Is there a regular key rotation and key replacement mechanism?](#is-there-a-regular-key-rotation-and-key-replacement-mechanism)
   - [Is there an authentication system?](#is-there-an-authentication-system)
   - [Is there a discovery system to learn what feeds the other peer shares?](#is-there-a-discovery-system-to-learn-what-feeds-the-other-peer-shares)
-  - [Help me picture use cases for Hyperswarm?](#help-me-picture-use-cases-for-hyperswarm)
-- [If Hypercore is a P2P Web, what is its URL format?](#if-hypercore-is-a-p2p-web-what-is-its-url-format)
+  - [If Hypercore is a P2P Web, what is its URL format?](#if-hypercore-is-a-p2p-web-what-is-its-url-format)
   - [What is the biggest gotcha with Hypercore?](#what-is-the-biggest-gotcha-with-hypercore)
   - [Can Hypercore be backed up?](#can-hypercore-be-backed-up)
     - [Backup to S3](#backup-to-s3)
 - [Network](#network)
   - [What are the reliability guarantees of Hypercore protocol?](#what-are-the-reliability-guarantees-of-hypercore-protocol)
   - [Is network traffic encrypted end-to-end?](#is-network-traffic-encrypted-end-to-end)
-  - [Is Hypercore push or pull?](#is-hypercore-push-or-pull)
+  - [Is Hypercore a push or pull system?](#is-hypercore-a-push-or-pull-system)
   - [How to discover all feeds that a peer can give us?](#how-to-discover-all-feeds-that-a-peer-can-give-us)
   - [Does Hypercore work in the browser, on mobiles?](#does-hypercore-work-in-the-browser-on-mobiles)
   - [Does Hyperswarm work in browsers, on mobile?](#does-hyperswarm-work-in-browsers-on-mobile)
   - [Can Hypercore network protocol be extended?](#can-hypercore-network-protocol-be-extended)
 - [Storage](#storage)
   - [Can Hypercore storage be encrypted at-rest?](#can-hypercore-storage-be-encrypted-at-rest)
+  - [Is Hypercore quantum-safe?](#is-hypercore-quantum-safe)
   - [Does Hypercore support zero-knowledge store / blind storage?](#does-hypercore-support-zero-knowledge-store--blind-storage)
   - [Does Hypercore support erasure-coding?](#does-hypercore-support-erasure-coding)
   - [Can data be deleted?](#can-data-be-deleted)
@@ -52,6 +52,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
     - [Can it serve as LevelDB replacement?](#can-it-serve-as-leveldb-replacement)
     - [What proves the scalability of Hyperbee?](#what-proves-the-scalability-of-hyperbee)
   - [Hyperswarm](#hyperswarm)
+    - [Help me picture use cases for Hyperswarm?](#help-me-picture-use-cases-for-hyperswarm)
     - [Can we distinguish between peers before connecting to them?](#can-we-distinguish-between-peers-before-connecting-to-them)
     - [Is Hyperswarm anonymous?](#is-hyperswarm-anonymous)
   - [Hyperdrive](#hyperdrive)
@@ -85,7 +86,8 @@ This section is for general questions. See other sections for questions specific
 - **Hypertrie**, a key-value store, which uses the underlying Hypercore and is used by other higher level services, like Hyperdrive for its directory structure and the file metadata. You can view key-value store as a simplest possible database and it is a common component in modern applications, and especially as embedded part of P2P applications. E.g. Ethereum uses KV store for [smart-contract storage](https://medium.com/hackernoon/getting-deep-into-ethereum-how-data-is-stored-in-ethereum-e3f669d96033).
 - **Hyperbee**, a key-value store, that also provides sorted range queries and therefore can be used by the database on top to build indexes.
 - **Corestore**, to managing many Hypercores you typically end up authoring or replicating from others.
-- **Hyperdrive**, a P2P alternative to Google Drive and Dropbox 
+- **Hyperdrive**, a P2P alternative to Google Drive and Dropbox
+- **Hyperswarm**, a discovery mechanism for connecting to peers (sort of a decentralized DNS)
 - **Beaker Browser**, a full-blown browser that also supports the Web without servers (P2P Web).
 
 ### What is the USP (Unique Selling Proposition) of Hypercore?
@@ -263,7 +265,7 @@ Taking it a step further, the cloud peer could be a place to run many Hypercore 
 
 This will make Hypercore shine!
 
-### P2P state and evolution
+### What is the state of P2P and its evolution?
 
 Both classes of P2P systems, blockchains and P2P data are nudging towards mass market adoption. Cryptocurrencies made huge strides in creating a new foundation for global financial system, especially evidenced by the rise of DeFi in 2020.
 
@@ -353,22 +355,7 @@ Yes. Managed by Corestore, or by the community-provided multifeed.
 
 Need help with this.
 
-### Help me picture use cases for Hyperswarm?
-
-Ideas that fit Hyperswarm's mission to help discover peers and connect to them without using any servers:
-
-- establish a [Video chat session over WebRTC](https://twitter.com/pfrazee/status/1248744869419458561), which otherwise needs a [STUN server](https://www.callstats.io/blog/2017/10/26/webrtc-product-turn-server). Peersockets module adds convenience and efficiency for [talking to peers on a swarm topic](https://github.com/andrewosh/peersockets).
-
-- connect to peers sitting behind home routers, which otherwise can't connect to each other. (Hyperswarm's here is so called NAT hole punching). Keep in mind this does not work on mobiles (and behind some corporate firewalls), and requires a proxy (e.g. This post says [30% of P2P connections need TURN proxy](https://www.callstats.io/blog/2017/10/26/webrtc-product-turn-server)). What if to avoid the loss of privacy, we could use not a public server, but a **personal** cloud peer as such a proxy?
-
-- DNS replacement. E.g. a client app needs to find a server and wants to avoid a centralized DNS, or just avoid a reliance on yet another service, if DHT is already used anyway. Same when Router / balancer needs to find a particular server. See one possible design for [DHT as a decentralized DNS in 2 round-trips](https://github.com/hallettj/my-dns/blob/942370cb2052f0d020564b64710e30ddc92ee5ef/uunet.markdown).
-
-- Server-less Contact Tracing on DHT. See this idea described in detail [in this paper](https://eprint.iacr.org/2020/398.pdf).
-
-- Hyperswarm is also a Publish Subscribe system, in a way.
-Need help on this.
-
-## If Hypercore is a P2P Web, what is its URL format?
+### If Hypercore is a P2P Web, what is its URL format?
 
 URL is designed to be used in Beaker. Its schema is `hyper://<public-key>[+<version>]/[<path>][?<query>][#<hash>]` where `public-key` is the address of the hypercore feed, `version` is an optional numeric identifier of a specific revision of the feed, and `path` `query` `hash` are fragments akin to HTTP URLs (though `query` has no defined interpretation).
 
@@ -418,7 +405,7 @@ A new channel is open for each Hypercore and multiple channels use the same conn
 
 Note, as always with end-to-end encryption, you need to watch out for the cases when you introduce a proxy in the middle, for example to deal with overly restrictive firewalls. The best approach is for the Proxy to be blind, just passing encrypted streams between peers.
 
-### Is Hypercore push or pull?
+### Is Hypercore a push or pull system?
 
 Normally updates are pulled by the peers. Protocol supports a Push-ing data as well but it is [not exposed in the API today](https://discordapp.com/channels/709519409932140575/709519410557222964/755797065879257178)
 
@@ -470,6 +457,14 @@ Yes, offered by community solutions. You will need explore their limitations. Se
 - [Cobox Hypercore Encryption](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/2_work-plan/mvp/mvp-design.md).
 
 - [hypercore-encrypted](https://www.npmjs.com/package/hypercore-encrypted), a wrapper around hypercore.
+
+### Is Hypercore quantum-safe?
+
+Need help with this.
+
+Hypercore uses ED25519 for signatures and is not quantum-safe.
+Hypercore uses a hash function Blake2b with 512-bit hashes that is considered [quantum-safe](https://cryptobook.nakov.com/quantum-safe-cryptography).
+Hypercore uses Noise protocol on the wire, which is ... quantum ... 
 
 ### Does Hypercore support zero-knowledge store / blind storage?
 
@@ -539,6 +534,25 @@ There is also a number of benchmarks for LevelDB (e.g. [here](https://github.com
 We need your help!!
 
 ### Hyperswarm
+
+Hyperswarm is a key element of Hypercore system that allows to discover network addresses of the peers by topic names. This allows to find and establish direct connections to peers. In that way it serves as a P2P variant of DNS. Like DNS it provides network location independence. Like DNS it allows to store small data in location records. Unlike DNS is it is fully decentralized. Unfortunately there is still a dependency on bootstrap servers, but they are not fixed like DNS root servers, and any Hyperswarm can bootstrap from servers it trusts.
+
+Hyperswarm also allows peer's network address discovery on local network (LAN) via mDNS broadcasts. [nDNS](https://en.wikipedia.org/wiki/Multicast_DNS) is a protocol used by Apple [Bonjour](https://en.wikipedia.org/wiki/Bonjour_(software)) for [AirDrop](https://apple.stackexchange.com/questions/24885/use-the-airdrop-network-to-access-a-computer) and is standardized by RFC 6762.
+
+#### Help me picture use cases for Hyperswarm?
+
+Ideas that fit Hyperswarm's mission to help discover peers and connect to them without using any servers:
+
+- establish a [Video chat session over WebRTC](https://twitter.com/pfrazee/status/1248744869419458561), which otherwise needs a [STUN server](https://www.callstats.io/blog/2017/10/26/webrtc-product-turn-server). Peersockets module adds convenience and efficiency for [talking to peers on a swarm topic](https://github.com/andrewosh/peersockets).
+
+- connect to peers sitting behind home routers, which otherwise can't connect to each other. (Hyperswarm's here is so called NAT hole punching). Keep in mind this does not work on mobiles (and behind some corporate firewalls), and requires a proxy (e.g. This post says [30% of P2P connections need TURN proxy](https://www.callstats.io/blog/2017/10/26/webrtc-product-turn-server)). What if to avoid the loss of privacy, we could use not a public server, but a **personal** cloud peer as such a proxy?
+
+- DNS replacement. E.g. a client app needs to find a server and wants to avoid a centralized DNS, or just avoid a reliance on yet another service, if DHT is already used anyway. Same when Router / balancer needs to find a particular server. See one possible design for [DHT as a decentralized DNS in 2 round-trips](https://github.com/hallettj/my-dns/blob/942370cb2052f0d020564b64710e30ddc92ee5ef/uunet.markdown).
+
+- Server-less Contact Tracing on DHT. See this idea described in detail [in this paper](https://eprint.iacr.org/2020/398.pdf).
+
+- Hyperswarm is also a Publish Subscribe system, in a way.
+Need help on this.
 
 #### Can we distinguish between peers before connecting to them?
 
