@@ -47,6 +47,9 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
 - [Hypercore components / modules](#hypercore-components--modules)
   - [Hyperbee](#hyperbee)
     - [Help me picture use cases for Hyperbee?](#help-me-picture-use-cases-for-hyperbee)
+      - [Personal database](#personal-database)
+      - [Marketplace of data feeds](#marketplace-of-data-feeds)
+      - [Lightweight Blockchain client](#lightweight-blockchain-client)
     - [How does Hyperbee relate to Hypercore?](#how-does-hyperbee-relate-to-hypercore)
     - [What are the limitations on consistency?](#what-are-the-limitations-on-consistency)
     - [Can it serve as LevelDB replacement?](#can-it-serve-as-leveldb-replacement)
@@ -113,7 +116,7 @@ Another USP of Hypercore is that it implements essential patterns of distributed
 
 **WAL**. All distributed systems need a [Write Ahead Log (WAL)](https://martinfowler.com/articles/patterns-of-distributed-systems/wal.html), be it databases, orchestration engines, like Zookeeper or etcd, or event streaming systems like Kafka. Every system implements its own WAL today. Hypercore generalized this pattern as an append-only-log and consistently uses it in its higher-level data structures such as Hypertrie, Hyperbee, Hyperdrive.
 
-**History**. Same goes for other patterns like point in time recovery, snapshots, versioning, undo-redo and rewinds, and data integrity assurance. Non-distributed apps can also benefit from these capabilities. For example, it is great for experiments or risky operations, as you can always go back to the previous state (this is a common pattern with VM snapshots, disk snapshots, container image layers).
+**Time travel**. Same goes for other patterns like point in time recovery, snapshots, versioning, undo-redo and rewinds, and data integrity assurance. Non-distributed apps can also benefit from these capabilities. For example, it is great for experiments or risky operations, as you can always go back to the previous state (this is a common pattern with VM snapshots, disk snapshots, container image layers).
 
 #### Large file handling
 
@@ -201,7 +204,7 @@ https://medium.com/decentralized-web/comparing-ipfs-and-dat-8f3891d3a603
 https://blog.cloudflare.com/e2e-integrity/
 https://docs.ipfs.io/concepts/usage-ideas-examples/#usage-ideas-and-examples
 
-Rough outline: 
+Rough outline:
 
 - Availability. See for example [Our Networks](https://ournetworks.ca/) page referring to both IPFS and Dat URLs and Dat URL does not open. Same [here](https://2019.ournetworks.ca/).
 - Sparse loading
@@ -498,7 +501,11 @@ Cloud providers sometimes offer a virtualized file system over multiple replicas
 
 #### Help me picture use cases for Hyperbee?
 
-A database that is automatically syncing between all personal devices, but without the help of Apple, Google or any other central provider. For Cloud this could be a serverless personal-use replacement for AWS DynamoDB (Azure Cosmos, etc.), while providing **complete isolation** in multi-tenant environment. Some use cases:
+Use cases for embedded replicated streaming DB are plentiful.
+
+##### Personal database 
+
+A database that is automatically syncing between all personal devices, but without the help of Apple, Google or any other central provider. For Cloud this could be a serverless personal-use replacement for AWS DynamoDB (Azure Cosmos, etc.), while providing **complete isolation** of data in a multi-tenant execution environment. Some use cases:
 
 - Multi-device Contact list.
 - Multi-device Calendar.
@@ -507,8 +514,17 @@ A database that is automatically syncing between all personal devices, but witho
 - Multi-device chat and group chat. See [Cabal](https://cabal.chat/), an attempt to do just that.
 - Multi-device email front-end? It is a tall order, but we do need to stop giving Google all our mail.
 
-Use cases for embedded replicated streaming DB are plentiful.
-Need help with this.
+##### Marketplace of data feeds
+
+Note what Bitfinex is doing with trading data and signals (see above), and extrapolate it to other types of structured data.
+
+##### Lightweight Blockchain client
+
+Hyperbee could very well be a killer app for accessing blockchains.
+
+One of the persistent problems with the blockchains is that mobile and web applications have to rely on full-node servers as trusted gateways, a contradiction to blockchains' trustless value proposition. SPV wallets were designed to solve this problem, but they are (https://www.reddit.com/r/ethereum/comments/avk7ew/is_spv_of_eth_value_transfers_possible/ehg5wud/), are not so lightweight and are anemic as they can't answer all the questions client apps have.
+
+This led to the emergence of services like [Infura](https://infura.io/customers/compound). Hyperbee could be more lightweight and more flexible than SPV. SPV protocol is usually confided to specific proofs, e.g. that a transaction was included in the blockchain. But it can't answer queries like show me 'all transactions involving a specific blockchain address'. Hyperbee can run arbitrary queries against the blockchain node (providing indexes were added). To avoid trusting one Hyperbee, imagine a number of independent Hyperbee providers that all return chunks of data for the same query, a core capability of Hyperbee. With this We have restored a trustless access to blockchains.
 
 #### How does Hyperbee relate to Hypercore?
 
