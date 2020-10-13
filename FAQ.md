@@ -377,13 +377,17 @@ Need help with this.
 
 ### If Hypercore is a P2P Web, what is its URL format?
 
-Hypercore URL is defined by [this draft specification](https://github.com/hypercore-protocol/hyp/blob/master/proposals/0002-hyper-url.md). URL is designed to be used in Beaker. Its schema is `hyper://<public-key>[+<version>]/[<path>][?<query>][#<hash>]` where `public-key` is the address of the hypercore feed, `version` is an optional numeric identifier of a specific revision of the feed, and `path` `query` `hash` are fragments akin to HTTP URLs (though `query` has no defined interpretation).
+URL looks like this `hyper://<public-key>[+<version>]/[<path>][?<query>][#<fragment>]` where `public-key` is the address of the hypercore feed, `version` is an optional numeric identifier of a specific revision of the feed (also called index or seq, a block number in the append only log), and `path` `query` `fragment` are akin to HTTP URLs (though `query` has no defined interpretation). Formal schema is defined by [this specification](https://github.com/hypercore-protocol/hyp/blob/master/proposals/0002-hyper-url.md). Beaker browser is the primary way such URLs are used.
 
-There is a proposal for [Strong linking](https://github.com/datproject/dat/issues/976) which would add to URL a signed hash of the merkle tree at the specified `version`. This URL would lock down the history of the hypercore at a specified version, or in other words hypercore's author can't rewind hypercore beyond the `version`.
+There is a proposal for [Strong linking](https://github.com/datproject/dat/issues/976) which would add a `hash`. This is a hash of the hypercore at a specified `version`. This would lock down the history of the hypercore at that `version`.
 
-Although Hypercore protocol itself does not use strong links yet, applications [can construct them](https://github.com/mafintosh/hypercore-strong-link) already. [This module](https://github.com/jwerle/dat-deep-link) uses hypercore-strong-link to construct full URL. 
+To understand why this link is strong, you need to know that every time a new block is added to hypercore feed, a new root hash corresponding to all the data in hypercore, up to current position, is calculated and saved in hypercore (this hash is also referred to as the Merkle tree root hash or just tree-hash). Now, should the author, by mistake or intentionally, rewind their hypercore to `version - 1` or earlier, and fill it with different data, the hash of the hypercore at `version` will be different and it will now not match the hash given in the URL.
 
-Use cases include listing files in a [module's manifest](https://gist.github.com/pfrazee/c13b86f84485aced69a1509a00b12e66), cross-linking between JSON attribute in Hyperbee and a file in Hyperdrive (attached file).
+Note that the hypercore can and will continue to be appended to after the point referred to in the URL. This is normal and fine, and URL will continue to work, referring to a particular point-in-time in data history. But it does not mean that the strong URL creates an obligation for the author not to rewind the hypercore. It only means that such change can be discovered by whoever has received strong URL.
+
+Applications can use [this module](https://github.com/mafintosh/hypercore-strong-link) to construct and verify strong links.
+
+Use cases for strong links include listing files in a [module's manifest](https://gist.github.com/pfrazee/c13b86f84485aced69a1509a00b12e66), cross-linking between JSON attributes in Hyperbee object and a file in Hyperdrive (e.g. for a file attached to an email).
 
 ### What is the biggest gotcha with Hypercore?
 
