@@ -377,16 +377,15 @@ Need help with this.
 
 ### If Hypercore is a P2P Web, what is its URL format?
 
-URL is designed to be used in Beaker. Its schema is `hyper://<public-key>[+<version>]/[<path>][?<query>][#<hash>]` where `public-key` is the address of the hypercore feed, `version` is an optional numeric identifier of a specific revision of the feed, and `path` `query` `hash` are fragments akin to HTTP URLs (though `query` has no defined interpretation).
+Hypercore URL is defined by [this specification](https://github.com/hypercore-protocol/hyp/blob/master/proposals/0002-hyper-url.md). URL is designed to be used in Beaker. Its schema is `hyper://<public-key>[+<version>]/[<path>][?<query>][#<hash>]` where `public-key` is the address of the hypercore feed, `version` is an optional numeric identifier of a specific revision of the feed, and `path` `query` `hash` are fragments akin to HTTP URLs (though `query` has no defined interpretation).
 
-The `version` identifier gives a weak guarantee of the content (it is likely but not fully guaranteed that a versioned URL will provide the same data). There is a proposal for [Strong linking](https://github.com/mafintosh/hypercore-strong-link) which would include a content-hash in the URL, providing the strong guarantee of content. (If strong links do not become part of the URL spec, they may still be leveraged in separate channels, such as manifest files which record the "strong link" hashes along with the target URL.)
+There is a proposal for [Strong linking](https://github.com/mafintosh/hypercore-strong-link) which includes the root hash of the merkle tree at `version`, providing the strong guarantee of content. (If strong links do not become part of the URL spec, they may still be leveraged in separate channels, such as manifest files which record the "strong link" hashes along with the target URL.)
 
 When supported, I think such URL needs to have both stable part and version part. It also needs to allow URLs to be used by internal components and apps, not just in Beaker. A typical use case for this is link from a data element in Hyperbee to a file on Hyperdrive.
 
 ### What is the biggest gotcha with Hypercore?
 
-Need help with this. @RangerMauve?
-Probably copying the Hypercore's directory to another machine and copying a private key and trying to write into this Hypercore while making updates in the original Hypercore.
+You can create [conflicting forks](https://gist.github.com/martinheidegger/82dbf775e3ff071d897819d7550cb3d7) of a hypercore log by 1) copying the hypercore feed directory to another machine along with its private key and 2) write into this hypercore while making updates in the original hypercore.
 
 ### Can Hypercore be backed up?
 
@@ -474,6 +473,8 @@ Possibly useful are [abstract-extension](https://github.com/mafintosh/abstract-e
 
 Yes, offered by community solutions. You will need explore their limitations. See some below:
 
+- [Block-level encryption](https://github.com/little-core-labs/hypercore-xsalsa20-onwrite-hook)
+
 - [Cobox Hypercore Encryption](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/2_work-plan/mvp/mvp-design.md).
 
 - [hypercore-encrypted](https://www.npmjs.com/package/hypercore-encrypted), a wrapper around hypercore.
@@ -482,13 +483,17 @@ Yes, offered by community solutions. You will need explore their limitations. Se
 
 Need help with this.
 
-Hypercore uses ED25519 for signatures and is not quantum-safe.
-Hypercore uses a hash function Blake2b with 512-bit hashes that is considered [quantum-safe](https://cryptobook.nakov.com/quantum-safe-cryptography).
-Hypercore uses Noise protocol on the wire, which is ... quantum ... 
+Hypercore uses [Noise-protocol](https://github.com/emilbayes/noise-protocol) which implements the Noise_*_25519_ChaChaPoly_BLAKE2b handshake, meaning Curve25519 for DH, ChaCha20Poly1305 for AEAD and BLAKE2b for hashing.
+
+Handshake and transport encryption are documented by [@Frando](https://github.com/Frando) as part of his implementation of Hypercore in Rust.
+
+- ED25519 is used for signatures, and is not quantum-safe.
+- BLAKE2b with 512-bit hashes that is considered [quantum-safe](https://cryptobook.nakov.com/quantum-safe-cryptography).
+- XSalsa20 is used as transport cypher and [seems to be quantum-safe](https://crypto.stackexchange.com/questions/70492/how-resistant-are-stream-ciphers-like-salsa20-or-chacha-in-a-post-quantum-world).
 
 ### Does Hypercore support zero-knowledge store / blind storage?
 
-Yes, offered by community solutions. 
+Yes, offered by community solutions.
 the above terms refer to an encrypted replica kept by a friend or a services provider, like [SpiderOak](https://spideroak.com/one/), but can't be read by them.
 
 Current solutions are provided by the community:
