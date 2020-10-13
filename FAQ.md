@@ -379,9 +379,11 @@ Need help with this.
 
 Hypercore URL is defined by [this specification](https://github.com/hypercore-protocol/hyp/blob/master/proposals/0002-hyper-url.md). URL is designed to be used in Beaker. Its schema is `hyper://<public-key>[+<version>]/[<path>][?<query>][#<hash>]` where `public-key` is the address of the hypercore feed, `version` is an optional numeric identifier of a specific revision of the feed, and `path` `query` `hash` are fragments akin to HTTP URLs (though `query` has no defined interpretation).
 
-There is a proposal for [Strong linking](https://github.com/mafintosh/hypercore-strong-link) which includes the root hash of the merkle tree at `version`, providing the strong guarantee of content. (If strong links do not become part of the URL spec, they may still be leveraged in separate channels, such as manifest files which record the "strong link" hashes along with the target URL.)
+There is a proposal for [Strong linking](https://github.com/datproject/dat/issues/976) which would add to URL a signed hash of the merkle tree at the specified `version`. This URL would lock down the history of the hypercore at a specified version, or in other words hypercore's author can't rewind hypercore beyond the `version`.
 
-When supported, I think such URL needs to have both stable part and version part. It also needs to allow URLs to be used by internal components and apps, not just in Beaker. A typical use case for this is link from a data element in Hyperbee to a file on Hyperdrive.
+Although Hypercore protocol itself does not use strong links yet, applications [can construct them](https://github.com/mafintosh/hypercore-strong-link) already. [This module](https://github.com/jwerle/dat-deep-link) uses hypercore-strong-link to construct full URL. 
+
+Use cases include listing files in a [module's manifest](https://gist.github.com/pfrazee/c13b86f84485aced69a1509a00b12e66), cross-linking between JSON attribute in Hyperbee and a file in Hyperdrive (attached file).
 
 ### What is the biggest gotcha with Hypercore?
 
@@ -393,7 +395,7 @@ Yes. see [Hypercore archiver](https://awesome.datproject.org/hypercore-archiver)
 
 #### Backup to S3
 
-Backup to s3 is not supported yet. This [underlying module's](https://github.com/random-access-storage/random-access-s3) dows not have the write method implemented yet. This is work in progress, tracked by [this issue](https://github.com/tradle/why-hypercore/issues/1).
+Backup to s3 is not supported yet. This [underlying module's](https://github.com/random-access-storage/random-access-s3) does not have the write method implemented yet. This is work in progress, tracked by [this issue](https://github.com/tradle/why-hypercore/issues/1).
 
 ## Network
 
