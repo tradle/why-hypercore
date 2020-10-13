@@ -385,7 +385,7 @@ When supported, I think such URL needs to have both stable part and version part
 
 ### What is the biggest gotcha with Hypercore?
 
-You can create [conflicting forks](https://gist.github.com/martinheidegger/82dbf775e3ff071d897819d7550cb3d7) of a hypercore log by 1) copying the hypercore feed directory to another machine along with its private key and 2) write into this hypercore while making updates in the original hypercore.
+You can create conflicting forks of a hypercore log by 1) copying the hypercore feed directory to another machine along with its private key and 2) write into this hypercore while making updates in the original hypercore. Your can follow the idea for [self-healing hypercores](https://gist.github.com/martinheidegger/82dbf775e3ff071d897819d7550cb3d7).
 
 ### Can Hypercore be backed up?
 
