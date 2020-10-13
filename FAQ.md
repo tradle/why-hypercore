@@ -377,7 +377,7 @@ Need help with this.
 
 ### If Hypercore is a P2P Web, what is its URL format?
 
-Hypercore URL is defined by [this specification](https://github.com/hypercore-protocol/hyp/blob/master/proposals/0002-hyper-url.md). URL is designed to be used in Beaker. Its schema is `hyper://<public-key>[+<version>]/[<path>][?<query>][#<hash>]` where `public-key` is the address of the hypercore feed, `version` is an optional numeric identifier of a specific revision of the feed, and `path` `query` `hash` are fragments akin to HTTP URLs (though `query` has no defined interpretation).
+Hypercore URL is defined by [this draft specification](https://github.com/hypercore-protocol/hyp/blob/master/proposals/0002-hyper-url.md). URL is designed to be used in Beaker. Its schema is `hyper://<public-key>[+<version>]/[<path>][?<query>][#<hash>]` where `public-key` is the address of the hypercore feed, `version` is an optional numeric identifier of a specific revision of the feed, and `path` `query` `hash` are fragments akin to HTTP URLs (though `query` has no defined interpretation).
 
 There is a proposal for [Strong linking](https://github.com/datproject/dat/issues/976) which would add to URL a signed hash of the merkle tree at the specified `version`. This URL would lock down the history of the hypercore at a specified version, or in other words hypercore's author can't rewind hypercore beyond the `version`.
 
