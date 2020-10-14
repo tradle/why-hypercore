@@ -72,12 +72,9 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [Topology management](#topology-management)
   - [Schema / data model / data dictionary](#schema--data-model--data-dictionary)
   - [Identity](#identity)
-- [How are above issues handled today in Hypercore?](#how-are-above-issues-handled-today-in-hypercore)
-  - [Filesystem workaround](#filesystem-workaround)
-  - [Union of Hyperbees?](#union-of-hyperbees)
-  - [Practical conflict resolution for common use cases](#practical-conflict-resolution-for-common-use-cases)
-  - [Simulated multi-writer on top of multiple single-writers](#simulated-multi-writer-on-top-of-multiple-single-writers)
-  - [Is it multi-process-safe?](#is-it-multi-process-safe)
+  - [Multi-writer](#multi-writer)
+  - [Consensus / converging states](#consensus--converging-states)
+  - [Is Hypercore multi-process-safe?](#is-hypercore-multi-process-safe)
 - [Where can I learn more about Hypercore universe?](#where-can-i-learn-more-about-hypercore-universe)
 
 ## General
@@ -677,7 +674,7 @@ Need help with this: what other public datasets would be good to load into Hyper
 
 ## What is missing in Hypercore?
 
-Hyperdrive provides many key primitives needed in distributed systems. But it lacks certain others that you will need to build yourself for a full P2P application, and to avoid frustration it is better to be aware of them upfront.
+Hyperdrive provides many key primitives (lego blocks) needed in distributed systems. But it lacks certain others that you will need to build yourself for a full P2P application, and to avoid frustration it is better to be aware of them upfront.
 
 ### Distributed Time / Clocks
 
@@ -712,53 +709,56 @@ As apps have a need to understand each other. Data modeling emerges as a necessi
 
 Full apps will need some form of identity management. Hypercore provides the basic elements, a keypair per each core (and in corestore master key for corestore and generated keys per core), but identity of a peer is much more than the identity of the core.
 
-## How are above issues handled today in Hypercore?
+### Multi-writer
 
-Multi-writer is probably the [most wanted feature](https://github.com/hypercore-protocol/hyperdrive/issues/230) of Hypercore, as it is a common pattern of working with files and databases today. Unfortunately today Hypercore is strictly a single-writer system.
+Hypercore is engineered with small single-purpose lego blocks that are highly composable into systems you want to build on it, especially as evident in case of multi-writer.
 
-The advantage of single-writer is a strong verifiable integrity.
+Hypercore is a personal data structure and so is Hypertrie, Hyperbee and Hyperdrive. This means only one private key can have access to write into it. In other words it is a single-writer module. The advantage of single-writer is a strong verifiable integrity, audit trail, support for streaming, and many others.
 
-For example, in Tradle's digital identity product a single-writer is a core pattern. No record in Tradle can be edited other then by it's author. The schemas / data models are shaped intentionally to support this single-writer approach. Result is a much safer Data Governance with a cleaner audit trail.
+But when hypercore is replicated to personal devices (phone, tablet, PC, cloud peers) each device needs to have its own private key, which means now multiple writers need to write into hypercore data structures. Same need arises when you want to collaborate with peers, with shared documents, files and databases, as you want peers to **edit** same objects and **search** across them.
 
-But in Tradle you can still search across all records created by single-writers, as you would expect in any database nowadays. In Hypercore this requires multiple workarounds, like below:
+To support such use cases multi-writer modules can be composed on top.
 
-### Filesystem workaround
+*Note that supporting multi-writer in core modules [has been requested many times](https://github.com/hypercore-protocol/hyperdrive/issues/230) but it turns out one size does not fit all. [HyperDB](https://github.com/mafintosh/hyperdb) is an abandoned multi-writer database that became too complex as it tried to provide discovery, networking, authorization, conflict resolution, etc. in one package, serving many masters and satisfying none.** 
 
-Hypertrie now provides Mounts which allow to present other people's drives as your read-only subfolders. This is a good workaround, but not a shared filesystem like NFS.
+So simple compositions, that are themselves composable is a better approach, see below:
 
-[Multi-hyperdrive](https://github.com/RangerMauve/multi-hyperdrive/) is a new package that achieves impressive results for multi-writer Hyperdrive. See also co-hyperdrive from the same author that adds authorizations.
+- [Multi-hyperdrive](https://github.com/RangerMauve/multi-hyperdrive/). Simple, does not provide discovery, networking, authorization. See [co-hyperdrive](https://github.com/RangerMauve/co-hyperdrive) built on top that adds authorizations. Scales well, sames as hyperdrive. Provides simple last-write-wins (LWW) conflict resolution.
+- [Multi-hyperbee](https://github.com/tradle/multi-hyperbee/). Simple, does not provide discovery, networking, authorization or conflict resolution (see section below). Scales well (same as hyperbee).
+- [Multi-hypertrie (upcoming)](https://github.com/tradle/multi-hyperbee/)
+- **Union**. A union of Hyperbees can be [easily constructed](https://github.com/tradle/why-hypercore/blob/master/test/hyperbeeUnion.test.js) utilizing another lego block, [a streaming sort-merge](http://github.com/mafintosh/sorted-union-stream).
 
-### Union of Hyperbees?
+Need help with this:
 
-Maybe [streaming sort-merge mechanism](http://github.com/mafintosh/sorted-union-stream) can help? See the tests that show this [method working](https://github.com/tradle/why-hypercore/tree/master/test).
+Cobox community has created a number of compositions:
+- [local indexes for remote feeds](https://discordapp.com/channels/709519409932140575/709519410557222964/756414542669676573). This approach works well for groups of up to 50 members.
+- **KappaDB**. [Cobox community](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/3_mock-up/technology/architecture.md) produced a multi-writer DB [KappaDB](https://github.com/kappa-db).
 
-But will it be performant across millions of Hyperbees? Like on an e-commerce site, a merchant would search for orders from a million people, each with its own Hyperbee? Instead of a union in this case we will need to merge data from the individual Hyperbees, into the merchant's Hyperbee.
+### Consensus / converging states
 
-Cabal / Cobox / Kappa have gained some experience with [re-indexing of multiple remote feeds in a local feed](https://discordapp.com/channels/709519409932140575/709519410557222964/756414542669676573) and their approach works for groups but does not scale for e-commerce use cases.
+In distributed systems, of which P2P is a subclass, reaching the same state is a hard problem with a long history. The reason it is hard was only recently formally described as a [CAP theorem](https://en.wikipedia.org/wiki/CAP_theorem). The holy grail of distributed systems is to reach the [ACID](https://en.wikipedia.org/wiki/ACID) guarantees of SQL databases - Atomicity, Consistency, Isolation and Durability. But SQL databases mostly operated on a single machine or on a closely managed cluster. Over the Internet the connectivity can be spotty and malicious actors abound.
 
-### Practical conflict resolution for common use cases
+  Handling bad actors became a specialty of blockchains, and it was a huge win for the P2P movement. Yet, since blockchains serve as shared databases for the whole world, they come with limitations. They have high transaction costs, low throughput, can store only the miniscule amounts of data, and can't hold or process private data. To overcome these limitations some applications re-centralize, adding web servers, application servers and DB servers. Others try to remain pure P2P by using IPFS or Hypercore.
 
-There are cases when CRDT algorithm is more suitable than database concurrency. CRDT is implemented by [Automerge](https://github.com/automerge/automerge), and used by [Hypermerge](https://github.com/automerge/hypermerge). It is also independently implemented by [YJS](https://github.com/yjs/yjs) and [Delta-CRDT](https://github.com/peer-base/js-delta-crdts). Such cases are:
+Algorithms, that tackle bad connections, **but not bad actors** have evolved from the highly complex Paxos to a simpler RAFT, to PBFT, and finally, in the last 5-7 years, to CRDT. CRTD is very lightweight and allows to operate leaderless multi-master, allowing each master to merging edits on the edge without any central coordination. This means no operators to run central service (Zookeeper, etcd, etc.) and handle complex cluster failure modes. Note that CRDT is quietly being used by AWS DynamoDB and Azure Cosmos - and if it is good enough for those web-scale databases, it is good enough for P2P.
 
-- **Collaborative editing**. A P2P Google Doc alternative allowing document to be edited by multiple people simultaneously.
+Here is a [great introductory talk](https://www.youtube.com/watch?v=B5NULPSiOGw) on CRDT and an [advanced one](https://www.youtube.com/watch?v=PMVBuMK_pJY). 
+
+For NodeJS the prime candidate is [Automerge](https://github.com/automerge/automerge), but there are others like [YJS](https://github.com/yjs/yjs) and [Delta-CRDT](https://github.com/peer-base/js-delta-crdts) (please share if you know a better one). CRDT is used by OrbitDB that runs on top of IPFS.
+
+CRDT matches perfectly multi-device and collaborative editing use cases of P2P:
+
+- **Collaborative editing**. P2P needs a mechanism to match Google Docs, Slides, etc. that allow multiple people edit the same document simultaneously. Google Docs uses an older Operational Transforms algorithm that is highly complex and allows only 2 concurrent edits (which Google overcomes by having a central server quietly merging in the background).
   
-- **Multi-device support**. Each device is a single writer with unique key per hypercore. Normally a single person will not be using 2 devices simultaneously. Yet because of the loss of connectivity changes on two devices may need to be merged, and CRDT is a good way to achieve that.
+- **Multi-device support**. Normally a single person will not be using 2 devices simultaneously. Yet because of the loss of connectivity changes on two devices may need to be merged.
   
-- **Multiple cloud peers**. With the help of an always-on personal cloud "device" conflicts will arise much less often due to immediate real-time replication. On the other hand CRDT may be needed even more as in a cloud serverless environment 2 concurrent writes may occur easily.
+- **Multiple cloud peers**. Personal cloud "device" is always on. This resolves a common P2P issue when you edited a document, closes your laptop or an app on the phone. Cloud peer can make your changes available for others. But consensus still need to be reached and without a Google in the middle.
+  - CRDT allows multiple cloud peers to sync with other devices and sync between themselves
+  - An always-on cloud peer allows CRDT to merge edits from multiple devices in real-time, so that conflicting edits don't accumulate, matching Google experience but without Google reading all our documents.
   
-Note that CRDT resolution is much better if clocks between machines are well synchronized. NTP existed for years, and now there is a new iteration [NTS, published by Cloudflare](https://blog.cloudflare.com/announcing-cfnts/). Normal clocks are not enough though. Need causal clocks too. See more on that later.
+Note that CRDT resolution works smoother when clocks between machines are well synchronized. NTP existed for years, and now there is a new iteration [NTS, published by Cloudflare](https://blog.cloudflare.com/announcing-cfnts/). Normal clocks are not enough though. Need causal clocks too. See more on that later.
 
-### Simulated multi-writer on top of multiple single-writers
-
-[Cobox community](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/3_mock-up/technology/architecture.md) produced a multi-writer DB [KappaDB](https://github.com/kappa-db).
-
-[HyperDB](https://github.com/mafintosh/hyperdb) is an older Hypercore project which is a multi-writer database, but it is not seeing any support anymore, presumably as it could not be made performant, but it may still help some apps before a replacement comes in (need confirmation).
-
-[Multi-Hyperdrive](https://github.com/RangerMauve/multi-hyperdrive). A very clever yet simple multi-writer hyperdrive implementation.
-
-As you see it is not a problem that has a generic solution in Hypercore. But maybe instead of focusing on Hyperdrive or a DB we should focus on the use case, specifically a [single-user multi-device use case](https://github.com/tradle/why-hypercore/issues/7).
-
-### Is it multi-process-safe?
+### Is Hypercore multi-process-safe?
 
 We know it is single-writer. But can the same writer accidentally screw up the Hypercore while being executed from a second processes on the same machine, like from a Nodejs cluster process or a Nodejs worker thread? If so, it will present a significant design challenge in Serverless environment.
 
