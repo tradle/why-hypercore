@@ -736,6 +736,8 @@ Cobox community has created a number of compositions:
 
 ### Consensus / converging states
 
+Normally a single person will not be using 2 devices simultaneously. Yet because of the loss of connectivity changes made on each device may need to be merged. This includes documents, filesystems and databases.
+
 In distributed systems, of which P2P is a subclass, reaching the same state is a hard problem with a long history. The reason it is hard was only recently formally described as a [CAP theorem](https://en.wikipedia.org/wiki/CAP_theorem). The holy grail of distributed systems is to reach the [ACID](https://en.wikipedia.org/wiki/ACID) guarantees of SQL databases - Atomicity, Consistency, Isolation and Durability. But SQL databases mostly operated on a single machine or on a closely managed cluster. Over the Internet the connectivity can be spotty and malicious actors abound.
 
   Handling bad actors became a specialty of blockchains, and it was a huge win for the P2P movement. Yet, since blockchains serve as shared databases for the whole world, they come with limitations. They have high transaction costs, low throughput, can store only the miniscule amounts of data, and can't hold or process private data. To overcome these limitations some applications re-centralize, adding web servers, application servers and DB servers. Others try to remain pure P2P by using IPFS or Hypercore.
@@ -748,11 +750,11 @@ For NodeJS the prime candidate is [Automerge](https://github.com/automerge/autom
 
 CRDT matches perfectly multi-device and collaborative editing use cases of P2P:
 
-- **Collaborative editing**. P2P needs a mechanism to match Google Docs, Slides, etc. that allow multiple people edit the same document simultaneously. Google Docs uses an older Operational Transforms algorithm that is highly complex and allows only 2 concurrent edits (which Google overcomes by having a central server quietly merging in the background).
-  
-- **Multi-device support**. Normally a single person will not be using 2 devices simultaneously. Yet because of the loss of connectivity changes on two devices may need to be merged.
-  
-- **Multiple cloud peers**. Personal cloud "device" is always on. This resolves a common P2P issue when you edited a document, closes your laptop or an app on the phone. Cloud peer can make your changes available for others. But consensus still need to be reached and without a Google in the middle.
+- **Databases**. CRDT provides new data types with **magic properties** that allow automatic merging of independent edits. Anyone who sent Word documents by email to their teammates or lawyers knows the "joys" of redlining. Any developer knows the chores of merging conflicts that Git could not auto-merge. Good news for the humankind, no more conflicts with CRDT. But it also means that we need to adapt our databases to keep history of changes, sequence them properly, use stable IDs of our peers and coordinate clocks. Hypercore multi-writer modules will incorporate CRDTs for this by the end of 2020.
+
+- **Collaborative editing**. P2P needs a mechanism to match Google Docs (and Slides, Sheets, Diagrams, etc.) that allow multiple people edit the same document simultaneously. Google Docs uses an older Operational Transforms algorithm that is highly complex and allows only 2 concurrent edits (which Google overcomes by having a central server quietly merging in the background). A special branch of CRDT for sequences (LSEQ is one of them) was developed recently. Hypercore multi-writer modules will incorporate CRDTs for this by Q1 2021.
+
+- **CRDT and cloud peers**. Personal cloud "device" is always on. This resolves a common P2P issue when you edited a document, closes your laptop or an app on the phone. Cloud peer can make your changes available for others. But consensus still need to be reached and without a Google in the middle.
   - CRDT allows multiple cloud peers to sync with other devices and sync between themselves
   - An always-on cloud peer allows CRDT to merge edits from multiple devices in real-time, so that conflicting edits don't accumulate, matching Google experience but without Google reading all our documents.
   
