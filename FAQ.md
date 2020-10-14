@@ -74,6 +74,9 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [Identity](#identity)
   - [Multi-writer](#multi-writer)
   - [Consensus / converging states](#consensus--converging-states)
+    - [Databases](#databases)
+    - [Collaborative editing](#collaborative-editing)
+    - [CRDT and cloud peers](#crdt-and-cloud-peers)
   - [Is Hypercore multi-process-safe?](#is-hypercore-multi-process-safe)
 - [Where can I learn more about Hypercore universe?](#where-can-i-learn-more-about-hypercore-universe)
 
@@ -750,13 +753,20 @@ For NodeJS the prime candidate is [Automerge](https://github.com/automerge/autom
 
 CRDT matches perfectly multi-device and collaborative editing use cases of P2P:
 
-- **Databases**. CRDT provides new data types with **magic properties** that allow automatic merging of independent edits. Anyone who sent Word documents by email to their teammates or lawyers knows the "joys" of redlining. Any developer knows the chores of merging conflicts that Git could not auto-merge. Good news for the humankind, no more conflicts with CRDT. But it also means that we need to adapt our databases to keep history of changes, sequence them properly, use stable IDs of our peers and coordinate clocks. Hypercore multi-writer modules will incorporate CRDTs for this by the end of 2020.
+#### Databases
 
-- **Collaborative editing**. P2P needs a mechanism to match Google Docs (and Slides, Sheets, Diagrams, etc.) that allow multiple people edit the same document simultaneously. Google Docs uses an older Operational Transforms algorithm that is highly complex and allows only 2 concurrent edits (which Google overcomes by having a central server quietly merging in the background). A special branch of CRDT for sequences (LSEQ is one of them) was developed recently. Hypercore multi-writer modules will incorporate CRDTs for this by Q1 2021.
+CRDT provides new data types with **magic properties** that allow automatic merging of independent edits. Anyone who sent Word documents by email to their teammates or lawyers knows the "joys" of redlining. Any developer knows the chores of merging conflicts that Git could not auto-merge. Good news for the humankind, no more conflicts with CRDT. But it also means that we need to adapt our databases to keep history of changes, sequence them properly, use stable IDs of our peers and coordinate clocks. Hypercore multi-writer modules will incorporate CRDTs for this by the end of 2020.
 
-- **CRDT and cloud peers**. Personal cloud "device" is always on. This resolves a common P2P issue when you edited a document, closes your laptop or an app on the phone. Cloud peer can make your changes available for others. But consensus still need to be reached and without a Google in the middle.
-  - CRDT allows multiple cloud peers to sync with other devices and sync between themselves
-  - An always-on cloud peer allows CRDT to merge edits from multiple devices in real-time, so that conflicting edits don't accumulate, matching Google experience but without Google reading all our documents.
+#### Collaborative editing
+
+P2P needs a mechanism to match Google Docs (and Slides, Sheets, Diagrams, etc.) that allow multiple people edit the same document simultaneously. Google Docs uses an older Operational Transforms algorithm that is highly complex and allows only 2 concurrent edits (which Google overcomes by having a central server quietly merging in the background). A special branch of CRDT for sequences (LSEQ is one of them) was developed recently. Hypercore multi-writer modules will incorporate CRDTs for this by Q1 2021.
+
+#### CRDT and cloud peers
+
+Personal cloud "device" is always on. This resolves a common P2P issue when you edited a document, closes your laptop or an app on the phone. Cloud peer can make your changes available for others. But consensus still need to be reached and without a Google in the middle.
+
+- CRDT allows multiple cloud peers to sync with other devices and sync between themselves
+- An always-on cloud peer allows CRDT to merge edits from multiple devices in real-time, so that conflicting edits don't accumulate, matching Google experience but without Google reading all our documents.
   
 Note that CRDT resolution works smoother when clocks between machines are well synchronized. NTP existed for years, and now there is a new iteration [NTS, published by Cloudflare](https://blog.cloudflare.com/announcing-cfnts/). Normal clocks are not enough though. Need causal clocks too. See more on that later.
 
