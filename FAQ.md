@@ -391,7 +391,9 @@ Use cases for strong links include listing files in a [module's manifest](https:
 
 ### What is the biggest gotcha with Hypercore?
 
-You can create conflicting forks of a hypercore log by 1) copying the hypercore feed directory to another machine along with its private key and 2) write into this hypercore while making updates in the original hypercore. Your can follow the idea for [self-healing hypercores](https://gist.github.com/martinheidegger/82dbf775e3ff071d897819d7550cb3d7).
+- You can create conflicting forks of a hypercore log by first copying the hypercore feed directory to another machine along with its private key and then writing into hypercore copy while making updates in the original. There is an idea how to address this with [self-healing hypercores](https://gist.github.com/martinheidegger/82dbf775e3ff071d897819d7550cb3d7).
+
+- If you rewind the feed that is replicated, [replicas will stop syncing](https://discord.com/channels/709519409932140575/709522092424429742/765662438103842866).
 
 ### Can Hypercore be backed up?
 
@@ -590,7 +592,7 @@ Ideas that fit Hyperswarm's mission to help discover peers and connect to them w
 
 - **Decentralized DNS**. This allows to find and establish direct connections to peers. In that way it serves as a P2P variant of DNS. Like DNS it provides network location independence. Like DNS it allows to store small data in location records. Unlike DNS it does not require any configuration. So it is well suited for non-technical users. Unlike DNS it does not depend on a service provider - it is fully decentralized. Actually there is still a dependency on a  list of bootstrap servers, but they are not fixed, like DNS root servers, and any Hyperswarm peer can bootstrap from the bootstrap servers it trusts (see [bootstrap](https://github.com/hyperswarm/hyperswarm#swarm--hyperswarmoptions)).
 
-To be precise, DNS system has another function which Hyperswarm does not replace. DNS is providing a friendly recognizable name for the IP address. We register today this so called domain name via some domain registrar, which is a commercial entity that is working with the root registrar (.com, .io) to rent domain names. This part is [very hard to decentralize](https://en.wikipedia.org/wiki/Zooko%27s_triangle). DHT does not help here. Namecoin was the first to solve Zooko triangle puzzle, and [Ethereum ENS smart contract](https://docs.ens.domains/) is now well on the way to be adopted as as decentralized solution for this problem.
+To be precise, DNS system has another function which Hyperswarm does not replace. DNS is providing a friendly recognizable name for the IP address. We register today this so called domain name via some domain registrar, which is a commercial entity that is working with the root registrar (.com, .io) to rent domain names. This part is [very hard to decentralize](https://en.wikipedia.org/wiki/Zooko%27s_triangle). DHT does not help here. Namecoin was the first to solve Zooko triangle puzzle, and [Ethereum ENS smart contract](https://docs.ens.domains/) is now well on the way to be adopted as a decentralized solution for this problem.
 
 - **Avoid central signaling servers**. For example, a [video chat over WebRTC](https://twitter.com/pfrazee/status/1248744869419458561) requires a [STUN server](https://www.callstats.io/blog/2017/10/26/webrtc-product-turn-server) but with Hyperswarm it is avoided, increasing privacy and avoiding dependency on service providers.
 
