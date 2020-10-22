@@ -739,17 +739,19 @@ Cobox community has created a number of compositions:
 
 ### Consensus / converging states
 
-Normally a single person will not be using 2 devices simultaneously. Yet because of the loss of connectivity changes made on each device may need to be merged. This includes documents, filesystems and databases.
+Normally a single person will not be using 2 devices simultaneously. Yet because of the loss of connectivity changes made on each device may need to be merged. This includes documents, filesystems and databases. It becomes much more difficult in multi-user scenarios.
 
 In distributed systems, of which P2P is a subclass, reaching the same state is a hard problem with a long history. The reason it is hard was only recently formally described as a [CAP theorem](https://en.wikipedia.org/wiki/CAP_theorem). The holy grail of distributed systems is to reach the [ACID](https://en.wikipedia.org/wiki/ACID) guarantees of SQL databases - Atomicity, Consistency, Isolation and Durability. But SQL databases mostly operated on a single machine or on a closely managed cluster. Over the Internet the connectivity can be spotty and malicious actors abound.
 
   Handling bad actors became a specialty of blockchains, and it was a huge win for the P2P movement. Yet, since blockchains serve as shared databases for the whole world, they come with limitations. They have high transaction costs, low throughput, can store only the miniscule amounts of data, and can't hold or process private data. To overcome these limitations some applications re-centralize, adding web servers, application servers and DB servers. Others try to remain pure P2P by using IPFS or Hypercore.
 
-Algorithms, that tackle bad connections, **but not bad actors** have evolved from the highly complex Paxos to a simpler RAFT, to PBFT, and finally, in the last 5-7 years, to CRDT. CRTD is very lightweight and allows to operate leaderless multi-master, allowing each master to merging edits on the edge without any central coordination. This means no operators to run central service (Zookeeper, etcd, etc.) and handle complex cluster failure modes. Note that CRDT is quietly being used by AWS DynamoDB and Azure Cosmos - and if it is good enough for those web-scale databases, it is good enough for P2P.
+Algorithms, that tackle bad connections, **but not bad actors** have evolved from the highly complex Paxos to a simpler RAFT, to PBFT, and finally, in the last 5-7 years, to CRDT. CRTD is very lightweight and allows to operate leaderless multi-master, allowing each master to merging edits on the edge without any central coordination. This means no operators to run central service (Zookeeper, etcd, etc.) and handle complex cluster failure modes. CRDT, combined with HLC clocks, increases throughput with wait-free transaction ordering by avoiding any coordination between masters.
 
-Here is a [great introductory talk](https://www.youtube.com/watch?v=B5NULPSiOGw) on CRDT and an [advanced one](https://www.youtube.com/watch?v=PMVBuMK_pJY). 
+Note that CRDT is quietly being used by AWS DynamoDB and Azure Cosmos - and if it is good enough for those web-scale databases, it is good enough for P2P.
 
-For NodeJS the prime candidate is [Automerge](https://github.com/automerge/automerge), but there are others like [YJS](https://github.com/yjs/yjs) and [Delta-CRDT](https://github.com/peer-base/js-delta-crdts) (please share if you know a better one). CRDT is used by OrbitDB that runs on top of IPFS.
+Here is a [great introductory talk](https://www.youtube.com/watch?v=M8-WFTjZoA0) on CRDT (here is [another one](https://www.youtube.com/watch?v=B5NULPSiOGw)) and an [advanced one](https://www.youtube.com/watch?v=PMVBuMK_pJY).
+
+For NodeJS the prime candidate is [Automerge](https://github.com/automerge/automerge), but there are others like [YJS](https://github.com/yjs/yjs) and [Delta-CRDT](https://github.com/peer-base/js-delta-crdts) (please share if you know a better one). [CRDT is implemented](https://github.com/orbitdb/crdts) and used by OrbitDB that runs on top of IPFS.
 
 CRDT matches perfectly multi-device and collaborative editing use cases of P2P:
 
