@@ -374,13 +374,11 @@ Yes. Each Hypercore feed has a corresponding public / private key pair.
 
 Yes, but it has limitations:
 
-- **Level of granularity** is a hypercore. For example, if you like to give file access to one person and not to another, you need to put this file in a separate hypercore to be able to achieve that. This works for small number of files, but then you start hitting limits on performance with too many hypercores being replicated between nodes.
+- **Level of granularity** is a hypercore. For example, if you like to give file access to one person and not to the other, you need to put this file in a separate hypercore to be able to achieve that. This works for small number of files, and is an approach used by Hypermerge for [Pushpin](https://github.com/automerge/pushpin). Note that you start hitting limits on performance with too many hypercores file handles used and limits on replication of many hypercores between nodes.
 
 - **Flexibility**. Access control is based on revealing Public key for your hypercore. Since Public key is baked directly into the hypercore, once it is revealed, there is no taking back access. Community-built Co-hyperdrive attempts to solve this.
 
-Community proposed ideas:
-
-- **Custom encryption**. You can replicate all of the hypercore but have separate keys for individual records or files. This fits the project management apps, small team collaboration with light-weight documents, but is not suitable for large file sizes.
+See a [community discussion on this subject](https://discordapp.com/channels/709519409932140575/727886901100675083/762787502456963101) with one idea being to use **per-file encryption**. You can replicate all of the hypercore but have separate keys for individual records or files. This fits the project management apps, small team collaboration with light-weight documents, but is not suitable for large file sizes.
 
 Need help on this.
 
