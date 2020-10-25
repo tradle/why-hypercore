@@ -376,7 +376,7 @@ Yes, but it has limitations:
 
 - **Level of granularity** is a hypercore. For example, if you like to give file access to one person and not to the other, you need to put this file in a separate hypercore to be able to achieve that. This works for small number of files, and is an approach used by Hypermerge for [Pushpin](https://github.com/automerge/pushpin). Note that you start hitting limits on performance with too many hypercores file handles used and limits on replication of many hypercores between nodes.
 
-- **Flexibility**. Access control is based on revealing Public key for your hypercore. Since Public key is baked directly into the hypercore, once it is revealed, there is no taking back access. Community-built Co-hyperdrive attempts to solve this.
+- **Flexibility**. Access control is based on revealing the Public key for your hypercore to a peer who needs access. Since Public key is baked directly into the hypercore data structure, once it is revealed, there is no taking back the access. 
 
 See a [community discussion on this subject](https://discordapp.com/channels/709519409932140575/727886901100675083/762787502456963101) with one idea being to use **per-file encryption**. You can replicate all of the hypercore but have separate keys for individual records or files. This fits the project management apps, small team collaboration with light-weight documents, but is not suitable for large file sizes.
 
@@ -739,14 +739,20 @@ To support such use cases multi-writer modules can be composed on top.
 
 So simple compositions, that are themselves composable is a better approach, see below:
 
-- [Multi-hyperdrive](https://github.com/RangerMauve/multi-hyperdrive/). Simple, does not provide discovery, networking, authorization. See [co-hyperdrive](https://github.com/RangerMauve/co-hyperdrive) built on top that adds authorizations. Scales well, sames as hyperdrive. Provides simple last-write-wins (LWW) conflict resolution.
-- [Multi-hyperbee](https://github.com/tradle/multi-hyperbee/). Simple, does not provide discovery, networking, authorization or conflict resolution (see section below). Scales well (same as hyperbee).
-- [Multi-hypertrie (upcoming)](https://github.com/tradle/multi-hyperbee/)
+- **[Multi-hyperdrive]**(https://github.com/RangerMauve/multi-hyperdrive/). Allows several nodes share and write to the same drive. This is useful for multi-device support or in a team. It also allows not one but a set of shared drives. At the moment it provides a simple last-write-wins (LWW) conflict resolution. It scales well on writes, sames as the hyperdrive and adds a fairly small performance penalty on reads (which grows O(n) with the number of drives). Drives are added to the shared set via an API at start. It is network-agnostic. No authorization mechanism for individual files is provided. 
+
+Note the difference with hyperdrive mounts. Mounts allow read-only access to peer's drives, while multi-hyperdrive allows both sides to write. With Mounts, the path to a files changes, with a mount point added to it, e.g. drive with path `/parlor` mounted at `/fred` will require need to be accessed via `/fred/parlor`. Multi-hyperdrive will keep the path the same, which is more natural, but it has a downside. If you are sharing between your own devices, this is perfect. But if you are sharing in a team, directory path `fred` may already be used by someone.
+
+- **[co-hyperdrive](https://github.com/RangerMauve/co-hyperdrive)** builds on top of multi-hyperdrive and allows to add / remove drives to the set of shared drives.
+
+- **[Multi-hyperbee](https://github.com/tradle/multi-hyperbee/)**. Simple, one replicated hyperbee, not a set, no discovery, networking agnostic, no authorization. Provides convergence to the same state with automatic conflict resolution, effectively creating a leaderless multi-master. Scales well on reads (same as hyperbee). Simple, one replicated hyperbee, not a set, no discovery. Network-agnostic, no authorization mechanism.
+
 - **Union**. A union of Hyperbees can be [easily constructed](https://github.com/tradle/why-hypercore/blob/master/test/hyperbeeUnion.test.js) utilizing another lego block, [a streaming sort-merge](http://github.com/mafintosh/sorted-union-stream).
 
 Need help with this:
 
 Cobox community has created a number of compositions:
+
 - [local indexes for remote feeds](https://discordapp.com/channels/709519409932140575/709519410557222964/756414542669676573). This approach works well for groups of up to 50 members.
 - **KappaDB**. [Cobox community](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/3_mock-up/technology/architecture.md) produced a multi-writer DB [KappaDB](https://github.com/kappa-db).
 
