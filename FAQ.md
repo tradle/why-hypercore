@@ -74,6 +74,10 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [Schema / data model / data dictionary](#schema--data-model--data-dictionary)
   - [Identity](#identity)
   - [Multi-writer](#multi-writer)
+    - [Multi-hyperdrive](#multi-hyperdrive)
+    - [co-hyperdrive](#co-hyperdrive)
+    - [Multi-hyperbee](#multi-hyperbee)
+    - [Union](#union)
   - [Consensus / converging states](#consensus--converging-states)
     - [Databases](#databases)
     - [Collaborative editing](#collaborative-editing)
@@ -739,15 +743,23 @@ To support such use cases multi-writer modules can be composed on top.
 
 So simple compositions, that are themselves composable is a better approach, see below:
 
-- **[Multi-hyperdrive]**(https://github.com/RangerMauve/multi-hyperdrive/). Allows several nodes share and write to the same drive. This is useful for multi-device support or in a team. It also allows not one but a set of shared drives. At the moment it provides a simple last-write-wins (LWW) conflict resolution. It scales well on writes, sames as the hyperdrive and adds a fairly small performance penalty on reads (which grows O(n) with the number of drives). Drives are added to the shared set via an API at start. It is network-agnostic. No authorization mechanism for individual files is provided. 
+#### [Multi-hyperdrive](https://github.com/RangerMauve/multi-hyperdrive/)
+
+Allows several nodes share and write to the same drive. This is useful for multi-device support or in a team. It also allows not one but a set of shared drives. At the moment it provides a simple last-write-wins (LWW) conflict resolution. It scales well on writes, sames as the hyperdrive and adds a fairly small performance penalty on reads (which grows O(n) with the number of drives). Drives are added to the shared set via an API at start. It is network-agnostic. No authorization mechanism for individual files is provided.
 
 Note the difference with hyperdrive mounts. Mounts allow read-only access to peer's drives, while multi-hyperdrive allows both sides to write. With Mounts, the path to a files changes, with a mount point added to it, e.g. drive with path `/parlor` mounted at `/fred` will require need to be accessed via `/fred/parlor`. Multi-hyperdrive will keep the path the same, which is more natural, but it has a downside. If you are sharing between your own devices, this is perfect. But if you are sharing in a team, directory path `fred` may already be used by someone.
 
-- **[co-hyperdrive](https://github.com/RangerMauve/co-hyperdrive)** builds on top of multi-hyperdrive and allows to add / remove drives to the set of shared drives.
+#### [co-hyperdrive](https://github.com/RangerMauve/co-hyperdrive)
 
-- **[Multi-hyperbee](https://github.com/tradle/multi-hyperbee/)**. Simple, one replicated hyperbee, not a set, no discovery, networking agnostic, no authorization. Provides convergence to the same state with automatic conflict resolution, effectively creating a leaderless multi-master. Scales well on reads (same as hyperbee). Simple, one replicated hyperbee, not a set, no discovery. Network-agnostic, no authorization mechanism.
+Builds on top of multi-hyperdrive and allows to add / remove shared drives (writeable bi-directionally) to the set.
 
-- **Union**. A union of Hyperbees can be [easily constructed](https://github.com/tradle/why-hypercore/blob/master/test/hyperbeeUnion.test.js) utilizing another lego block, [a streaming sort-merge](http://github.com/mafintosh/sorted-union-stream).
+#### [Multi-hyperbee](https://github.com/tradle/multi-hyperbee/)
+
+A single replicated hyperbee, not a set, no discovery, networking agnostic, no authorization. Provides convergence to the same state with automatic conflict resolution (CRDT), effectively creating a leaderless multi-master. Scales well on reads (same as hyperbee). Simple, one replicated hyperbee, not a set, no discovery. Network-agnostic, no authorization mechanism.
+
+#### Union
+
+A union of Hyperbees can be [easily constructed](https://github.com/tradle/why-hypercore/blob/master/test/hyperbeeUnion.test.js) utilizing another lego block, [a streaming sort-merge](http://github.com/mafintosh/sorted-union-stream).
 
 Need help with this:
 
