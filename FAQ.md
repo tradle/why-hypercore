@@ -26,6 +26,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
   - [Is there support for key recovery?](#is-there-support-for-key-recovery)
   - [Is there a regular key rotation and key replacement mechanism?](#is-there-a-regular-key-rotation-and-key-replacement-mechanism)
   - [Is there an authentication system?](#is-there-an-authentication-system)
+  - [Is there an authorization system?](#is-there-an-authorization-system)
   - [Is there a discovery system to learn what feeds the other peer shares?](#is-there-a-discovery-system-to-learn-what-feeds-the-other-peer-shares)
   - [If Hypercore is a P2P Web, what is its URL format?](#if-hypercore-is-a-p2p-web-what-is-its-url-format)
   - [What is the biggest gotcha with Hypercore?](#what-is-the-biggest-gotcha-with-hypercore)
@@ -363,11 +364,25 @@ No, for Hypercore log, but can be added on top with the help of [Hypercore-multi
 
 ### Is there an authentication system?
 
-Yes. Each Hypercore feed has a corresponding public / private key pair. 
+Yes. Each Hypercore feed has a corresponding public / private key pair.
 
 1. The receiving feed must prove it knows sending feed's publicKey.
 2. There is an extension that allows to [prove you own feed's publicKey](https://github.com/substack/hypercore-authenticate-session-extension).
 3. There is a hook to registered a custom feed authenticator.
+
+### Is there an authorization system?
+
+Yes, but it has limitations:
+
+- **Level of granularity** is a hypercore. For example, if you like to give file access to one person and not to another, you need to put this file in a separate hypercore to be able to achieve that. This works for small number of files, but then you start hitting limits on performance with too many hypercores being replicated between nodes.
+
+- **Flexibility**. Access control is based on revealing Public key for your hypercore. Since Public key is baked directly into the hypercore, once it is revealed, there is no taking back access. Community-built Co-hyperdrive attempts to solve this.
+
+Community proposed ideas:
+
+- **Custom encryption**. You can replicate all of the hypercore but have separate keys for individual records or files. This fits the project management apps, small team collaboration with light-weight documents, but is not suitable for large file sizes.
+
+Need help on this.
 
 ### Is there a discovery system to learn what feeds the other peer shares?
 
@@ -379,7 +394,7 @@ Need help with this.
 
 URL looks like this `hyper://<public-key>[+<version>]/[<path>][?<query>][#<fragment>]` where `public-key` is the address of the hypercore feed, `version` is an optional numeric identifier of a specific revision of the feed (also called index or seq, a block number in the append only log), and `path` `query` `fragment` are akin to HTTP URLs (though `query` has no defined interpretation). Formal schema is defined by [this specification](https://github.com/hypercore-protocol/hyp/blob/master/proposals/0002-hyper-url.md). Beaker browser is the primary way such URLs are used.
 
-There is a proposal for [Strong linking](https://github.com/datproject/dat/issues/976) which would add a `hash`. This is a hash of the hypercore at a specified `version`. This would lock down the history of the hypercore at that `version`.
+There is a proposal for [Strong linking](https://github.com/datproject/dat/issues/976) which would add a `hash` to URL. This is a hash of the hypercore at a specified `version`. This would lock down the history of the hypercore at that `version`.
 
 To understand why this link is strong, you need to know that every time a new block is added to hypercore feed, a new root hash corresponding to all the data in hypercore, up to current position, is calculated and saved in hypercore (this hash is also referred to as the Merkle tree root hash or just tree-hash). Now, should the author, by mistake or intentionally, rewind their hypercore to `version - 1` or earlier, and fill it with different data, the hash of the hypercore at `version` will be different and it will now not match the hash given in the URL.
 
@@ -722,7 +737,7 @@ But when hypercore is replicated to personal devices (phone, tablet, PC, cloud p
 
 To support such use cases multi-writer modules can be composed on top.
 
-*Note that supporting multi-writer in core modules [has been requested many times](https://github.com/hypercore-protocol/hyperdrive/issues/230) but it turns out one size does not fit all. [HyperDB](https://github.com/mafintosh/hyperdb) is an abandoned multi-writer database that became too complex as it tried to provide discovery, networking, authorization, conflict resolution, etc. in one package, serving many masters and satisfying none.** 
+*Note that supporting multi-writer in core modules [has been requested many times](https://github.com/hypercore-protocol/hyperdrive/issues/230) but it turns out one size does not fit all. [HyperDB](https://github.com/mafintosh/hyperdb) is an abandoned multi-writer database that became too complex as it tried to provide discovery, networking, authorization, conflict resolution, etc. in one package, serving many masters and satisfying none.**
 
 So simple compositions, that are themselves composable is a better approach, see below:
 
