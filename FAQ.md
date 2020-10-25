@@ -53,7 +53,7 @@ Many of the answers below are taken from Hypercore protocol discussion forum. Al
       - [Marketplace of data feeds](#marketplace-of-data-feeds)
       - [Lightweight Blockchain client](#lightweight-blockchain-client)
     - [How does Hyperbee relate to Hypercore?](#how-does-hyperbee-relate-to-hypercore)
-    - [What are the limitations on consistency?](#what-are-the-limitations-on-consistency)
+    - [What are the consistency guarantees?](#what-are-the-consistency-guarantees)
     - [Can it serve as LevelDB replacement?](#can-it-serve-as-leveldb-replacement)
     - [What proves the scalability of Hyperbee?](#what-proves-the-scalability-of-hyperbee)
   - [Hyperswarm](#hyperswarm)
@@ -105,7 +105,7 @@ Hypercore is Open Source, it is not selling :-), but it is offering itself to de
 Hypercore's key USP is **streaming**. You can think of it as video streaming, but now for videos and also filesystems, databases, messages, IoT signals, and any other structured data constructs. With streaming, you get:
 
 - **Almost immediate access**, even though the data is not yet fully downloaded or may never need to be fully downloaded
-- **Higher security**, as it provides the integrity and authentication guarantees for each data element on the wire. This is huge! A typical database, file and messaging servers stake their security on the initial connection establishment and protecting communications on the wire. But normally they do not guard against a compromised or fraudulent peer, while Hypercore does. Our evolution in this area of security needs to always examine data from remote peers in view of the potential risk and the probability of fraud.
+- **Higher security**, as it provides the verifiable integrity and authentication for each data element on the wire. This is huge! A typical database, file and messaging servers stake their security on the initial connection establishment and protecting communications on the wire. But normally they do not guard against a compromised or fraudulent peer, while Hypercore does. Our evolution in this area of security needs to always examine data from remote peers in view of the potential risk and the probability of fraud.
 - **Higher scalability**, as you can shove your streaming database in S3 and let billion people use it.
 
 This streaming point needs to be repeated again and again, as streaming data, just by itself, without any other wonderful Hypercore capabilities, may create a new class of applications, much like Netflix re-invented the movie watching. This paradigm shift is one reason why Hypercore is hard to grok for app developers, it just requires full rethinking of our current architectures.
@@ -571,13 +571,13 @@ This led to the emergence of services like [Infura](https://infura.io/customers/
 
 #### How does Hyperbee relate to Hypercore?
 
-Hyperbee uses Hypercore as an underlying storage and a replication mechanism. The cool thing is that one replication stream [can carry many Hypercores](https://discordapp.com/channels/709519409932140575/709519410557222964/755415844808556594), which can carry Hyperbees, Hypertries, and Hyperdrives. 
+Hyperbee uses Hypercore as an underlying storage and a replication mechanism. The cool thing is that one replication stream [can carry many Hypercores](https://discordapp.com/channels/709519409932140575/709519410557222964/755415844808556594), which can carry Hyperbees, Hypertries, and Hyperdrives.
 
 To manage multiple hypercore feeds, with permissions, use the corestore.
 
-#### What are the limitations on consistency?
+#### What are the consistency guarantees?
 
-This is a trick question :-) Hyperbee, like any other Hypercore-based data structure is single-writer. That means when it is replicated, it is replicated as-is, and eventually reaches the same state.
+Hyperbee, like any other Hypercore-based data structure is single-writer. That means when it is replicated, it is replicated as-is, and eventually reaches the same state. See multi-hyperbee that builds on top of hyperbee and offers consistency in a multi-master scenario (each node / peer making changes to objects in the same multi-hyperbee, even the simultaneous changes to the same object).
 
 #### Can it serve as LevelDB replacement?
 
@@ -727,9 +727,9 @@ Full apps will need some form of identity management. Hypercore provides the bas
 
 ### Multi-writer
 
-Hypercore is engineered with small single-purpose lego blocks that are highly composable into systems you want to build on it, especially as evident in case of multi-writer.
+Hypercore is engineered as a set of small single-purpose primitives (lego blocks) to be highly composable. This is a methodology used by Linux community and it allows to have simple mental model about the building blocks, and to create purpose-made systems. This is opposite to systems that attempt to serve many use cases upfront and become over time very hard to manage and secure. The example is OpenVPN which recently is being replaced with Wireguard and a family of single-purpose modules that are built for it. In Hypercore this approach is especially evident in the case of multi-writer.
 
-Hypercore is a personal data structure and so is Hypertrie, Hyperbee and Hyperdrive. This means only one private key can have access to write into it. In other words it is a single-writer module. The advantage of single-writer is a strong verifiable integrity, audit trail, support for streaming, and many others.
+Hypercore, and data structures on top (Hypertrie, Hyperbee and Hyperdrive) are single-writer primitives. This means only one private key can have access to write into each.
 
 But when hypercore is replicated to personal devices (phone, tablet, PC, cloud peers) each device needs to have its own private key, which means now multiple writers need to write into hypercore data structures. Same need arises when you want to collaborate with peers, with shared documents, files and databases, as you want peers to **edit** same objects and **search** across them.
 
