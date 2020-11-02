@@ -130,7 +130,7 @@ Another USP of Hypercore is that it implements essential patterns of distributed
 - forensic investigations
 - playing out what-if business scenarios
 - to support blockchain reorg in a full node
-- for performing risky operations, knowing you can come back to a starting point 
+- for performing risky operations, knowing you can come back to a starting point, such as installing a new version of the app and rolling back if it does not work well. Same for changing configuration of the system and rolling back
 - a million other use cases, all with one simple abstraction, that all users already know and love
 
 **Recovery** Same history capability can be used for classic database point-in-time recovery, DB and filesystem snapshots, and versioning for data integrity assurance, VM snapshots, filesystem and DB snapshots, container image layers, etc. etc.
