@@ -323,6 +323,7 @@ Each project building on Hypercore is stretching its flexibility and contributes
 - [Cobox community](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/2_work-plan/mvp/mvp-design.md), focused on enabling teams. Cobox community created a KappaDB and collaborative editing.
 - [Peermaps](https://peermaps.org/), building P2P alternative to Google Maps based on OpenStreetMap
 - [Sonar](https://arso-project.github.io/sonar-book), distributed media archives on Hypercore. Note an interesting [bulk update](https://discordapp.com/channels/709519409932140575/727886901100675083/755723909709561856) feature discussion re:Sonar, which sounds like addressing a pain similar to serverless apps.
+- [Beaker browser](https://beakerbrowser.com/). Beaker is likely the most complex app on top of the hypercore today.
 - See at the bottom of [Hypercore protocol page](https://hypercore-protocol.org/)
 - See discussion forum where people [showcase their Hyper projects](https://discordapp.com/channels/709519409932140575/712037351244955809/712037741126221924).
 
