@@ -322,6 +322,7 @@ Each project building on Hypercore is stretching its flexibility and contributes
 - [Pushpin](https://github.com/automerge/pushpin). A local-first collaborative corkboard app. PushPin supports taking notes, and can archive web content, images, PDFs, audio, video, and any other files you might want to hang out. It can synchronize across all your devices, and doesn't require any infrastructure to operate. Pushpin's collaborative simultaneous editing is achieved with the help of [Automerge CRDT](https://github.com/automerge/automerge).
 - [Cobox community](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/2_work-plan/mvp/mvp-design.md), focused on enabling teams. Cobox community created a KappaDB and collaborative editing.
 - [Peermaps](https://peermaps.org/), building P2P alternative to Google Maps based on OpenStreetMap
+- [Datdot](https://github.com/playproject-io/datdot-substrate), a P2P hosting for Dat / Hypercore data structures, with blockchain-based incentives. Similar to Filecoin for IPFS.
 - [Sonar](https://arso-project.github.io/sonar-book), distributed media archives on Hypercore. Note an interesting [bulk update](https://discordapp.com/channels/709519409932140575/727886901100675083/755723909709561856) feature discussion re:Sonar, which sounds like addressing a pain similar to serverless apps.
 - [Beaker browser](https://beakerbrowser.com/). Beaker is likely the most complex app on top of the hypercore today.
 - See at the bottom of [Hypercore protocol page](https://hypercore-protocol.org/)
