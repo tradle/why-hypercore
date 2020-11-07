@@ -1,4 +1,4 @@
-# Why Hypercore? <!-- omit in toc -->
+# Personal Data in multi-device world <!-- omit in toc -->
 We are working on the idea that Personal Comuting is entering a new major cycle, which will be based on [software defined networks](https://github.com/tradle/simplecloud/blob/main/README.md), software-defined compute and software defined storage.
 
 As we are exploring here the design for running the data management in multi-device world using our chosen framework, Hypercore. You can find a lot more information on Hypercore in this [rapidly growing FAQ](FAQ.md).
