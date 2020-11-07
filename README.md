@@ -1,6 +1,7 @@
 # Why Hypercore? <!-- omit in toc -->
+We are working on the idea that Personal Comuting is entering a new major cycle, which will be based on [software defined networks](https://github.com/tradle/simplecloud/blob/main/README.md), software-defined compute and software defined storage.
 
-As we are exploring the design for running Tradle on Hypercore, this summarizes our findings. You can find a lot more information in this [rapidly growing FAQ](FAQ.md).
+As we are exploring here the design for running the data management in multi-device world using our chosen framework, Hypercore. You can find a lot more information on Hypercore in this [rapidly growing FAQ](FAQ.md).
 
 Take a look at Issues on this repository for the themes we are actively experimenting with.
 
