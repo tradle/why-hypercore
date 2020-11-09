@@ -105,7 +105,7 @@ Many other innovations are happening on the Edge of the network, outside of the 
 
 Luckily Tradle uses only a small subset of AWS services, and this makes the task manageable. See our current AWS architecture:
 
-![AWS architecture](Tradle-MyCloud-aws-architecture.png)
+![AWS architecture](/img/Tradle-MyCloud-aws-architecture.png)
 
 What makes this task even more practical is that [Tradle MyCloud](https://github.com/tradle/mycloud) already uses an emulation layer for AWS, called [Localstack](https://github.com/localstack/localstack). Localstack is sufficient to run and debug Tradle MyCloud, but does not robust underlying components to run in production environment.
 
