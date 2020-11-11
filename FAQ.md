@@ -818,10 +818,12 @@ Need help with this.
 
 1. Visit the [Hypercore Protocol site](https://hypercore-protocol.org/). 
 
-2. In the summer of 2020 there was a [Dat Conference](https://www.youtube.com/playlist?list=PL7sG5SCUNyeYx8wnfMOUpsh7rM_g0w_cu). You can see the breadth of discussions that took place, both on tech and the opportunities. Note that Dat is the old name for Hypercore. The transition is in full swing, but you will still see it a lot.
+1. In the summer of 2020 there was a [Dat Conference](https://www.youtube.com/playlist?list=PL7sG5SCUNyeYx8wnfMOUpsh7rM_g0w_cu). You can see the breadth of discussions that took place, both on tech and the opportunities. Note that Dat is the old name for Hypercore. The transition is in full swing, but you will still see it a lot.
 
-3. [Workshop at the 2020 Conference](https://github.com/RangerMauve/dat-workshop) with sources and video.
+1. [Workshop at the 2020 summer Hypercore / Dat Conference](https://github.com/RangerMauve/dat-workshop) with sources and video.
 
-4. [Kappa workshop](https://github.com/kappa-db/workshop) is a great basic intro, we [forked it](https://github.com/tradle/hypercore-workshop) to update to new materials and shift focus to core Hypercore modules.
+1. [Workshop at the 2020 fall Nodeconf conference](https://github.com/hypercore-protocol/p2p-indexing-and-search)
 
-5. Read [old FAQ](https://docs.dat.foundation/docs/faq) (before project was renamed from Dat to Hypercore).
+1. [Kappa workshop](https://github.com/kappa-db/workshop) is a great basic intro, we [forked it](https://github.com/tradle/hypercore-workshop) to update to new materials and shift focus to core Hypercore modules.
+
+1. Read [old FAQ](https://docs.dat.foundation/docs/faq) (before project was renamed from Dat to Hypercore).
