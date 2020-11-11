@@ -1,6 +1,6 @@
 # Hypercore universe FAQ <!-- omit in toc --> 
 
-Many of the answers below are taken from Hypercore protocol discussion forum. All interpretations are ours, and so are the possible mistakes and misunderstandings. Please send corrections as pull requests, or request commit rights. Questions that need answers are marked with **Need help with this**.
+Many of the answers below are taken from the Hypercore protocol discussion forums (currently on [Discord](https://discord.com/invite/ga5hxGf) and the older forum on [Gitter](https://gitter.im/datproject/discussions)). All interpretations are ours, and so are the possible mistakes and misunderstandings. Please send corrections as pull requests, or request commit rights. Or just reach out to us over the email posted on github or on [@tradles](https://twitter.com/tradles/). Questions with partial answers are marked with **Need help with this**. Hypercore needs your help, please help us make it fully documented so that all P2P projects start benefiting from it.
 
 - [General](#general)
   - [What are the main components / modules / packages?](#what-are-the-main-components--modules--packages)
