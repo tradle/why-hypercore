@@ -822,7 +822,7 @@ Need help with this.
 
 1. [Workshop at the 2020 summer Hypercore / Dat Conference](https://github.com/RangerMauve/dat-workshop) with sources and video.
 
-1. [Workshop at the 2020 fall Nodeconf conference](https://github.com/hypercore-protocol/p2p-indexing-and-search)
+1. [Hyperbee 'P2P indexing and search' workshop at the 2020 fall Nodeconf conference](https://github.com/hypercore-protocol/p2p-indexing-and-search)
 
 1. [Kappa workshop](https://github.com/kappa-db/workshop) is a great basic intro, we [forked it](https://github.com/tradle/hypercore-workshop) to update to new materials and shift focus to core Hypercore modules.
 
