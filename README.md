@@ -1,6 +1,7 @@
-# Why Hypercore? <!-- omit in toc -->
+# Personal Data in multi-device world <!-- omit in toc -->
+We are working on the idea that Personal Comuting is entering a new major cycle, which will be based on [software defined networks](https://github.com/tradle/simplecloud/blob/main/README.md), software-defined compute and software-defined storage for personal use.
 
-As we are exploring the design for running Tradle on Hypercore, this summarizes our findings. You can find a lot more information in this [rapidly growing FAQ](FAQ.md).
+As we are exploring here the design for data management in multi-device world using our chosen framework, Hypercore. You can find a lot more information on Hypercore in this [rapidly growing FAQ](FAQ.md).
 
 Take a look at Issues on this repository for the themes we are actively experimenting with.
 
@@ -104,7 +105,7 @@ Many other innovations are happening on the Edge of the network, outside of the 
 
 Luckily Tradle uses only a small subset of AWS services, and this makes the task manageable. See our current AWS architecture:
 
-![AWS architecture](Tradle-MyCloud-aws-architecture.png)
+![AWS architecture](/img/Tradle-MyCloud-aws-architecture.png)
 
 What makes this task even more practical is that [Tradle MyCloud](https://github.com/tradle/mycloud) already uses an emulation layer for AWS, called [Localstack](https://github.com/localstack/localstack). Localstack is sufficient to run and debug Tradle MyCloud, but does not robust underlying components to run in production environment.
 
