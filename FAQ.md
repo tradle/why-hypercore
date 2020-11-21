@@ -339,6 +339,7 @@ Each project building on Hypercore is stretching its flexibility and contributes
 - [Agregore](https://github.com/AgregoreWeb/agregore-browser) browser, takes a different approach, aiming to be very simple and lean, moving all additional capabilities into downloadable extensions. It also expands beyond http and hyper protocols, aiming to support any P2P protocol, including IPFS.
 - [Gateway](https://gitlab.com/gateway-browser/gateway/) mobile browser
 - See at the bottom of [Hypercore protocol page](https://hypercore-protocol.org/)
+- [Consento](https://consento.org/). A mobile digital identity app  that you can use to make sure your data stays protected. Supports co-ownership of data. Protects keys to data by dividing a key into pieces, each given to some friend. To reconstruct the key, you ask some of those friends to give you their piece (let's say 2 out of 3 is enough - you choose the ratio, e.g. 3/4).
 - [Ara.one](https://ara.one/). ARA aims to help creators maximize the value of their work, removing third-parties, reducing hosting costs and, most importantly, attracting content consumers with rewards (via blockchain-based tokens).
 - See discussion forum where people [showcase their Hyper projects](https://discordapp.com/channels/709519409932140575/712037351244955809/712037741126221924).
 
