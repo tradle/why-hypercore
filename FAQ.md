@@ -17,6 +17,7 @@ Many of the answers below are taken from the Hypercore protocol discussion forum
   - [How is Hypercore different from IPFS?](#how-is-hypercore-different-from-ipfs)
     - [more work needed to compare IPFS and Hypercore](#more-work-needed-to-compare-ipfs-and-hypercore)
   - [I wonder what P2P apps can be built on Hypercore?](#i-wonder-what-p2p-apps-can-be-built-on-hypercore)
+  - [Is there a synergy between blockchain and Hypercore?](#is-there-a-synergy-between-blockchain-and-hypercore)
   - [Does Hypercore have a community?](#does-hypercore-have-a-community)
   - [Why Hypercore is not yet mainstream?](#why-hypercore-is-not-yet-mainstream)
   - [What is the state of P2P and its evolution?](#what-is-the-state-of-p2p-and-its-evolution)
@@ -260,6 +261,20 @@ How does IPFS support data integrity?
 Need help with this.
 Meanwhile take a look at ideas [listed by IPFS community](https://docs.ipfs.io/concepts/usage-ideas-examples/):
 
+### Is there a synergy between blockchain and Hypercore?
+
+Both blockchain and Hypercore provide verifiable data structures. But blockchain is limited to very small storage and Hypercore is limited by absence of pubic timestamping and data history, and the absence of verifiable computations. See further on this in section *"Can Hypercore's author change history"*.
+
+Here are the cases where blockchain and Hypercore already help each other:
+
+- [Ara.one](https://ara.one/): crypto rewards for content
+- [Datdot](https://github.com/playproject-io/datdot-substrate): hosting with crypto incentives
+- Bitfinex: streaming hyperbee as trading signals for crypt exchange)
+
+This use case is theoretical but is plausible:
+
+Light client to blockchain full node, using streaming hyperbee, to avoid dependence on centralized infrastructure, like Infura. Most blockchain full nodes support a very limited amount of queries by default. Many apps need a lot more, and for that infrastructure players, like Infura, have created a SaaS infrastructure. But this re-centralized the decentralized P2P setup and re-inserts a trust into a specific company.
+
 ### Does Hypercore have a community?
 
 Yes. Community is very active and helps newcomers and developers building on Hypercore. [Join it on Discord](https://discord.com/invite/ga5hxGf), open [issues on Github](https://github.com/mafintosh/hypercore), and follow core developers on Twitter [@mafintosh](https://twitter.com/mafintosh), @pfrazee, and @andrewosh.
@@ -282,7 +297,7 @@ Is there an answer to those perpetual problems of P2P? We believe there is. In c
 
 Hypercore is so much more. It is a foundation for apps, it is made for storage, content distribution, messaging, decentralized databases, etc. And it feels like it is a good match for analytics and AI as well (more on that later).
 
-Perhaps the answer to perpetual P2P reliability problems is not in copying the blockchain's mining model or offering crypto-incentives to host files. Maybe the answer is orthogonal, instead of looking to incentivize third-parties to keep our files, we could do it ourselves, with a free and always-available cloud peer, a companion to the sometimes-available personal devices peers.
+Perhaps the answer to perpetual P2P reliability problems is not in copying the blockchain's mining model or just offering the crypto-incentives to host files. Maybe the answer is orthogonal, instead of looking to incentivize third-parties to keep our files, we could do it ourselves, with an always-available cloud peer, a companion to the sometimes-available personal devices we own already.
 
 Viewed this way, cloud peer is not a hosting provider, it is just a different type of a personal device. It does does not have a screen, but it is capable in a different way, it complements our other personal devices with its 100% availability, a durable storage and elastic / expandable compute and data store.
 
