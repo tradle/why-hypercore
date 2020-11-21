@@ -78,7 +78,7 @@ Many of the answers below are taken from the Hypercore protocol discussion forum
     - [co-hyperdrive](#co-hyperdrive)
     - [Multi-hyperbee](#multi-hyperbee)
     - [Union](#union)
-  - [Consensus / converging states](#consensus--converging-states)
+  - [Consensus / converging state](#consensus--converging-state)
     - [Databases](#databases)
     - [Collaborative editing](#collaborative-editing)
     - [CRDT and cloud peers](#crdt-and-cloud-peers)
@@ -211,18 +211,14 @@ Some key differences, [described here](https://www.datprotocol.com/deps/0002-hyp
 |Storage size efficiency | Great. Same block can be reused on your machine, even between files. This is usually called deduplication, or dedup. But when block changes, old block remains in storage.| Low. No block-level dedup. Change in one byte, creates a new version of the file. File-level dedup can be achieved with additional management level, called corestore. |
 |Mutability| Low. Originally developed for static content, but is being re-designed now. Specifically, the IPNS component attempts to provide stable hash-based address for the file (the tip of the list of blocks), but it needs to be refreshed periodically. New project IPLD is in development and aims for structured data, such as adding primitive data types, maps, lists |In Hypercore editable content was a prime design objective, supported by the internal data structures, its protocol, Change Data Capture system, APIs, etc. Structured data are supported by Hypertrie and Hyperbee |
 |Hyper-linking | Yes. Formal specification, called CID. |Partial. URLs work in Beaker, [Agregore](https://github.com/AgregoreWeb/agregore-browser) and [Gateway](https://gitlab.com/gateway-browser/gateway/) browsers, but formal definition for links for structured data is still in works |
+|Human-friendly naming| No. [IPNS](https://docs.ipfs.io/concepts/ipns/#example-ipns-setup) is not human friendly. | No. Hypercore's hyper:// URLs includes hash and is not human-friendly |
+|Databases|TBD. [OrbitDB](https://github.com/orbitdb/orbit-db), ThreadDB, AvionDB.https://medium.com/@rossbulat/orbitdb-deploying-the-distributed-ipfs-database-with-react-79afa1a7fab |Two variants: Key-value store (Hypertrie) and LevelUP-compatible DB (Hyperbee). Embedded DB, does not require DB server. Provides unique streaming capability to greatly improve storage size and startup time. Using Hypercore data structures community produced replicated databases [KappaDB](https://github.com/kappa-db) and [multi-hyperbee](https://github.com/tradle/multi-hyperbee)|
+|Availability|Fairly high. IPFS community sponsors hosting of content, there are also commercial providers like Infura and Textile, and Filecoin protocol to reward hosting | Low. See for example [Our Networks](https://ournetworks.ca/) page referring to both IPFS and Dat URLs and Dat URL does not open. Same [here](https://2019.ournetworks.ca/). Homebase attempted to provide hosting. Datdot is developing blockchain-based reward system. Perhaps we need a breakthrough here, could VPS-made-simple be it?|
+|Startup speed| Slow | Great. Hypercore provides sparse replication for any type of data, that allows immediate streaming of both structured data and media content.|
+| Discovery |  Uses DHT. Avoids dependency on a more centralized DNS system. IPFS uses a DHT for every single data chunk globally, which works great for dedup. However, IPFS architecture creates an enormous overhead of DHT traffic compared to the other protocols. It also fails to benefit from the assumed knowledge that peers who have one chunk of the repository you’re interested in, are likely to also have more chunks you’re interested in. | Uses DHT (via Hyperswarm service). To avoid overloading DHT, topic in DHT is usually the whole Hyperdrive with potentially millions of files. To find a file via the DHT, URL becomes drive/file. In addition, Hyperswarm provides a flexible mechanism to design your own DHT-based discovery system, e.g. discover communities, teams, people, etc.|
+|Directory structures and file metadata| TBD. Somewhat. IPFS simulates directories by creating files with links to other files. | Full. Hypercore does full POSIX-compliant file system emulation and therefore can be mounted natively (via FUSE) to be viewed in File Explorer, Finder and to be used from the command line as a normal file system.|
 
-|Human-friendly naming| No | No |
-|Databases|TBD. [OrbitDB](https://github.com/orbitdb/orbit-db) on top of IPFS. |Two variants: Key-value store (Hypertrie) and LevelUP compatible (Hyperbee). Provides unique streaming capability to greatly improve storage size and startup, while not requiring DB server. Community-produced replicated DB on top, KappaDB and multi-hyperbee|
-
-- Discovery. Both IPFS and Hypercore use DHT for discovery nowadays. This allows avoiding dependency on a more centralized DNS system. But they use DHT very differently. IPFS is more like BitTorrent, puts individual file reference in DHT, specifically the hash of file's contents (content-addressed). Since hash changes with file modifications, IPFS added a naming system [IPNS](https://docs.ipfs.io/concepts/ipns/#example-ipns-setup) so that the name in IPNS points to the file's latest version's hash. In Hypercore discovery is at higher level, to avoid overloading DHT. By default, the whole drives (Hyperdrives with potentially millions of files) are addressed via the DHT, URL of the file becomes drive/file. In addition, Hyperswarm service provides a flexible mechanism to design your own DHT-based discovery system, e.g. discover communities, teams, people, etc.
-
-- Directory structures and file metadata. IPFS simulates directories by creating files with links to other files. Hypercore does full file system emulation and therefore can be mounted natively (via FUSE) to be viewed in File Explorer, Finder and to be used from the command line as a normal file system.
-
-- File metadata. 
-- Neither [IPNS](https://docs.ipfs.io/concepts/ipns/#example-ipns-setup) nor Hypercore's Beaker URL have human-friendly addresses.
-
-Some notes on IPFS goodies:
+**Some notes on IPFS goodies:**
 
 - [IPNS has has captured imagination of Ethereum community](https://blog.infura.io/an-introduction-to-ipfs/) to build fully decentralized apps, as most blockchain apps today still keep data and processing centralized.
 - IPFS project has produced solid core libraries, like libp2p, solving many of the same issues as Hypercore's Hyperswarm.
@@ -238,28 +234,21 @@ https://docs.ipfs.io/concepts/usage-ideas-examples/#usage-ideas-and-examples
 
 Rough outline:
 
-- Availability. See for example [Our Networks](https://ournetworks.ca/) page referring to both IPFS and Dat URLs and Dat URL does not open. Same [here](https://2019.ournetworks.ca/).
-- Sparse loading
 - Support for streaming 1) live streaming, 2) recorded content 3) or just sharing a video on a messenger app.
 - Integrity - See section on one Hypercore integrity. But how is the integrity of the multiple feeds achieved, e.g. metadata and content feeds in Hyperdrive, or composite feeds like multi-hyperdrive? 
 How does IPFS support data integrity? 
 - Granularity, not just files, e.g. with Hypercore you can do live updates in the UI in Hypercore, like Gmail does it.
-- Does IPFS support connection Multiplexing? Hypercore has sessions with forward secrecy.
-- DHT differences with IPFS?
+- Does IPFS support connection Multiplexing?
+- Secure Session management. Hypercore has sessions with forward secrecy.
 - how is NAT traversal different?
 - HTTPS and other gateways to provide access when other things do not work. For example, see discussion on Hypercore not working on [campus network](https://github.com/datproject/discussions/issues/87).
 - Download progress and health of seeded data. See [discussion here](https://github.com/datproject/discussions/issues/81). How does IPFS handle it?
 - Docs availability and depth
-- Sparse. Diff with how IPFS support sparse
 - Bandwidth sharing. How does IPFS support it?
-- Multiplexing one connection. Secure Session management.
 - Pinning of files and dirs in IPFS. How management of local cache compares to Hypercore
-- Addressing / swarming individual files vs Drives (vs Peers?). IPFS uses a DHT for every single data chunk globally, for global dedup. However, IPFS architecture creates an enormous overhead of DHT traffic compared to the other protocols. It also fails to benefit from the assumed knowledge that peers who have one chunk of the repository you’re interested in, are likely to also have more chunks you’re interested in.
 - URL to individual data elements: File, Resource in the database.
 - Change Data Capture - does not exist in IPFS, attempts are being made to create something for 4 years
 - PubSub
-- Databases. OrbitDB, ThreadDB, AvionDB.https://medium.com/@rossbulat/orbitdb-deploying-the-distributed-ipfs-database-with-react-79afa1a7fabb
-  Wasn't IPFS was designed just for files? How can it support DBs?
 - S3: https://docs.ipfs.io/concepts/usage-ideas-examples/#aws-s3-integration
 - Hosting - https://docs.ipfs.io/concepts/usage-ideas-examples/#ipfs-hosting-with-textile
 - Mobile support https://twitter.com/jarredsumner/status/1223633060551225344
@@ -788,7 +777,7 @@ Cobox community has created a number of compositions:
 - [local indexes for remote feeds](https://discordapp.com/channels/709519409932140575/709519410557222964/756414542669676573). This approach works well for groups of up to 50 members.
 - **KappaDB**. [Cobox community](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/3_mock-up/technology/architecture.md) produced a multi-writer DB [KappaDB](https://github.com/kappa-db).
 
-### Consensus / converging states
+### Consensus / converging state
 
 Normally a single person will not be using 2 devices simultaneously. Yet because of the loss of connectivity changes made on each device may need to be merged. This includes documents, filesystems and databases. It becomes much more difficult in multi-user scenarios.
 
@@ -796,7 +785,7 @@ In distributed systems, of which P2P is a subclass, reaching the same state is a
 
   Handling bad actors became a specialty of blockchains, and it was a huge win for the P2P movement. Yet, since blockchains serve as shared databases for the whole world, they come with limitations. They have high transaction costs, low throughput, can store only the miniscule amounts of data, and can't hold or process private data. To overcome these limitations some applications re-centralize, adding web servers, application servers and DB servers. Others try to remain pure P2P by using IPFS or Hypercore.
 
-Algorithms, that tackle bad connections, **but not bad actors** have evolved from the highly complex Paxos to a simpler RAFT, to PBFT, and finally, in the last 5-7 years, to CRDT. CRTD is very lightweight and allows to operate leaderless multi-master, allowing each master to merging edits on the edge without any central coordination. This means no operators to run central service (Zookeeper, etcd, etc.) and handle complex cluster failure modes. CRDT, combined with HLC clocks, increases throughput with wait-free transaction ordering by avoiding any coordination between masters.
+Algorithms, that tackle bad connections and reliability issues with compute and storage, **but not bad actors** have evolved from the highly complex Paxos to a simpler RAFT, to PBFT, and finally, in the last 5-7 years, to CRDT. CRTD is very lightweight and allows to operate leaderless multi-master, allowing each master to merging edits on the edge without any central coordination. This means no operators to run central service (Zookeeper, etcd, etc.) and handle complex cluster failure modes. CRDT, combined with HLC clocks, increases throughput with wait-free transaction ordering by avoiding any coordination between masters.
 
 Note that CRDT is quietly being used by AWS DynamoDB and Azure Cosmos - and if it is good enough for those web-scale databases, it is good enough for P2P.
 
