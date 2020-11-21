@@ -269,7 +269,7 @@ Here are the cases where blockchain and Hypercore already help each other:
 
 - [Ara.one](https://ara.one/): crypto rewards for content
 - [Datdot](https://github.com/playproject-io/datdot-substrate): hosting with crypto incentives
-- Bitfinex: streaming hyperbee as trading signals for crypt exchange)
+- Bitfinex: streaming hyperbee as trading signals for crypto exchange)
 
 This use case is theoretical but is plausible:
 
