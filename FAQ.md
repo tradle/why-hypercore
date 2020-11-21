@@ -16,7 +16,6 @@ Many of the answers below are taken from the Hypercore protocol discussion forum
   - [How is Hypercore different from ScuttleButt (SSB)?](#how-is-hypercore-different-from-scuttlebutt-ssb)
   - [How is Hypercore different from IPFS?](#how-is-hypercore-different-from-ipfs)
     - [more work needed to compare IPFS and Hypercore](#more-work-needed-to-compare-ipfs-and-hypercore)
-  - [I wonder what P2P apps can be built on Hypercore?](#i-wonder-what-p2p-apps-can-be-built-on-hypercore)
   - [Is there a synergy between blockchain and Hypercore?](#is-there-a-synergy-between-blockchain-and-hypercore)
   - [Does Hypercore have a community?](#does-hypercore-have-a-community)
   - [Why Hypercore is not yet mainstream?](#why-hypercore-is-not-yet-mainstream)
@@ -256,11 +255,6 @@ How does IPFS support data integrity?
 - How to build chat and other apps on IPFS and Hypercore
 - Git on IPFS or Hypercore. How P2P supports Git: https://www.ctrl.blog/entry/git-p2p-compared.html
 
-### I wonder what P2P apps can be built on Hypercore?
-
-Need help with this.
-Meanwhile take a look at ideas [listed by IPFS community](https://docs.ipfs.io/concepts/usage-ideas-examples/):
-
 ### Is there a synergy between blockchain and Hypercore?
 
 Both blockchain and Hypercore provide verifiable data structures. But blockchain is limited to very small storage and Hypercore is limited by absence of pubic timestamping and data history, and the absence of verifiable computations. See further on this in section *"Can Hypercore's author change history"*.
@@ -325,11 +319,7 @@ Specifically, Hypercore team focused on the performance of its unique "streaming
 
 ### Who is using Hypercore P2P framework today?
 
-Need help with this.
-
-Partial answer is:
-
-Each project building on Hypercore is stretching its flexibility and contributes back solutions that are not yet available in the core. Then Hypercore team generalizes them and makes available for everyone. See some of the projects and their notable contributions:
+Each project building on Hypercore is stretching Hypercore's flexibility and contributes back solutions that are not yet available in the core. Then Hypercore team generalizes them and makes available for everyone. See some of the projects and their notable contributions:
 
 - Bitfinex, major crypto exchange, uses:
   - **Hyperswarm** in their microservices framework [Grenache](https://github.com/bitfinexcom/grenache). Bitfinex helped [extend](https://github.com/bitfinexcom/grenache-grape/pull/73) Hyperswarm DHT to improve peer discovery. Bitfinex also pushed the envelope with Hypercore team on creating the first payments framework for Hypercore.
@@ -348,6 +338,7 @@ Planned: earthstar:// and eth://
 - [Consento](https://consento.org/). A mobile digital identity app  that you use to keep your data protected. Supports co-ownership of data. Protects keys to data by dividing a key into pieces, each given to some friend. To reconstruct the key, you ask some of those friends to give you their piece (let's say 2 out of 3 is enough - you choose the ratio, e.g. 3/4).
 - [Ara.one](https://ara.one/). ARA aims to help creators maximize the value of their work, removing third-parties, reducing hosting costs and, most importantly, attracting content consumers with rewards (via blockchain-based tokens).
 - See discussion forum where people [showcase their Hyper projects](https://discordapp.com/channels/709519409932140575/712037351244955809/712037741126221924).
+- And finally, see what [apps are built on IPFS](https://github.com/ipfs/awesome-ipfs) and new ideas [listed by IPFS community](https://docs.ipfs.io/concepts/usage-ideas-examples/).
 
 ### How integrity of the data is assured?
 
