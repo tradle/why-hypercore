@@ -110,7 +110,7 @@ Hypercore's key USP is **streaming**. You can think of it as video streaming, bu
 
 - **Almost immediate access**, even though the data is not yet fully downloaded or may never need to be fully downloaded
 - **Higher security**, as it provides the verifiable integrity and authentication for each data element on the wire. This is huge! A typical database, file and messaging servers stake their security on the initial connection establishment and protecting communications on the wire. But normally they do not guard against a compromised or fraudulent peer, while Hypercore does. Our evolution in this area of security needs to always examine data from remote peers in view of the potential risk and the probability of fraud.
-- **Higher scalability**, as you can shove your streaming database in S3 and let billion people use it.
+- **Higher scalability**, as you can shove your streaming database in AWS S3 and let billion people use it.
 
 This streaming point needs to be repeated again and again, as streaming data, just by itself, without any other wonderful Hypercore capabilities, may create a new class of applications, much like Netflix re-invented the movie watching. This paradigm shift is one reason why Hypercore is hard to grok for app developers, it just requires full rethinking of our current architectures.
 
@@ -164,7 +164,7 @@ By relying on providers without a mobility we give up on self-sovereignty and co
 
 There is a new hot area in Big Data world for querying static databases. In AWS it is Athena, based on Apache Presto engine, and SQL SELECT. CSV Files (or files in JSON, Parquet, ORC, Avro formats) are shoved into S3 and then queried by Serverless applications and by Business Intelligence packages like Tableau.
 
-This requires no databases servers and shows where Hyperbee can be very useful. 
+This requires no databases servers and shows where Hyperbee can be very useful.
 
 What other applications that can we think of that can be enabled by such a server-less DB, a DB that redefines how querying is done (via sparse data propagation), a DB that embeds a replication mechanism?
 
@@ -202,7 +202,18 @@ You can review Reddit discussion that makes [some good points](https://www.reddi
 
 Some key differences, [described here](https://www.datprotocol.com/deps/0002-hypercore/), are:
 
-- Mutability. From the start IPFS was designed as an immutable storage, while Hypercore was designed as a mutable storage. In Hypercore editable content was a prime design objective, supported by the internal data structures, its protocol, Change Data Capture system, APIs, etc.
+| Feature | IPFS | Hypercore | 
+| -- | -- | -- |
+|Addressing | Content-based addressing | Public-key based addressing |
+|Addressing stability |  Dynamic address, changing as block changes | Static stable address |
+|Addressing granularity| each block has unique address (block's hash) | Address (pub key) corresponds to a collection of objects / files, each consisting of many blocks |
+|Filesystem|Low. Files are composed of lists of linked blocks, no notion of file directories, metadata, |Great. Files are managed as full-blown filesystem, with stable API and a daemon that provides REST API and [POSIX-compliant](https://en.wikipedia.org/wiki/POSIX) OS extension, so it appears to users as a regular folder|
+|Storage size efficiency | Great. Same block can be reused on your machine, even between files. This is usually called deduplication, or dedup. But when block changes, old block remains in storage.| Low. No block-level dedup. Change in one byte, creates a new version of the file. File-level dedup can be achieved with additional management level, called corestore. |
+|Mutability| Low. Originally developed for static content, but is being re-designed now. Specifically, the IPNS component attempts to provide stable hash-based address for the file (the tip of the list of blocks), but it needs to be refreshed periodically. New project IPLD is in development and aims for structured data, such as adding primitive data types, maps, lists |In Hypercore editable content was a prime design objective, supported by the internal data structures, its protocol, Change Data Capture system, APIs, etc. Structured data are supported by Hypertrie and Hyperbee |
+|Hyper-linking | Yes. Formal specification, called CID. |Partial. URLs work in Beaker, Agregore and Gateway browsers, but formal definition for links for structured data is still in works |
+
+|Human-friendly naming| No | No |
+|Databases|TBD. [OrbitDB](https://github.com/orbitdb/orbit-db) on top of IPFS. |Two variants: Key-value store (Hypertrie) and LevelUP compatible (Hyperbee). Provides unique streaming capability to greatly improve storage size and startup, while not requiring DB server. Community-produced replicated DB on top, KappaDB and multi-hyperbee|
 
 - Discovery. Both IPFS and Hypercore use DHT for discovery nowadays. This allows avoiding dependency on a more centralized DNS system. But they use DHT very differently. IPFS is more like BitTorrent, puts individual file reference in DHT, specifically the hash of file's contents (content-addressed). Since hash changes with file modifications, IPFS added a naming system [IPNS](https://docs.ipfs.io/concepts/ipns/#example-ipns-setup) so that the name in IPNS points to the file's latest version's hash. In Hypercore discovery is at higher level, to avoid overloading DHT. By default, the whole drives (Hyperdrives with potentially millions of files) are addressed via the DHT, URL of the file becomes drive/file. In addition, Hyperswarm service provides a flexible mechanism to design your own DHT-based discovery system, e.g. discover communities, teams, people, etc.
 
@@ -215,7 +226,7 @@ Some notes on IPFS goodies:
 
 - [IPNS has has captured imagination of Ethereum community](https://blog.infura.io/an-introduction-to-ipfs/) to build fully decentralized apps, as most blockchain apps today still keep data and processing centralized.
 - IPFS project has produced solid core libraries, like libp2p, solving many of the same issues as Hypercore's Hyperswarm.
-- IPFS has implementations in a number of languages, while Hypercore is only in JavaScript. Rust implementation was recently started and hopefully will lead to overall health of Hypercore, forcing better documented specs and more test-suits.
+- IPFS has implementations in a number of languages, while Hypercore is only in JavaScript. Rust implementation of Hypercore was recently started and hopefully will lead to overall health of Hypercore, forcing better documented specs and more test-suits.
 - IPFS team runs a number of public servers that help make the network more usable.
 
 #### more work needed to compare IPFS and Hypercore
