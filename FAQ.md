@@ -337,6 +337,8 @@ Each project building on Hypercore is stretching its flexibility and contributes
 - [Sonar](https://arso-project.github.io/sonar-book), distributed media archives on Hypercore. Note an interesting [bulk update](https://discordapp.com/channels/709519409932140575/727886901100675083/755723909709561856) feature discussion re:Sonar, which sounds like addressing a pain similar to serverless apps.
 - [Beaker browser](https://beakerbrowser.com/). Beaker is likely the most complex app on top of the hypercore today. It supports both normal web browsing (https:// protocol) and hyper:// protocol. It also aims to become a P2P social media with a way for people to post blogs, comments, likes, etc. without central entity like Facebook. It achieves that with mutual hosting, where your Beaker browser will hosts sites for people you follow.
 - [Agregore](https://github.com/AgregoreWeb/agregore-browser) browser, takes a different approach, aiming to be very simple and lean, moving all additional capabilities into downloadable extensions. It also expands beyond http and hyper protocols, aiming to support any P2P protocol, including IPFS.
+Currently: http://, dat://, hyper://, ipfs://, ipns://, gemini://
+Planned: earthstar:// and eth://
 - [Gateway](https://gitlab.com/gateway-browser/gateway/) mobile browser
 - See at the bottom of [Hypercore protocol page](https://hypercore-protocol.org/)
 - [Consento](https://consento.org/). A mobile digital identity app  that you can use to make sure your data stays protected. Supports co-ownership of data. Protects keys to data by dividing a key into pieces, each given to some friend. To reconstruct the key, you ask some of those friends to give you their piece (let's say 2 out of 3 is enough - you choose the ratio, e.g. 3/4).
