@@ -166,6 +166,10 @@ There is a new hot area in Big Data world for querying static databases. In AWS 
 
 This requires no databases servers and shows where Hyperbee can be very useful.
 
+Database with data stored in S3 (or the like) is very tricky to make performant. AWS Athena uses above specific formats, helps split large files into smaller chunks, has tools to prepare columnar indexes for each S3 object to enable search queries, adds extra metadata to help decide which S3 object contains the right subset of data for the query and provides a farm of servers that queue and execute your queries. S3 Select provides a simpler alternative to above, avoiding the use of server farm, but also with decreased functionality. 
+
+Why is this important to understand in view of Hyperbee streaming? Because Hyperbee provides a similar capability implemented in a completely different way. It not only does not require servers, like S3 Select, its underlying protocol is optimized to load byte-ranges from the [S3 object] offset, and efficiently traverses the btree (in Hyperbee) of the trie (in Hypertrie) to avoid extra round trips when executing queries for remote data (S3 in this case). This is a so called sparse mode in Hypercore.
+
 What other applications that can we think of that can be enabled by such a server-less DB, a DB that redefines how querying is done (via sparse data propagation), a DB that embeds a replication mechanism?
 
 Some pointers to possible answers can be found when we compare a P2P source control system Git that replaced SVN and CVS which used central server. Those entrepreneurs that think "Is it possible to make a big business on this?", please note that Microsoft bought Github for $7.5B.
