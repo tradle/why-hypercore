@@ -221,9 +221,11 @@ Some key differences, [described here](https://www.datprotocol.com/deps/0002-hyp
 **Some notes on IPFS goodies:**
 
 - [IPNS has has captured imagination of Ethereum community](https://blog.infura.io/an-introduction-to-ipfs/) to build fully decentralized apps, as most blockchain apps today still keep data and processing centralized.
+- Smart contracts can refer to a hash of IPFS file and since it is address is content-based and therefore immutable, it provides the deterministic behavior for the smart contract. IPFS sponsors the storage to provide the guarantee for the data to be available for the dApp that uses this contract to be operational. Very cool!
 - IPFS project has produced solid core libraries, like libp2p, solving many of the same issues as Hypercore's Hyperswarm.
 - IPFS has implementations in a number of languages, while Hypercore is only in JavaScript. Rust implementation of Hypercore was recently started and hopefully will lead to overall health of Hypercore, forcing better documented specs and more test-suits.
 - IPFS team runs a number of public servers that help make the network more usable.
+- IPLD is IPFS's sub-system to define structured interlinked data.  IPLD structures implemented on top are ipld-bitcoin or ipld-ethereum.
 
 #### more work needed to compare IPFS and Hypercore
 
