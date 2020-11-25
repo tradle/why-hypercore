@@ -83,6 +83,7 @@ Many of the answers below are taken from the Hypercore protocol discussion forum
     - [Collaborative editing](#collaborative-editing)
     - [CRDT and cloud peers](#crdt-and-cloud-peers)
   - [Is Hypercore multi-process-safe?](#is-hypercore-multi-process-safe)
+- [Which additional modules, outside of core modules, are notable?](#which-additional-modules-outside-of-core-modules-are-notable)
 - [Where can I learn more about Hypercore universe?](#where-can-i-learn-more-about-hypercore-universe)
 
 ## General
@@ -181,7 +182,7 @@ Some pointers to possible answers can be found when we compare a P2P source cont
 But Hypercore can do more - it is built as a data and communications framework for modern decentralized applications.
 
 1. Applications need data structures. Hypercore provides append-only log, Hypertrie key-value store, Hyperbee database and Hyperdrive filesystem.
-2. Hypercore support data editing as a design principle. [BitTorrent enhancement BEP 46](https://news.ycombinator.com/item?id=17306106) exists for updating files, but it does not allow updating a record in a database, so is not suitable for applications.
+2. Hypercore supports data editing as a design principle. [BitTorrent enhancement BEP 46](https://news.ycombinator.com/item?id=17306106) exists for updating files, but it is limited, e.g. it does not allow updating a record in a database, so is not suitable for applications.
 3. It provides full data add/edit version history which allows auditing, point-in-time-recovery, and state snapshots.
 4. It provides sparse download like BitTorrent, but extends it to databases.
 5. Hypercore has data access authentication.
@@ -193,10 +194,14 @@ Note that WebTorrent's tech can be helpful to Hypercore, as it perfected peer di
 
 ### How is Hypercore different from ScuttleButt (SSB)?
 
-- SSB is a peer-to-peer network for streaming feeds of JSON objects. Its primary data-structure is the "feed."
-- SSB is not suited for streaming, as it does not have a sparse data structure (enabled in Hypercore by Merkle trees, while SSB uses linked lists).
-- SSB uses a gossip protocol to sync data between peers. It does not automate peer discovery for a given dataset (e.g. via DHT) so topology must be manually managed. Hypercore uses a DHT to automate discovery of peers for exchanging of data.
-- SSB is primarily focused on social media applications. Hypercore has been growing towards a more generic model of structured data (file systems, databases) spread and synchronized over many devices.
+[Secure Scuttlebutt (SSB)](https://en.wikipedia.org/wiki/Secure_Scuttlebutt) is a peer-to peer communication protocol, mesh network, and self-hosted social media ecosystem. Hypercore has been growing towards a more generic model of structured data (file systems, databases) synchronized over many devices.
+
+- **Durability**. Each user hosts their own content and the content of the peers they follow, which provides fault tolerance. Same as with Hypercore.
+- **Availability**. It suffers from less than 100% availability, since peers are not always online. This is similar to Hypercore. Always-on seeding nodes are needed.
+- **Integrity**. Messages are digitally signed and added to an append-only list of messages published by an author, like Hypercore. It ensures content is not tempered with as it is propagated through the network, like Hypercore. 
+- **Consistency**. Data is distributed with a simple read-only eventual consistency, like Hypercore.
+- **Streaming**. SSB is not well suited for streaming, as it does not have a sparse data structure (enabled in Hypercore by Merkle trees, while SSB uses linked lists).
+- SSB uses a gossip protocol to sync data between peers. It does not automate peer discovery for a given dataset (e.g. via DHT), so topology must be manually managed. Hypercore uses a DHT to automate discovery of peers for exchanging of data.
 
 ### How is Hypercore different from IPFS?
 
@@ -786,7 +791,7 @@ Need help with this:
 
 Cobox community has created a number of compositions:
 
-- [local indexes for remote feeds](https://discordapp.com/channels/709519409932140575/709519410557222964/756414542669676573). This approach works well for groups of up to 50 members.
+- **[local indexes for remote feeds](https://discordapp.com/channels/709519409932140575/709519410557222964/756414542669676573)**. This approach works well for groups of up to 50 members.
 - **KappaDB**. [Cobox community](https://ledger-git.dyne.org/CoBox/cobox-resources/src/branch/master/ledger-deliverables/3_mock-up/technology/architecture.md) produced a multi-writer DB [KappaDB](https://github.com/kappa-db).
 
 ### Consensus / converging state
@@ -831,6 +836,12 @@ We know it is single-writer. But can the same writer accidentally screw up the H
 For reference, note that LevelDB is not multi-process safe, but [LMDB is](https://dev.doctorevidence.com/lmdb-in-node-29af907aad6e).
 
 Need help with this.
+
+## Which additional modules, outside of core modules, are notable?
+
+- **[Hypercore-peer-auth](https://github.com/Frando/hypercore-peer-auth)**. Verifies that remote hypercore is an original author (is in the possession a secretKey). As a side-effect, also tells you which remote hypercore has just connected to you. This comes useful when you join a hyperswarm topic and get connections from many peers. Hyperswarm itself does not tell you the identity of the peer. Note, that since each hypercore has its own identity (keypair), you can designate one hypercore to be a proxy for an identity of the peer. This module implements an extension to hypercore protocol, and is an example of how you can create your own extensions. Note that there are channel extensions and [stream extensions](https://github.com/hypercore-protocol/hypercore-protocol#stream-message-extensions). Channel is encrypted, so its extensions are secure, not so with stream extensions.
+- **[Multi-key](https://github.com/mafintosh/hypercore-multi-key)**. Allows to rotate a keypair for hypercore.
+- **[Streaming sort-merge](http://github.com/mafintosh/sorted-union-stream)**. This works great with several hyperbees. It is composable, so you can use more than 2 hyperbees.
 
 ## Where can I learn more about Hypercore universe?
 
