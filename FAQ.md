@@ -92,18 +92,19 @@ This section is for general questions. See other sections for questions specific
 
 ### What are the main components / modules / packages?
 
-- **Hypercore protocol**, [network protocol](https://www.datprotocol.com/deps/0010-wire-protocol/), providing messaging and peer data exchanges. 
-- **Hypercore**, append-only-log that can be used as-is, and is also used as a building block for other data structures. Hypercore is similar to block storage in Data Centers.
-- **Hypertrie**, a key-value store, which uses the underlying Hypercore and is used by other higher level services, like Hyperdrive for its directory structure and the file metadata. You can view key-value store as a simplest possible database and it is a common component in modern applications, and especially as embedded part of P2P applications. E.g. Ethereum uses KV store for [smart-contract storage](https://medium.com/hackernoon/getting-deep-into-ethereum-how-data-is-stored-in-ethereum-e3f669d96033).
-- **Hyperbee**, a key-value store, that also provides sorted range queries and therefore can be used by the database on top to build indexes.
-- **Corestore**, to managing many Hypercores you typically end up authoring or replicating from others.
-- **Hyperdrive**, a P2P alternative to Google Drive and Dropbox
-- **Hyperswarm**, a discovery mechanism for connecting to peers (sort of a decentralized DNS)
-- **Beaker Browser**, a full-blown browser that also supports the Web without servers (P2P Web).
+- **[Hypercore protocol](https://www.datprotocol.com/deps/0010-wire-protocol/)**, secure network protocol, providing reliable peer data exchanges.
+- **[Hypercore](https://github.com/hypercore-protocol/hypercore)**, append-only log that can be used as-is, and is also used as a building block for other data structures.
+- **[Hypertrie](https://github.com/hypercore-protocol/hypertrie)**, a key-value store, which uses the underlying Hypercore and is used by other higher level services, like Hyperdrive, for files directories and metadata. You can view key-value store as a simplest possible database and it is a [common component in modern applications](https://www.consul.io/docs/intro/vs/zookeeper), and especially as embedded store in P2P applications. E.g. Ethereum uses KV store for [smart-contract storage](https://medium.com/hackernoon/getting-deep-into-ethereum-how-data-is-stored-in-ethereum-e3f669d96033).
+- **[Hyperbee](https://github.com/mafintosh/hyperbee)** goes much higher than Hypertrie by providing sorted range queries, and can therefore can be used to build indexed databases. It is compatible with the popular LevelUP interface, a [standard building block](https://github.com/Level/awesome#awesome-level) for databases, query engines, and even several SQL engines.
+- **Hyperdrive**, a component for a P2P alternative to Google Drive and Dropbox, providing team file sharing, including great support for large media files. Hyperdrive can also be mounted as a normal OS folder, with the help of FUSE interface.
+- **[Corestore](https://github.com/andrewosh/corestore)**, to managing many Hypercores you typically end up authoring or replicating from others.
+- **[Hyperspace](https://github.com/hypercore-protocol/hyperspace)**, a server that uses Corestore and Hyperdrive to provide availability and persistence to hypercore data structures. It offers a network API for using hypercore from any language. Hyperspace notches another step towards the P2P alternative for Dropbox and Google Drive. Key missing components are a permission system and collaborative editing, which is work in progress by the hypercore community.
+- **[Hyperswarm](https://github.com/hyperswarm/hyperswarm)**, a discovery mechanism for connecting to other peers (sort of a decentralized DNS), direct P2P connections (NAT traversal), and P2P connection management.
+- **[Beaker Browser](https://beakerbrowser.com/)**, a full-blown browser that also supports the Web without servers (P2P Web).
 
 ### What is the USP (Unique Selling Proposition) of Hypercore?
 
-Hypercore is Open Source, it is not selling :-), but it is offering itself to developers. So what is it that is absolutely unique about it? Hypercore is P2P technology, but we saw other P2P technologies, BitTorrent and Bitcoin. What is unique about Hypercore?
+Hypercore is an open source P2P technology, but we saw other P2P technologies, BitTorrent and Bitcoin. What is unique about Hypercore?
 
 #### Streaming
 
