@@ -840,11 +840,11 @@ Need help with this.
 
 ## Which additional modules, outside of core modules, are notable?
 
-| Module | Description |
-| -- | -- |
-| **[Hypercore-peer-auth](https://github.com/Frando/hypercore-peer-auth)** | Verifies that remote hypercore is an original author (is in the possession a secretKey). As a side-effect, also tells you which remote hypercore has just connected to you. This comes useful when you join a hyperswarm topic and get connections from many peers. Hyperswarm itself does not tell you the identity of the peer. Note, that since each hypercore has its own identity (keypair), you can designate one hypercore to be a proxy for an identity of the peer. This module implements an extension to hypercore protocol, and is an example of how you can create your own extensions. Note that there are channel extensions and [stream extensions](https://github.com/hypercore-protocol/hypercore-protocol#stream-message-extensions). Channel is encrypted, so its extensions are secure, not so with stream extensions.
-| **[Multi-key](https://github.com/mafintosh/hypercore-multi-key)**|  Allows to rotate a keypair for hypercore |
-| **[Streaming sort-merge](http://github.com/mafintosh/sorted-union-stream)** | This works great with several hyperbees. It is composable, so you can use more than 2 hyperbees | 
+| Module | Author | Description |
+| -- | -- | -- |
+| **[Hypercore-peer-auth](https://github.com/Frando/hypercore-peer-auth)** | [Franz Heinzmann (@Frando)](https://github.com/Frando) | Verifies that remote hypercore is an original author (is in the possession a secretKey). As a side-effect, also tells you which remote hypercore has just connected to you. This comes useful when you join a hyperswarm topic and get connections from many peers. Hyperswarm itself does not tell you the identity of the peer. Note, that since each hypercore has its own identity (keypair), you can designate one hypercore to be a proxy for an identity of the peer. This module implements an extension to hypercore protocol, and is an example of how you can create your own extensions. Note that there are channel extensions and [stream extensions](https://github.com/hypercore-protocol/hypercore-protocol#stream-message-extensions). Channel is encrypted, so its extensions are secure, not so with stream extensions.
+| **[Multi-key](https://github.com/mafintosh/hypercore-multi-key)**|  [Mathias Buus (@mafintosh)](https://github.com/mafintosh) | Allows to rotate a keypair for hypercore |
+| **[Streaming sort-merge](http://github.com/mafintosh/sorted-union-stream)** | [Mathias Buus (@mafintosh)](https://github.com/mafintosh) | This works great with several hyperbees. It is composable, so you can use more than 2 hyperbees |
 
 ## Where can I learn more about Hypercore universe?
 
