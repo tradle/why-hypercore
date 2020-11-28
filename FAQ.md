@@ -842,7 +842,7 @@ Need help with this.
 
 | Module | Author | Description |
 | -- | -- | -- |
-| **[Hypercore-peer-auth](https://github.com/Frando/hypercore-peer-auth)** | [Franz Heinzmann (@Frando)](https://github.com/Frando) | Verifies that remote hypercore is an original author (is in the possession a secretKey). As a side-effect, also tells you which remote hypercore has just connected to you. This comes useful when you join a hyperswarm topic and get connections from many peers. Hyperswarm itself does not tell you the identity of the peer. Note, that since each hypercore has its own identity (keypair), you can designate one hypercore to be a proxy for an identity of the peer. This module implements an extension to hypercore protocol, and is an example of how you can create your own extensions. Note that there are channel extensions and [stream extensions](https://github.com/hypercore-protocol/hypercore-protocol#stream-message-extensions). Channel is encrypted, so its extensions are secure, not so with stream extensions.
+| **[Hypercore-peer-auth](https://github.com/Frando/hypercore-peer-auth)** | [Franz Heinzmann (@Frando)](https://github.com/Frando) | Verifies that remote hypercore is an original author (is in the possession its secretKey). Also tells you which remote hypercore has just connected to you. This comes useful when you join a hyperswarm topic and get connections from many peers. Hyperswarm itself does not tell you the identity of the peer. Note, that since each hypercore has its own identity (keypair), you can designate one of the hypercores of the peer to represent the identity of the peer. Hypercore-peer-auth module implements an extension to hypercore protocol, and is an example of how you can create your own extensions. Note that there are channel extensions and [stream extensions](https://github.com/hypercore-protocol/hypercore-protocol#stream-message-extensions). Channel is encrypted, so its extensions are secure, not so with stream extensions.
 | **[Multi-key](https://github.com/mafintosh/hypercore-multi-key)**|  [Mathias Buus (@mafintosh)](https://github.com/mafintosh) | Allows to rotate a keypair for hypercore |
 | **[Streaming sort-merge](http://github.com/mafintosh/sorted-union-stream)** | [Mathias Buus (@mafintosh)](https://github.com/mafintosh) | This works great with several hyperbees. It is composable, so you can use more than 2 hyperbees |
 
@@ -850,12 +850,12 @@ Need help with this.
 
 1. Visit the [Hypercore Protocol site](https://hypercore-protocol.org/). 
 
-1. In the summer of 2020 there was a [Dat Conference](https://www.youtube.com/playlist?list=PL7sG5SCUNyeYx8wnfMOUpsh7rM_g0w_cu). You can see the breadth of discussions that took place, both on tech and the opportunities. Note that Dat is the old name for Hypercore. The transition is in full swing, but you will still see it a lot.
+2. In the summer of 2020 there was a [Dat Conference](https://www.youtube.com/playlist?list=PL7sG5SCUNyeYx8wnfMOUpsh7rM_g0w_cu) (Dat was renamed to Hypercore this year). You can see the breadth of discussions that took place, both on tech and the opportunities.
 
-1. [Workshop at the 2020 summer Hypercore / Dat Conference](https://github.com/RangerMauve/dat-workshop) with sources and video.
+3. [Workshop at the 2020 summer Hypercore / Dat Conference](https://github.com/RangerMauve/dat-workshop) with sources and video.
 
-1. [Hyperbee 'P2P indexing and search' workshop at the 2020 fall Nodeconf conference](https://github.com/hypercore-protocol/p2p-indexing-and-search)
+4. [Hyperbee 'P2P indexing and search' workshop at the 2020 fall Nodeconf conference](https://github.com/hypercore-protocol/p2p-indexing-and-search)
 
-1. [Kappa workshop](https://github.com/kappa-db/workshop) is a great basic intro, we [forked it](https://github.com/tradle/hypercore-workshop) to update to new materials and shift focus to core Hypercore modules.
+5. [Kappa workshop](https://github.com/kappa-db/workshop) is a great basic intro, we [forked it](https://github.com/tradle/hypercore-workshop) to update to new materials and shift focus to core Hypercore modules.
 
-1. Read [old FAQ](https://docs.dat.foundation/docs/faq) (before project was renamed from Dat to Hypercore).
+6. Read [old FAQ](https://docs.dat.foundation/docs/faq) (before project was renamed from Dat to Hypercore).
