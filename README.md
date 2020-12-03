@@ -1,8 +1,8 @@
-We believe that Personal Computing is entering the new major disruption cycle, which will be based on [software defined networks](https://github.com/tradle/simplecloud/blob/main/README.md), software-defined compute and software-defined storage for personal use.
+We believe that Personal Computing is entering the new major disruption cycle, which will be based on [software defined Networks](https://github.com/tradle/simplecloud/blob/main/README.md), software-defined Compute and software-defined Storage for personal use.
 
-According to this vision, Tradle is evolving its MyCloud platform, designed for banks to manage their own data without giving this data away to SaaS companies. MyCloud will continue to serve banks, and for their clients we are building a personal cloud offering, under the working title, CloudPal.
+According to this vision, Tradle is evolving its MyCloud platform, designed for banks to manage their own data without giving this data away to SaaS companies. MyCloud will continue to serve banks, and for their clients we are building a personal cloud offering, under the working title, CloudPal. See the primer on [CloudPal here](https://github.com/tradle/simplecloud/blob/main/cloudpal.md).
 
-This article is covering the design for personal data using our chosen framework, Hypercore. Hypercore allows us to think of the CloudPal as one of the personal devices in the multi-device world, and help manage data across all of them. You can find a lot more information on Hypercore in this [rapidly growing FAQ](FAQ.md).
+This article is covering the design for personal Data using our chosen framework, Hypercore. Hypercore allows us to think of the CloudPal as one of the personal devices in the multi-device world, and help manage data across all of them. You can find a lot more information on Hypercore in this [rapidly growing FAQ](FAQ.md). 
 
 To dive deeper, take a look at the [development plan](https://github.com/tradle/why-hypercore/issues). 
 
