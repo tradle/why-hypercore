@@ -1,8 +1,10 @@
-We are working on the idea that Personal Comuting is entering a new major cycle, which will be based on [software defined networks](https://github.com/tradle/simplecloud/blob/main/README.md), software-defined compute and software-defined storage for personal use.
+We believe that Personal Computing is entering the new major disruption cycle, which will be based on [software defined networks](https://github.com/tradle/simplecloud/blob/main/README.md), software-defined compute and software-defined storage for personal use.
 
-We will be covering here the design for data management in the multi-device world, using our chosen framework, Hypercore. You can find a lot more information on Hypercore in this [rapidly growing FAQ](FAQ.md).
+According to this vision, Tradle is evolving its MyCloud platform, designed for banks to manage their own data without giving this data away to SaaS companies. MyCloud will continue to serve banks, and for their clients we are building a personal cloud offering, under the working title, CloudPal.
 
-Take a look at the Issues on this [Git repository](https://github.com/tradle/why-hypercore/issues) for the development plan.
+This article is covering the design for personal data using our chosen framework, Hypercore. Hypercore allows us to think of the CloudPal as one of the personal devices in the multi-device world, and help manage data across all of them. You can find a lot more information on Hypercore in this [rapidly growing FAQ](FAQ.md).
+
+To dive deeper, take a look at the [development plan](https://github.com/tradle/why-hypercore/issues). 
 
 - [What is Hypercore?](#what-is-hypercore)
   - [Monopolies are not good](#monopolies-are-not-good)
@@ -44,7 +46,7 @@ Take a look at the Issues on this [Git repository](https://github.com/tradle/why
   - [Headless CMS](#headless-cms)
   - [Continuous Backup](#continuous-backup)
 
-## What is Hypercore?
+## CloudPal Reasoning
 
 ### Monopolies are not good
 
@@ -60,7 +62,7 @@ Yet, we live in the age of the rise of decentralized and P2P tech renaissance. N
 
 Some P2P technology is inherently very slow. Luckily Hypercore is designed for real-time, and works in time-sensitive video streaming and decentralized filesystems and database scenarios. 
 
-## Why Tradle on Hypercore?
+## Why CloudPal on Hypercore?
 
 It has been our long held belief that data not services should be the first class citizens on the Web. Enterprises understand that, and Data Governance is at the core of well run businesses. Yet on the Web and mobiles we still build applications that hoard the data. From this, the notion of data sharing between applications arises. Tim Berners-Lee and W3C failed to change that with Semantic Web. May be they failed due to obscure and complex formats they invented, or may be we collectively did not yet then get scared enough of a rapidly centralizing Web.
 
