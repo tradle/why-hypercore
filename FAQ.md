@@ -683,6 +683,8 @@ So what can be done to protect IP addresses in DHT?
 
 A resilience to DDOS could be enhanced by creating a large network of provably legitimate DHT nodes.
 
+The best way to increase anonymity and avoid DDOS would be to amend the DHT to remove IP information after one hop. This is what the SAFE network does with its DHT. In that case, no one participant could get the IPs of most of the network, unless they had a botnet that announced themselves as a "near-neighbor" of most topics.
+
 ### Hyperdrive
 
 Hyperdrive provides many of the hard to create components to replicate the functionality of Dropbox and Google Drive. Beaker Browser adds the UI to it.
